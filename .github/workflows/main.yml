@@ -1,0 +1,43 @@
+name: Daily insights ingest
+
+on:
+  schedule:
+    # 06:17 UTC — a few minutes past the hour on purpose, since load-related
+    # delays on GitHub's scheduler cluster around the top of the hour.
+    - cron: "17 6 * * *"
+  workflow_dispatch: {}  # lets you trigger a run manually from the Actions tab
+
+permissions:
+  contents: write  # needed to commit the updated data and site back to the repo
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run ingestion
+        env:
+          META_SYSTEM_USER_TOKEN: ${{ secrets.META_SYSTEM_USER_TOKEN }}
+          META_APP_SECRET: ${{ secrets.META_APP_SECRET }}
+          META_PAGE_ID: ${{ secrets.META_PAGE_ID }}
+          META_IG_USER_ID: ${{ secrets.META_IG_USER_ID }}
+          HEARTBEAT_URL: ${{ secrets.HEARTBEAT_URL }}
+        run: python scripts/ingest.py
+
+      - name: Regenerate static site
+        run: python scripts/render_site.py
+
+      - name: Commit updated data and site
+        run: |
+          git config user.name "lrfc-dashboard-bot"
+          git config user.email "actions@github.com"
+          git add data/account_snapshots.json docs/index.html
+          git diff --cached --quiet || git commit -m "Daily snapshot: $(date -u +'%Y-%m-%d')"
+          git push
