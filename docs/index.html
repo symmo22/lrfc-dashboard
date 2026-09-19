@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Leamington RFC — Social Dashboard</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  body { font-family: system-ui, sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+  h1 { margin-bottom: 0.2rem; }
+  .updated { color: #666; font-size: 0.9rem; margin-bottom: 2rem; }
+  h2 { margin-top: 2rem; border-bottom: 1px solid #ddd; padding-bottom: 0.3rem; }
+  .muted { color: #888; }
+  .metrics { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1rem 0; }
+  .metric { background: #f4f4f4; border-radius: 8px; padding: 0.8rem 1.2rem; min-width: 130px; }
+  .metric .value { display: block; font-size: 1.5rem; font-weight: bold; }
+  .metric .label { display: block; font-size: 0.8rem; color: #555; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  th, td { text-align: left; padding: 0.4rem; border-bottom: 1px solid #eee; }
+  @media (prefers-color-scheme: dark) {
+    .metric { background: #222; }
+    .metric .label { color: #aaa; }
+    th, td { border-color: #333; }
+  }
+</style>
+</head>
+<body>
+  <h1>Leamington RFC — Social Dashboard</h1>
+  <p class="updated">Last updated 2026-09-19 17:37 UTC</p>
+
+  <h2>Facebook — latest</h2>
+  <div class='metrics'><div class='metric'><span class='value'>2173</span><span class='label'>fan_count</span></div><div class='metric'><span class='value'>3610</span><span class='label'>page_media_view</span></div><div class='metric'><span class='value'>2369</span><span class='label'>page_total_media_view_unique</span></div></div>
+
+  <h2>Instagram — latest</h2>
+  <div class='metrics'><div class='metric'><span class='value'>1453</span><span class='label'>followers_count</span></div><div class='metric'><span class='value'>1655</span><span class='label'>reach</span></div><div class='metric'><span class='value'>5557</span><span class='label'>views</span></div></div>
+
+  <h2>Recent snapshots</h2>
+  <table>
+    <thead><tr><th>Date</th><th>Platform</th><th>Metrics</th></tr></thead>
+    <tbody><tr><td>2026-09-19</td><td>instagram</td><td>{"followers_count": 1453, "reach": 1655, "views": 5557}</td></tr><tr><td>2026-09-19</td><td>facebook</td><td>{"fan_count": 2173, "page_media_view": 3610, "page_total_media_view_unique": 2369}</td></tr></tbody>
+  </table>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "facebook:2026-09-19": {
+    "date": "2026-09-19",
+    "fetched_at": "2026-09-19T17:37:18.342682+00:00",
+    "metrics": {
+      "fan_count": 2173,
+      "page_media_view": 3610,
+      "page_total_media_view_unique": 2369
+    },
+    "platform": "facebook"
+  },
+  "instagram:2026-09-19": {
+    "date": "2026-09-19",
+    "fetched_at": "2026-09-19T17:37:21.625805+00:00",
+    "metrics": {
+      "followers_count": 1453,
+      "reach": 1655,
+      "views": 5557
+    },
+    "platform": "instagram"
+  }
+}
