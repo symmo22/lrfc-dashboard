@@ -6,6 +6,12 @@ data/posts.json.
 Pure local file processing, no network calls, so this step can't fail for
 reasons outside its own control. Safe to run on every job even on a day
 the ingest steps above it found nothing new.
+
+v3: replaces the raw-JSON account snapshot table with an actual follower
+growth chart, and adds a top-posts-by-reach bar chart above the detail
+table. Chart.js loaded from a CDN - fine here since this is a plain
+GitHub Pages site with no content-security restrictions, unlike a
+published Claude artifact.
 """
 
 import json
@@ -14,11 +20,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from ingest_posts import LOOKBACK_DAYS  # noqa: E402 - single source of truth,
-
-# so the page's own description of its window can't drift from what the
-# ingestion script actually fetches, the way it did the last time this
-# was two separate hardcoded numbers.
+from ingest_posts import LOOKBACK_DAYS  # noqa: E402 - single source of truth
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 ACCOUNT_FILE = DATA_DIR / "account_snapshots.json"
@@ -52,23 +54,29 @@ def metric_cards(record):
     return f"<div class='metrics'>{items}</div>"
 
 
-def account_table_rows(snapshots):
-    rows = sorted(
-        snapshots.values(), key=lambda r: (r["date"], r["platform"]), reverse=True
-    )[:30]
-    return "".join(
-        f"<tr><td>{r['date']}</td><td>{r['platform']}</td>"
-        f"<td>{json.dumps(r['metrics'])}</td></tr>"
-        for r in rows
-    )
+def follower_growth_series(snapshots):
+    """One point per day per platform, for the growth chart. Uses whichever
+    follower-count field that platform's snapshot has (fan_count for
+    Facebook, followers_count for Instagram)."""
+    by_platform = {"facebook": {}, "instagram": {}}
+    for record in snapshots.values():
+        platform = record["platform"]
+        metrics = record.get("metrics", {})
+        count = metrics.get("fan_count") if platform == "facebook" else metrics.get("followers_count")
+        if count is not None:
+            by_platform[platform][record["date"]] = count
+
+    all_dates = sorted({d for platform in by_platform.values() for d in platform})
+    fb_series = [by_platform["facebook"].get(d) for d in all_dates]
+    ig_series = [by_platform["instagram"].get(d) for d in all_dates]
+    return all_dates, fb_series, ig_series
 
 
 def latest_post_metrics(record):
-    snapshots = record.get("snapshots", {})
-    if not snapshots:
+    snaps = record.get("snapshots", {})
+    if not snaps:
         return {}
-    latest_date = max(snapshots.keys())
-    return snapshots[latest_date]
+    return snaps[max(snaps.keys())]
 
 
 def post_reach(record):
@@ -82,24 +90,11 @@ def post_views(record):
 
 
 def post_counts(record):
-    """Raw, human-readable counts - what a volunteer actually recognises,
-    ahead of any normalised rate. Facebook and Instagram use different
-    field names for the same idea (reactions vs likes), so this is the
-    one place that difference gets papered over for display."""
     static = record.get("static_metrics", {})
     metrics = latest_post_metrics(record)
     if record["platform"] == "instagram":
-        likes = static.get("likes")
-        comments = static.get("comments")
-        shares = metrics.get("shares")
-        saves = metrics.get("saved")
-    else:
-        likes = static.get("reactions")
-        comments = static.get("comments")
-        shares = static.get("shares")
-        saves = None  # Facebook has no saves metric - a documented Meta
-        # limitation, not a gap in this script.
-    return likes, comments, shares, saves
+        return static.get("likes"), static.get("comments"), metrics.get("shares"), metrics.get("saved")
+    return static.get("reactions"), static.get("comments"), static.get("shares"), None
 
 
 def post_engagement_rate(record):
@@ -123,11 +118,18 @@ def fmt(value):
     return "—" if value is None else value
 
 
+def top_posts_for_chart(posts, limit=8):
+    with_metrics = [p for p in posts.values() if p.get("snapshots")]
+    ranked = sorted(with_metrics, key=post_reach, reverse=True)[:limit]
+    labels, values = [], []
+    for p in ranked:
+        caption = (p.get("caption") or p["format"])[:40].replace("\n", " ")
+        labels.append(f"{caption} ({p['platform'][:2].upper()})")
+        values.append(post_reach(p))
+    return labels, values
+
+
 def posts_table_rows(posts, limit=20):
-    """Ranked by reach first, not engagement rate - a post that reached a
-    lot of people should never be invisible just because its interaction
-    rate was modest. Engagement rate is still shown as its own column for
-    anyone who wants the quality-adjusted view alongside the raw one."""
     with_metrics = [p for p in posts.values() if p.get("snapshots")]
     ranked = sorted(with_metrics, key=post_reach, reverse=True)[:limit]
 
@@ -157,12 +159,19 @@ def render(account_snapshots, posts):
     latest = latest_by_platform(account_snapshots)
     generated_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
 
+    growth_dates, fb_growth, ig_growth = follower_growth_series(account_snapshots)
+    top_labels, top_values = top_posts_for_chart(posts)
+
+    has_growth_history = len(growth_dates) > 1
+    has_top_posts = len(top_labels) > 0
+
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Leamington RFC — Social Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <style>
   :root {{
     color-scheme: light dark;
@@ -181,6 +190,7 @@ def render(account_snapshots, posts):
   table {{ width: 100%; border-collapse: collapse; font-size: 0.85rem; }}
   th, td {{ text-align: left; padding: 0.4rem; border-bottom: 1px solid #eee; white-space: nowrap; }}
   .table-wrap {{ overflow-x: auto; }}
+  .chart-wrap {{ position: relative; height: 320px; margin: 1rem 0 2rem; }}
   a {{ color: inherit; }}
   @media (prefers-color-scheme: dark) {{
     .metric {{ background: #222; }}
@@ -199,8 +209,14 @@ def render(account_snapshots, posts):
   <h2>Instagram — latest</h2>
   {metric_cards(latest.get('instagram'))}
 
-  <h2>Recent posts, furthest reaching first</h2>
-  <p class="muted">Posts from the last {LOOKBACK_DAYS} days. Engagement rate = interactions ÷ reach, shown alongside the raw counts.</p>
+  <h2>Follower growth</h2>
+  {"<div class='chart-wrap'><canvas id='growthChart'></canvas></div>" if has_growth_history else "<p class='muted'>Not enough history yet — this fills in day by day as the pipeline keeps running.</p>"}
+
+  <h2>Best performing posts</h2>
+  {"<div class='chart-wrap'><canvas id='topPostsChart'></canvas></div>" if has_top_posts else "<p class='muted'>No post data yet.</p>"}
+
+  <h2>All recent posts</h2>
+  <p class="muted">Posts from the last {LOOKBACK_DAYS} days, furthest reaching first. Eng. rate = interactions ÷ reach.</p>
   <div class="table-wrap">
   <table>
     <thead><tr><th>Date</th><th>Platform</th><th>Format</th><th>Reach</th><th>Views</th>
@@ -209,13 +225,35 @@ def render(account_snapshots, posts):
   </table>
   </div>
 
-  <h2>Recent account snapshots</h2>
-  <div class="table-wrap">
-  <table>
-    <thead><tr><th>Date</th><th>Platform</th><th>Metrics</th></tr></thead>
-    <tbody>{account_table_rows(account_snapshots)}</tbody>
-  </table>
-  </div>
+<script>
+{"const growthCtx = document.getElementById('growthChart');" if has_growth_history else ""}
+{f'''new Chart(growthCtx, {{
+  type: 'line',
+  data: {{
+    labels: {json.dumps(growth_dates)},
+    datasets: [
+      {{ label: 'Facebook fans', data: {json.dumps(fb_growth)}, borderColor: '#3E3787', tension: 0.2, spanGaps: true }},
+      {{ label: 'Instagram followers', data: {json.dumps(ig_growth)}, borderColor: '#CF3B41', tension: 0.2, spanGaps: true }}
+    ]
+  }},
+  options: {{ responsive: true, maintainAspectRatio: false, scales: {{ y: {{ beginAtZero: false }} }} }}
+}});''' if has_growth_history else ""}
+
+{"const topCtx = document.getElementById('topPostsChart');" if has_top_posts else ""}
+{f'''new Chart(topCtx, {{
+  type: 'bar',
+  data: {{
+    labels: {json.dumps(top_labels)},
+    datasets: [{{ label: 'Reach', data: {json.dumps(top_values)}, backgroundColor: '#3E3787' }}]
+  }},
+  options: {{
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {{ legend: {{ display: false }} }}
+  }}
+}});''' if has_top_posts else ""}
+</script>
 </body>
 </html>"""
 
