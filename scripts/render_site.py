@@ -3,15 +3,19 @@
 Regenerates docs/index.html from data/account_snapshots.json and
 data/posts.json.
 
-Pure local file processing, no network calls, so this step can't fail for
-reasons outside its own control. Safe to run on every job even on a day
-the ingest steps above it found nothing new.
+v4: full brand redesign against the real Leamington RFC brand guidelines
+(colours, Supreme typeface, centenary crest) rather than generic styling.
 
-v3: replaces the raw-JSON account snapshot table with an actual follower
-growth chart, and adds a top-posts-by-reach bar chart above the detail
-table. Chart.js loaded from a CDN - fine here since this is a plain
-GitHub Pages site with no content-security restrictions, unlike a
-published Claude artifact.
+Historical anchors, honesty note:
+HISTORICAL_ANCHORS below holds specific, dated follower counts Mark gave
+directly (not fetched by any script, not estimated). These render as a
+separate "then vs now" callout, NOT as a point plotted on the daily line
+chart. Meta's API has no historical follower data at all, so the only
+honest way to show "how far the account has come" is to state the two
+real numbers and the real gap between their dates - not draw a line that
+would visually claim daily measurement across months nothing was
+actually tracked. The line chart stays scoped to what was genuinely
+measured, day by day, since the pipeline went live.
 """
 
 import json
@@ -26,6 +30,23 @@ DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 ACCOUNT_FILE = DATA_DIR / "account_snapshots.json"
 POSTS_FILE = DATA_DIR / "posts.json"
 OUTPUT_FILE = Path(__file__).resolve().parent.parent / "docs" / "index.html"
+CREST_B64_FILE = Path(__file__).resolve().parent / "crest_b64.txt"
+
+# Manually provided by Mark in chat, not sourced by any script. Add
+# Instagram's here the same way once he confirms the exact date he took
+# over - it's currently missing on purpose rather than guessed.
+HISTORICAL_ANCHORS = {
+    "facebook": {"date": "2025-08-01", "count": 1800, "approx": True},
+    # "instagram": {"date": "YYYY-MM-DD", "count": 1043, "approx": False},
+}
+
+BRAND = {
+    "blue": "#3E3787",
+    "yellow": "#FAE226",
+    "red": "#CF3B41",
+    "green": "#60AC3F",
+    "white": "#ffffff",
+}
 
 
 def load_json(path):
@@ -43,75 +64,112 @@ def latest_by_platform(snapshots):
     return latest
 
 
-def metric_cards(record):
+def previous_snapshot(snapshots, platform, before_date):
+    candidates = [
+        r for r in snapshots.values()
+        if r["platform"] == platform and r["date"] < before_date
+    ]
+    if not candidates:
+        return None
+    return max(candidates, key=lambda r: r["date"])
+
+
+def follower_count(record, platform):
     if not record:
-        return "<p class='muted'>No data yet.</p>"
-    items = "".join(
-        f"<div class='metric'><span class='value'>{v}</span>"
-        f"<span class='label'>{k}</span></div>"
-        for k, v in record["metrics"].items()
-    )
-    return f"<div class='metrics'>{items}</div>"
+        return None
+    metrics = record.get("metrics", {})
+    return metrics.get("fan_count") if platform == "facebook" else metrics.get("followers_count")
+
+
+def delta_badge(current, previous):
+    if current is None or previous is None:
+        return ""
+    diff = current - previous
+    if diff == 0:
+        return "<span class='delta flat'>no change</span>"
+    arrow = "▲" if diff > 0 else "▼"
+    cls = "up" if diff > 0 else "down"
+    return f"<span class='delta {cls}'>{arrow} {abs(diff)} since yesterday</span>"
+
+
+def platform_hero(snapshots, platform, label, color):
+    latest = latest_by_platform(snapshots).get(platform)
+    if not latest:
+        return f"<div class='hero-card' style='border-top-color:{color}'><h3>{label}</h3><p class='muted'>No data yet.</p></div>"
+    prev = previous_snapshot(snapshots, platform, latest["date"])
+    current_count = follower_count(latest, platform)
+    prev_count = follower_count(prev, platform)
+    metrics = latest.get("metrics", {})
+    reach = metrics.get("page_total_media_view_unique") or metrics.get("reach") or 0
+
+    anchor_html = ""
+    anchor = HISTORICAL_ANCHORS.get(platform)
+    if anchor and current_count:
+        growth_pct = round(100 * (current_count - anchor["count"]) / anchor["count"])
+        approx = "~" if anchor.get("approx") else ""
+        anchor_date = datetime.fromisoformat(anchor["date"]).strftime("%B %Y")
+        sign = "+" if growth_pct >= 0 else ""
+        anchor_html = (
+            f"<p class='story'>{approx}{anchor['count']:,} \u2192 {current_count:,} "
+            f"since {anchor_date} &nbsp;<strong class='story-pct'>{sign}{growth_pct}%</strong></p>"
+        )
+
+    return f"""<div class='hero-card' style='border-top-color:{color}'>
+      <h3>{label}</h3>
+      <div class='hero-number'>{current_count:,}</div>
+      <div class='hero-label'>followers {delta_badge(current_count, prev_count)}</div>
+      <div class='hero-sub'>{reach:,} reach, latest day</div>
+      {anchor_html}
+    </div>"""
 
 
 def follower_growth_series(snapshots):
-    """One point per day per platform, for the growth chart. Uses whichever
-    follower-count field that platform's snapshot has (fan_count for
-    Facebook, followers_count for Instagram)."""
     by_platform = {"facebook": {}, "instagram": {}}
     for record in snapshots.values():
         platform = record["platform"]
-        metrics = record.get("metrics", {})
-        count = metrics.get("fan_count") if platform == "facebook" else metrics.get("followers_count")
+        count = follower_count(record, platform)
         if count is not None:
             by_platform[platform][record["date"]] = count
-
-    all_dates = sorted({d for platform in by_platform.values() for d in platform})
-    fb_series = [by_platform["facebook"].get(d) for d in all_dates]
-    ig_series = [by_platform["instagram"].get(d) for d in all_dates]
-    return all_dates, fb_series, ig_series
+    all_dates = sorted({d for p in by_platform.values() for d in p})
+    fb = [by_platform["facebook"].get(d) for d in all_dates]
+    ig = [by_platform["instagram"].get(d) for d in all_dates]
+    return all_dates, fb, ig
 
 
 def latest_post_metrics(record):
     snaps = record.get("snapshots", {})
-    if not snaps:
-        return {}
-    return snaps[max(snaps.keys())]
+    return snaps[max(snaps.keys())] if snaps else {}
 
 
 def post_reach(record):
-    metrics = latest_post_metrics(record)
-    return metrics.get("reach") or metrics.get("post_total_media_view_unique") or 0
+    m = latest_post_metrics(record)
+    return m.get("reach") or m.get("post_total_media_view_unique") or 0
 
 
 def post_views(record):
-    metrics = latest_post_metrics(record)
-    return metrics.get("views") or metrics.get("post_media_view") or 0
+    m = latest_post_metrics(record)
+    return m.get("views") or m.get("post_media_view") or 0
 
 
 def post_counts(record):
     static = record.get("static_metrics", {})
-    metrics = latest_post_metrics(record)
+    m = latest_post_metrics(record)
     if record["platform"] == "instagram":
-        return static.get("likes"), static.get("comments"), metrics.get("shares"), metrics.get("saved")
+        return static.get("likes"), static.get("comments"), m.get("shares"), m.get("saved")
     return static.get("reactions"), static.get("comments"), static.get("shares"), None
 
 
 def post_engagement_rate(record):
-    metrics = latest_post_metrics(record)
+    m = latest_post_metrics(record)
     reach = post_reach(record)
     if not reach:
         return None
     if record["platform"] == "instagram":
-        interactions = metrics.get("total_interactions")
+        interactions = m.get("total_interactions")
     else:
         static = record.get("static_metrics", {})
-        interactions = (static.get("reactions") or 0) + (static.get("comments") or 0) + (
-            static.get("shares") or 0
-        )
-    if interactions is None:
-        return None
-    return round(100 * interactions / reach, 1)
+        interactions = (static.get("reactions") or 0) + (static.get("comments") or 0) + (static.get("shares") or 0)
+    return None if interactions is None else round(100 * interactions / reach, 1)
 
 
 def fmt(value):
@@ -121,18 +179,14 @@ def fmt(value):
 def top_posts_for_chart(posts, limit=8):
     with_metrics = [p for p in posts.values() if p.get("snapshots")]
     ranked = sorted(with_metrics, key=post_reach, reverse=True)[:limit]
-    labels, values = [], []
-    for p in ranked:
-        caption = (p.get("caption") or p["format"])[:40].replace("\n", " ")
-        labels.append(f"{caption} ({p['platform'][:2].upper()})")
-        values.append(post_reach(p))
+    labels = [f"{(p.get('caption') or p['format'])[:40].replace(chr(10), ' ')} ({p['platform'][:2].upper()})" for p in ranked]
+    values = [post_reach(p) for p in ranked]
     return labels, values
 
 
 def posts_table_rows(posts, limit=20):
     with_metrics = [p for p in posts.values() if p.get("snapshots")]
     ranked = sorted(with_metrics, key=post_reach, reverse=True)[:limit]
-
     if not ranked:
         return "<tr><td colspan='10' class='muted'>No post-level data yet.</td></tr>"
 
@@ -146,7 +200,7 @@ def posts_table_rows(posts, limit=20):
         link = p.get("permalink") or "#"
         return (
             f"<tr><td>{p['published_at'][:10]}</td><td>{p['platform']}</td>"
-            f"<td>{p['format']}</td><td>{post_reach(p)}</td><td>{post_views(p)}</td>"
+            f"<td>{p['format']}</td><td>{post_reach(p):,}</td><td>{post_views(p):,}</td>"
             f"<td>{fmt(likes)}</td><td>{fmt(comments)}</td><td>{fmt(shares)}</td>"
             f"<td>{fmt(saves)}</td><td>{rate_str}</td>"
             f"<td><a href='{link}' target='_blank' rel='noopener'>{caption}</a></td></tr>"
@@ -155,15 +209,13 @@ def posts_table_rows(posts, limit=20):
     return "".join(row(p) for p in ranked)
 
 
-def render(account_snapshots, posts):
-    latest = latest_by_platform(account_snapshots)
-    generated_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
-
+def render(account_snapshots, posts, crest_b64):
+    generated_at = datetime.now(timezone.utc).strftime("%d %B %Y, %H:%M UTC")
     growth_dates, fb_growth, ig_growth = follower_growth_series(account_snapshots)
     top_labels, top_values = top_posts_for_chart(posts)
-
     has_growth_history = len(growth_dates) > 1
     has_top_posts = len(top_labels) > 0
+    tracking_since = growth_dates[0] if growth_dates else generated_at
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -171,46 +223,77 @@ def render(account_snapshots, posts):
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Leamington RFC — Social Dashboard</title>
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=supreme@400,700&display=swap">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <style>
   :root {{
     color-scheme: light dark;
     padding-top: env(safe-area-inset-top, 0px);
     padding-bottom: env(safe-area-inset-bottom, 0px);
+    --blue: {BRAND['blue']}; --yellow: {BRAND['yellow']}; --red: {BRAND['red']}; --green: {BRAND['green']};
+    --bg: #ffffff; --card-bg: #f6f5fb; --text: #1a1a1a; --muted: #666;
   }}
-  body {{ font-family: system-ui, sans-serif; max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }}
-  h1 {{ margin-bottom: 0.2rem; }}
-  .updated {{ color: #666; font-size: 0.9rem; margin-bottom: 2rem; }}
-  h2 {{ margin-top: 2rem; border-bottom: 1px solid #ddd; padding-bottom: 0.3rem; }}
-  .muted {{ color: #888; }}
-  .metrics {{ display: flex; flex-wrap: wrap; gap: 1rem; margin: 1rem 0; }}
-  .metric {{ background: #f4f4f4; border-radius: 8px; padding: 0.8rem 1.2rem; min-width: 130px; }}
-  .metric .value {{ display: block; font-size: 1.5rem; font-weight: bold; }}
-  .metric .label {{ display: block; font-size: 0.8rem; color: #555; }}
-  table {{ width: 100%; border-collapse: collapse; font-size: 0.85rem; }}
-  th, td {{ text-align: left; padding: 0.4rem; border-bottom: 1px solid #eee; white-space: nowrap; }}
-  .table-wrap {{ overflow-x: auto; }}
-  .chart-wrap {{ position: relative; height: 320px; margin: 1rem 0 2rem; }}
-  a {{ color: inherit; }}
+  :root[data-theme="dark"], :root:not([data-theme="light"]) {{ }}
   @media (prefers-color-scheme: dark) {{
-    .metric {{ background: #222; }}
-    .metric .label {{ color: #aaa; }}
-    th, td {{ border-color: #333; }}
+    :root:not([data-theme="light"]) {{ --bg: #14131c; --card-bg: #211f2e; --text: #f0f0f0; --muted: #aaa; }}
   }}
+  * {{ box-sizing: border-box; }}
+  body {{
+    font-family: 'Supreme', system-ui, sans-serif; font-weight: 300;
+    max-width: 1080px; margin: 0 auto; padding: 2rem 1.2rem 4rem;
+    background: var(--bg); color: var(--text);
+  }}
+  h1, h2, h3 {{ font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; }}
+  header {{ display: flex; align-items: center; gap: 1.2rem; margin-bottom: 0.5rem; }}
+  header img {{ height: 72px; width: auto; }}
+  h1 {{ font-size: 1.7rem; color: var(--blue); margin: 0; }}
+  .tagline {{ color: var(--muted); font-weight: 400; text-transform: none; font-size: 0.95rem; margin: 0.1rem 0 0; }}
+  .updated {{ color: var(--muted); font-size: 0.85rem; margin: 0.3rem 0 2rem; }}
+  h2 {{ font-size: 1.05rem; color: var(--blue); margin-top: 2.5rem; border-bottom: 3px solid var(--yellow); padding-bottom: 0.4rem; display: inline-block; }}
+  .muted {{ color: var(--muted); font-weight: 400; }}
+
+  .hero-row {{ display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem; }}
+  .hero-card {{ flex: 1 1 260px; background: var(--card-bg); border-radius: 10px; border-top: 5px solid; padding: 1.2rem 1.4rem; }}
+  .hero-card h3 {{ font-size: 0.85rem; margin: 0 0 0.4rem; color: var(--muted); }}
+  .hero-number {{ font-size: 2.4rem; font-weight: 700; line-height: 1; }}
+  .hero-label {{ font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }}
+  .hero-sub {{ font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; }}
+  .delta {{ font-weight: 700; padding: 0.1rem 0.4rem; border-radius: 4px; font-size: 0.75rem; }}
+  .delta.up {{ color: var(--green); }}
+  .delta.down {{ color: var(--red); }}
+  .delta.flat {{ color: var(--muted); }}
+  .story {{ font-size: 0.85rem; margin-top: 0.7rem; padding-top: 0.6rem; border-top: 1px solid rgba(128,128,128,0.25); }}
+  .story-pct {{ color: var(--green); }}
+
+  .chart-wrap {{ position: relative; height: 320px; margin: 1rem 0 2rem; background: var(--card-bg); border-radius: 10px; padding: 1rem; }}
+  table {{ width: 100%; border-collapse: collapse; font-size: 0.82rem; }}
+  th {{ background: var(--blue); color: white; text-align: left; padding: 0.5rem; font-weight: 700; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.03em; }}
+  td {{ text-align: left; padding: 0.45rem 0.5rem; border-bottom: 1px solid rgba(128,128,128,0.2); white-space: nowrap; }}
+  tbody tr:nth-child(even) {{ background: var(--card-bg); }}
+  .table-wrap {{ overflow-x: auto; border-radius: 10px; }}
+  a {{ color: var(--blue); }}
+  footer {{ margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(128,128,128,0.25); display: flex; align-items: center; gap: 0.8rem; }}
+  footer img {{ height: 36px; }}
+  footer span {{ color: var(--blue); font-weight: 700; font-size: 0.85rem; letter-spacing: 0.03em; }}
 </style>
 </head>
 <body>
-  <h1>Leamington RFC — Social Dashboard</h1>
-  <p class="updated">Last updated {generated_at}</p>
+  <header>
+    <img src="data:image/png;base64,{crest_b64}" alt="Leamington RFC centenary crest">
+    <div>
+      <h1>Leamington RFC</h1>
+      <p class="tagline">Social Media Dashboard</p>
+    </div>
+  </header>
+  <p class="updated">Last updated {generated_at} · tracking daily since {tracking_since}</p>
 
-  <h2>Facebook — latest</h2>
-  {metric_cards(latest.get('facebook'))}
-
-  <h2>Instagram — latest</h2>
-  {metric_cards(latest.get('instagram'))}
+  <div class="hero-row">
+    {platform_hero(account_snapshots, 'facebook', 'Facebook', BRAND['blue'])}
+    {platform_hero(account_snapshots, 'instagram', 'Instagram', BRAND['red'])}
+  </div>
 
   <h2>Follower growth</h2>
-  {"<div class='chart-wrap'><canvas id='growthChart'></canvas></div>" if has_growth_history else "<p class='muted'>Not enough history yet — this fills in day by day as the pipeline keeps running.</p>"}
+  {"<div class='chart-wrap'><canvas id='growthChart'></canvas></div>" if has_growth_history else "<p class='muted'>Not enough daily history yet — this fills in day by day as the pipeline keeps running. The \"since\" figures above use dates you gave directly, separate from this chart.</p>"}
 
   <h2>Best performing posts</h2>
   {"<div class='chart-wrap'><canvas id='topPostsChart'></canvas></div>" if has_top_posts else "<p class='muted'>No post data yet.</p>"}
@@ -225,6 +308,11 @@ def render(account_snapshots, posts):
   </table>
   </div>
 
+  <footer>
+    <img src="data:image/png;base64,{crest_b64}" alt="">
+    <span>ONE CLUB, ONE LEAM</span>
+  </footer>
+
 <script>
 {"const growthCtx = document.getElementById('growthChart');" if has_growth_history else ""}
 {f'''new Chart(growthCtx, {{
@@ -232,8 +320,8 @@ def render(account_snapshots, posts):
   data: {{
     labels: {json.dumps(growth_dates)},
     datasets: [
-      {{ label: 'Facebook fans', data: {json.dumps(fb_growth)}, borderColor: '#3E3787', tension: 0.2, spanGaps: true }},
-      {{ label: 'Instagram followers', data: {json.dumps(ig_growth)}, borderColor: '#CF3B41', tension: 0.2, spanGaps: true }}
+      {{ label: 'Facebook fans', data: {json.dumps(fb_growth)}, borderColor: '{BRAND["blue"]}', backgroundColor: '{BRAND["blue"]}22', tension: 0.25, spanGaps: true, fill: true }},
+      {{ label: 'Instagram followers', data: {json.dumps(ig_growth)}, borderColor: '{BRAND["red"]}', backgroundColor: '{BRAND["red"]}22', tension: 0.25, spanGaps: true, fill: true }}
     ]
   }},
   options: {{ responsive: true, maintainAspectRatio: false, scales: {{ y: {{ beginAtZero: false }} }} }}
@@ -244,14 +332,9 @@ def render(account_snapshots, posts):
   type: 'bar',
   data: {{
     labels: {json.dumps(top_labels)},
-    datasets: [{{ label: 'Reach', data: {json.dumps(top_values)}, backgroundColor: '#3E3787' }}]
+    datasets: [{{ label: 'Reach', data: {json.dumps(top_values)}, backgroundColor: '{BRAND["yellow"]}', borderColor: '{BRAND["blue"]}', borderWidth: 1 }}]
   }},
-  options: {{
-    indexAxis: 'y',
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {{ legend: {{ display: false }} }}
-  }}
+  options: {{ indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: {{ legend: {{ display: false }} }} }}
 }});''' if has_top_posts else ""}
 </script>
 </body>
@@ -261,8 +344,9 @@ def render(account_snapshots, posts):
 def main():
     account_snapshots = load_json(ACCOUNT_FILE)
     posts = load_json(POSTS_FILE)
+    crest_b64 = CREST_B64_FILE.read_text(encoding="ascii").strip()
     OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT_FILE.write_text(render(account_snapshots, posts), encoding="utf-8")
+    OUTPUT_FILE.write_text(render(account_snapshots, posts, crest_b64), encoding="utf-8")
     print(f"Wrote {OUTPUT_FILE}")
 
 
