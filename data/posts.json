@@ -15,7 +15,7 @@
     "snapshots": {
       "2026-09-20": {
         "post_media_view": 852,
-        "post_total_media_view_unique": 0
+        "post_total_media_view_unique": 355
       }
     },
     "static_metrics": {
@@ -1140,7 +1140,7 @@
     "snapshots": {
       "2026-09-20": {
         "post_media_view": 3510,
-        "post_total_media_view_unique": 0
+        "post_total_media_view_unique": 1943
       }
     },
     "static_metrics": {
@@ -1725,7 +1725,7 @@
     "snapshots": {
       "2026-09-20": {
         "post_media_view": 2033,
-        "post_total_media_view_unique": 0
+        "post_total_media_view_unique": 1096
       }
     },
     "static_metrics": {
@@ -1910,7 +1910,7 @@
     "snapshots": {},
     "static_metrics": {
       "comments": 2,
-      "reactions": 148,
+      "reactions": 149,
       "shares": 4
     }
   },
@@ -1950,7 +1950,7 @@
     "snapshots": {
       "2026-09-20": {
         "post_media_view": 6044,
-        "post_total_media_view_unique": 0
+        "post_total_media_view_unique": 4318
       }
     },
     "static_metrics": {
@@ -1974,8 +1974,8 @@
     "published_at": "2026-09-13T10:47:36+0000",
     "snapshots": {
       "2026-09-20": {
-        "post_media_view": 8178,
-        "post_total_media_view_unique": 0
+        "post_media_view": 8182,
+        "post_total_media_view_unique": 5889
       }
     },
     "static_metrics": {
@@ -2000,7 +2000,7 @@
     "snapshots": {
       "2026-09-20": {
         "post_media_view": 1178,
-        "post_total_media_view_unique": 0
+        "post_total_media_view_unique": 753
       }
     },
     "static_metrics": {
@@ -2044,8 +2044,8 @@
     "published_at": "2026-09-17T18:01:59+0000",
     "snapshots": {
       "2026-09-20": {
-        "post_media_view": 1439,
-        "post_total_media_view_unique": 0
+        "post_media_view": 1442,
+        "post_total_media_view_unique": 937
       }
     },
     "static_metrics": {
@@ -2109,13 +2109,13 @@
     "published_at": "2026-09-19T16:55:53+0000",
     "snapshots": {
       "2026-09-20": {
-        "post_media_view": 1282,
-        "post_total_media_view_unique": 0
+        "post_media_view": 1314,
+        "post_total_media_view_unique": 831
       }
     },
     "static_metrics": {
       "comments": 1,
-      "reactions": 14,
+      "reactions": 15,
       "shares": 4
     }
   },
@@ -2134,13 +2134,13 @@
     "published_at": "2026-09-20T08:31:10+0000",
     "snapshots": {
       "2026-09-20": {
-        "post_media_view": 223,
-        "post_total_media_view_unique": 0
+        "post_media_view": 282,
+        "post_total_media_view_unique": 173
       }
     },
     "static_metrics": {
       "comments": 0,
-      "reactions": 9,
+      "reactions": 11,
       "shares": 1
     }
   },
@@ -2349,16 +2349,16 @@
     "published_at": "2026-09-20T08:30:56+0000",
     "snapshots": {
       "2026-09-20": {
-        "reach": 306,
+        "reach": 453,
         "saved": 0,
         "shares": 1,
-        "total_interactions": 53,
-        "views": 890
+        "total_interactions": 58,
+        "views": 1191
       }
     },
     "static_metrics": {
       "comments": 0,
-      "likes": 49
+      "likes": 54
     }
   },
   "instagram:17893788324303581": {
@@ -3353,11 +3353,11 @@
     "published_at": "2026-09-13T07:02:59+0000",
     "snapshots": {
       "2026-09-20": {
-        "reach": 672,
+        "reach": 674,
         "saved": 2,
         "shares": 2,
         "total_interactions": 63,
-        "views": 1375
+        "views": 1377
       }
     },
     "static_metrics": {
@@ -3399,11 +3399,11 @@
     "published_at": "2026-09-13T10:47:26+0000",
     "snapshots": {
       "2026-09-20": {
-        "reach": 1360,
+        "reach": 1362,
         "saved": 1,
         "shares": 3,
         "total_interactions": 74,
-        "views": 2572
+        "views": 2574
       }
     },
     "static_metrics": {
@@ -3502,11 +3502,11 @@
     "published_at": "2026-09-19T16:55:44+0000",
     "snapshots": {
       "2026-09-20": {
-        "reach": 1331,
+        "reach": 1376,
         "saved": 0,
         "shares": 3,
         "total_interactions": 74,
-        "views": 2761
+        "views": 2840
       }
     },
     "static_metrics": {
@@ -3890,11 +3890,11 @@
     "published_at": "2026-08-21T18:00:58+0000",
     "snapshots": {
       "2026-09-20": {
-        "reach": 819,
+        "reach": 820,
         "saved": 0,
         "shares": 1,
         "total_interactions": 49,
-        "views": 1849
+        "views": 1850
       }
     },
     "static_metrics": {
@@ -4088,11 +4088,11 @@
     "published_at": "2026-09-17T18:01:49+0000",
     "snapshots": {
       "2026-09-20": {
-        "reach": 484,
+        "reach": 488,
         "saved": 0,
         "shares": 0,
         "total_interactions": 40,
-        "views": 982
+        "views": 988
       }
     },
     "static_metrics": {

@@ -10,7 +10,7 @@
     padding-top: env(safe-area-inset-top, 0px);
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
-  body { font-family: system-ui, sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+  body { font-family: system-ui, sans-serif; max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
   h1 { margin-bottom: 0.2rem; }
   .updated { color: #666; font-size: 0.9rem; margin-bottom: 2rem; }
   h2 { margin-top: 2rem; border-bottom: 1px solid #ddd; padding-bottom: 0.3rem; }
@@ -20,7 +20,7 @@
   .metric .value { display: block; font-size: 1.5rem; font-weight: bold; }
   .metric .label { display: block; font-size: 0.8rem; color: #555; }
   table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-  th, td { text-align: left; padding: 0.4rem; border-bottom: 1px solid #eee; }
+  th, td { text-align: left; padding: 0.4rem; border-bottom: 1px solid #eee; white-space: nowrap; }
   .table-wrap { overflow-x: auto; }
   a { color: inherit; }
   @media (prefers-color-scheme: dark) {
@@ -32,38 +32,39 @@
 </head>
 <body>
   <h1>Leamington RFC — Social Dashboard</h1>
-  <p class="updated">Last updated 2026-09-20 11:21 UTC</p>
+  <p class="updated">Last updated 2026-09-20 12:29 UTC</p>
 
   <h2>Facebook — latest</h2>
   <div class='metrics'><div class='metric'><span class='value'>2173</span><span class='label'>fan_count</span></div><div class='metric'><span class='value'>3126</span><span class='label'>page_media_view</span></div><div class='metric'><span class='value'>2142</span><span class='label'>page_total_media_view_unique</span></div></div>
 
   <h2>Instagram — latest</h2>
-  <div class='metrics'><div class='metric'><span class='value'>1452</span><span class='label'>followers_count</span></div><div class='metric'><span class='value'>1828</span><span class='label'>reach</span></div><div class='metric'><span class='value'>6113</span><span class='label'>views</span></div></div>
+  <div class='metrics'><div class='metric'><span class='value'>1452</span><span class='label'>followers_count</span></div><div class='metric'><span class='value'>1933</span><span class='label'>reach</span></div><div class='metric'><span class='value'>6880</span><span class='label'>views</span></div></div>
 
-  <h2>Recent posts, best performing first</h2>
-  <p class="muted">Ranked by engagement rate (interactions ÷ reach). Only posts from the last 35 days are tracked.</p>
+  <h2>Recent posts, furthest reaching first</h2>
+  <p class="muted">Posts from the last 180 days. Engagement rate = interactions ÷ reach, shown alongside the raw counts.</p>
   <div class="table-wrap">
   <table>
-    <thead><tr><th>Date</th><th>Platform</th><th>Format</th><th>Reach</th><th>Eng. rate</th><th>Caption</th></tr></thead>
-    <tbody><tr><td>2026-09-20</td><td>instagram</td><td>carousel</td><td>306</td><td>17.3%</td><td><a href='https://www.instagram.com/p/DdgKUB5keSK/' target='_blank' rel='noopener'>📸 ACTION SHOTS 📸
+    <thead><tr><th>Date</th><th>Platform</th><th>Format</th><th>Reach</th><th>Views</th>
+    <th>Likes</th><th>Comments</th><th>Shares</th><th>Saves</th><th>Eng. rate</th><th>Caption</th></tr></thead>
+    <tbody><tr><td>2026-09-13</td><td>facebook</td><td>image</td><td>5889</td><td>8182</td><td>29</td><td>1</td><td>1</td><td>—</td><td>0.5%</td><td><a href='https://www.facebook.com/1633445288718753/posts/1626934006036548' target='_blank' rel='noopener'>Colts preseason friendly against Earlsdon - 24-17, decided o…</a></td></tr><tr><td>2026-09-13</td><td>facebook</td><td>image</td><td>4318</td><td>6044</td><td>41</td><td>2</td><td>3</td><td>—</td><td>1.1%</td><td><a href='https://www.facebook.com/1633445288718753/posts/1626792542717361' target='_blank' rel='noopener'>Preseason win. 59-14 the final score. 💙❤️💛
 
-Snaps from the Colts’ thrilling 24-24 draw…</a></td></tr><tr><td>2026-05-23</td><td>instagram</td><td>carousel</td><td>900</td><td>12.2%</td><td><a href='https://www.instagram.com/p/DYrEvDhAtUF/' target='_blank' rel='noopener'>We are community rugby. 💙❤️💛
-There are people at this club w…</a></td></tr><tr><td>2026-09-13</td><td>instagram</td><td>image</td><td>672</td><td>9.4%</td><td><a href='https://www.instagram.com/p/DdN-XxOi3cp/' target='_blank' rel='noopener'>Preseason win. 59-14 the final score. 💙❤️💛
+Good minutes in …</a></td></tr><tr><td>2026-05-23</td><td>facebook</td><td>carousel</td><td>1943</td><td>3510</td><td>41</td><td>0</td><td>11</td><td>—</td><td>2.7%</td><td><a href='https://www.facebook.com/1633445288718753/posts/1523027496427200' target='_blank' rel='noopener'>We are community rugby. 💙❤️💛
+There are people at this club w…</a></td></tr><tr><td>2026-09-19</td><td>instagram</td><td>image</td><td>1376</td><td>2840</td><td>64</td><td>0</td><td>3</td><td>0</td><td>5.4%</td><td><a href='https://www.instagram.com/p/Ddeezr8i6qd/' target='_blank' rel='noopener'>Full Time for the Colts in a thrilling 24-24 draw with Towce…</a></td></tr><tr><td>2026-09-13</td><td>instagram</td><td>image</td><td>1362</td><td>2574</td><td>70</td><td>0</td><td>3</td><td>1</td><td>5.4%</td><td><a href='https://www.instagram.com/p/DdOYN0YRPud/' target='_blank' rel='noopener'>Colts preseason friendly against Earlsdon - 24-17, decided o…</a></td></tr><tr><td>2026-08-21</td><td>facebook</td><td>carousel</td><td>1096</td><td>2033</td><td>20</td><td>4</td><td>0</td><td>—</td><td>2.2%</td><td><a href='https://www.facebook.com/1633445288718753/posts/1605608411502441' target='_blank' rel='noopener'>122-0.
 
-Good minutes in …</a></td></tr><tr><td>2026-09-17</td><td>instagram</td><td>image</td><td>484</td><td>8.3%</td><td><a href='https://www.instagram.com/p/DdZczLoRf2Q/' target='_blank' rel='noopener'>🚨 FIRST XV FIXTURES 2026/27 🚨
+March 1980. The Spartans against Stratford. 24 tries…</a></td></tr><tr><td>2026-09-17</td><td>facebook</td><td>image</td><td>937</td><td>1442</td><td>5</td><td>0</td><td>1</td><td>—</td><td>0.6%</td><td><a href='https://www.facebook.com/1633445288718753/posts/1631022118961070' target='_blank' rel='noopener'>🚨 FIRST XV FIXTURES 2026/27 🚨
 
-Following the delay to the st…</a></td></tr><tr><td>2026-08-21</td><td>instagram</td><td>carousel</td><td>819</td><td>6.0%</td><td><a href='https://www.instagram.com/p/DcT7swbDWmG/' target='_blank' rel='noopener'>122-0.
+Following the delay to the st…</a></td></tr><tr><td>2026-05-23</td><td>instagram</td><td>carousel</td><td>900</td><td>1982</td><td>100</td><td>0</td><td>5</td><td>1</td><td>12.2%</td><td><a href='https://www.instagram.com/p/DYrEvDhAtUF/' target='_blank' rel='noopener'>We are community rugby. 💙❤️💛
+There are people at this club w…</a></td></tr><tr><td>2026-09-19</td><td>facebook</td><td>image</td><td>831</td><td>1314</td><td>15</td><td>1</td><td>4</td><td>—</td><td>2.4%</td><td><a href='https://www.facebook.com/1633445288718753/posts/1632872082109407' target='_blank' rel='noopener'>Full Time for the Colts in a thrilling 24-24 draw with Towce…</a></td></tr><tr><td>2026-08-21</td><td>instagram</td><td>carousel</td><td>820</td><td>1850</td><td>47</td><td>0</td><td>1</td><td>0</td><td>6.0%</td><td><a href='https://www.instagram.com/p/DcT7swbDWmG/' target='_blank' rel='noopener'>122-0.
 
-March 1980. The Spartans against Stratford. 24 tries…</a></td></tr><tr><td>2026-09-19</td><td>instagram</td><td>image</td><td>1331</td><td>5.6%</td><td><a href='https://www.instagram.com/p/Ddeezr8i6qd/' target='_blank' rel='noopener'>Full Time for the Colts in a thrilling 24-24 draw with Towce…</a></td></tr><tr><td>2026-09-13</td><td>instagram</td><td>image</td><td>1360</td><td>5.4%</td><td><a href='https://www.instagram.com/p/DdOYN0YRPud/' target='_blank' rel='noopener'>Colts preseason friendly against Earlsdon - 24-17, decided o…</a></td></tr><tr><td>2026-03-24</td><td>facebook</td><td>image</td><td>0</td><td>—</td><td><a href='https://www.facebook.com/1633445288718753/posts/1472435644819719' target='_blank' rel='noopener'>MATCH REPORT: Last gasp heartache....again! #Pitchero
-https:…</a></td></tr><tr><td>2026-05-23</td><td>facebook</td><td>carousel</td><td>0</td><td>—</td><td><a href='https://www.facebook.com/1633445288718753/posts/1523027496427200' target='_blank' rel='noopener'>We are community rugby. 💙❤️💛
-There are people at this club w…</a></td></tr><tr><td>2026-08-21</td><td>facebook</td><td>carousel</td><td>0</td><td>—</td><td><a href='https://www.facebook.com/1633445288718753/posts/1605608411502441' target='_blank' rel='noopener'>122-0.
+March 1980. The Spartans against Stratford. 24 tries…</a></td></tr><tr><td>2026-09-13</td><td>facebook</td><td>image</td><td>753</td><td>1178</td><td>7</td><td>0</td><td>0</td><td>—</td><td>0.9%</td><td><a href='https://www.facebook.com/1633445288718753/posts/1627390735990875' target='_blank' rel='noopener'>MATCH REPORT: Leamington power past Moderns #Pitchero
+https:…</a></td></tr><tr><td>2026-09-13</td><td>instagram</td><td>image</td><td>674</td><td>1377</td><td>58</td><td>0</td><td>2</td><td>2</td><td>9.3%</td><td><a href='https://www.instagram.com/p/DdN-XxOi3cp/' target='_blank' rel='noopener'>Preseason win. 59-14 the final score. 💙❤️💛
 
-March 1980. The Spartans against Stratford. 24 tries…</a></td></tr><tr><td>2026-09-13</td><td>facebook</td><td>image</td><td>0</td><td>—</td><td><a href='https://www.facebook.com/1633445288718753/posts/1626792542717361' target='_blank' rel='noopener'>Preseason win. 59-14 the final score. 💙❤️💛
+Good minutes in …</a></td></tr><tr><td>2026-09-17</td><td>instagram</td><td>image</td><td>488</td><td>988</td><td>38</td><td>0</td><td>0</td><td>0</td><td>8.2%</td><td><a href='https://www.instagram.com/p/DdZczLoRf2Q/' target='_blank' rel='noopener'>🚨 FIRST XV FIXTURES 2026/27 🚨
 
-Good minutes in …</a></td></tr><tr><td>2026-09-13</td><td>facebook</td><td>image</td><td>0</td><td>—</td><td><a href='https://www.facebook.com/1633445288718753/posts/1626934006036548' target='_blank' rel='noopener'>Colts preseason friendly against Earlsdon - 24-17, decided o…</a></td></tr><tr><td>2026-09-13</td><td>facebook</td><td>image</td><td>0</td><td>—</td><td><a href='https://www.facebook.com/1633445288718753/posts/1627390735990875' target='_blank' rel='noopener'>MATCH REPORT: Leamington power past Moderns #Pitchero
-https:…</a></td></tr><tr><td>2026-09-17</td><td>facebook</td><td>image</td><td>0</td><td>—</td><td><a href='https://www.facebook.com/1633445288718753/posts/1631022118961070' target='_blank' rel='noopener'>🚨 FIRST XV FIXTURES 2026/27 🚨
+Following the delay to the st…</a></td></tr><tr><td>2026-09-20</td><td>instagram</td><td>carousel</td><td>453</td><td>1191</td><td>54</td><td>0</td><td>1</td><td>0</td><td>12.8%</td><td><a href='https://www.instagram.com/p/DdgKUB5keSK/' target='_blank' rel='noopener'>📸 ACTION SHOTS 📸
 
-Following the delay to the st…</a></td></tr><tr><td>2026-09-19</td><td>facebook</td><td>image</td><td>0</td><td>—</td><td><a href='https://www.facebook.com/1633445288718753/posts/1632872082109407' target='_blank' rel='noopener'>Full Time for the Colts in a thrilling 24-24 draw with Towce…</a></td></tr><tr><td>2026-09-20</td><td>facebook</td><td>carousel</td><td>0</td><td>—</td><td><a href='https://www.facebook.com/1633445288718753/posts/1633448378718444' target='_blank' rel='noopener'>📸 ACTION SHOTS 📸
+Snaps from the Colts’ thrilling 24-24 draw…</a></td></tr><tr><td>2026-03-24</td><td>facebook</td><td>image</td><td>355</td><td>852</td><td>0</td><td>0</td><td>0</td><td>—</td><td>0.0%</td><td><a href='https://www.facebook.com/1633445288718753/posts/1472435644819719' target='_blank' rel='noopener'>MATCH REPORT: Last gasp heartache....again! #Pitchero
+https:…</a></td></tr><tr><td>2026-09-20</td><td>facebook</td><td>carousel</td><td>173</td><td>282</td><td>11</td><td>0</td><td>1</td><td>—</td><td>6.9%</td><td><a href='https://www.facebook.com/1633445288718753/posts/1633448378718444' target='_blank' rel='noopener'>📸 ACTION SHOTS 📸
 
 Snaps from the Colts’ thrilling 24-24 draw…</a></td></tr></tbody>
   </table>
@@ -73,7 +74,7 @@ Snaps from the Colts’ thrilling 24-24 draw…</a></td></tr></tbody>
   <div class="table-wrap">
   <table>
     <thead><tr><th>Date</th><th>Platform</th><th>Metrics</th></tr></thead>
-    <tbody><tr><td>2026-09-20</td><td>instagram</td><td>{"followers_count": 1452, "reach": 1828, "views": 6113}</td></tr><tr><td>2026-09-20</td><td>facebook</td><td>{"fan_count": 2173, "page_media_view": 3126, "page_total_media_view_unique": 2142}</td></tr><tr><td>2026-09-19</td><td>instagram</td><td>{"followers_count": 1453, "reach": 1655, "views": 5557}</td></tr><tr><td>2026-09-19</td><td>facebook</td><td>{"fan_count": 2173, "page_media_view": 3610, "page_total_media_view_unique": 2369}</td></tr></tbody>
+    <tbody><tr><td>2026-09-20</td><td>instagram</td><td>{"followers_count": 1452, "reach": 1933, "views": 6880}</td></tr><tr><td>2026-09-20</td><td>facebook</td><td>{"fan_count": 2173, "page_media_view": 3126, "page_total_media_view_unique": 2142}</td></tr><tr><td>2026-09-19</td><td>instagram</td><td>{"followers_count": 1453, "reach": 1655, "views": 5557}</td></tr><tr><td>2026-09-19</td><td>facebook</td><td>{"fan_count": 2173, "page_media_view": 3610, "page_total_media_view_unique": 2369}</td></tr></tbody>
   </table>
   </div>
 </body>
