@@ -9,8 +9,16 @@ the ingest steps above it found nothing new.
 """
 
 import json
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from ingest_posts import LOOKBACK_DAYS  # noqa: E402 - single source of truth,
+
+# so the page's own description of its window can't drift from what the
+# ingestion script actually fetches, the way it did the last time this
+# was two separate hardcoded numbers.
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 ACCOUNT_FILE = DATA_DIR / "account_snapshots.json"
@@ -68,6 +76,32 @@ def post_reach(record):
     return metrics.get("reach") or metrics.get("post_total_media_view_unique") or 0
 
 
+def post_views(record):
+    metrics = latest_post_metrics(record)
+    return metrics.get("views") or metrics.get("post_media_view") or 0
+
+
+def post_counts(record):
+    """Raw, human-readable counts - what a volunteer actually recognises,
+    ahead of any normalised rate. Facebook and Instagram use different
+    field names for the same idea (reactions vs likes), so this is the
+    one place that difference gets papered over for display."""
+    static = record.get("static_metrics", {})
+    metrics = latest_post_metrics(record)
+    if record["platform"] == "instagram":
+        likes = static.get("likes")
+        comments = static.get("comments")
+        shares = metrics.get("shares")
+        saves = metrics.get("saved")
+    else:
+        likes = static.get("reactions")
+        comments = static.get("comments")
+        shares = static.get("shares")
+        saves = None  # Facebook has no saves metric - a documented Meta
+        # limitation, not a gap in this script.
+    return likes, comments, shares, saves
+
+
 def post_engagement_rate(record):
     metrics = latest_post_metrics(record)
     reach = post_reach(record)
@@ -85,27 +119,34 @@ def post_engagement_rate(record):
     return round(100 * interactions / reach, 1)
 
 
+def fmt(value):
+    return "—" if value is None else value
+
+
 def posts_table_rows(posts, limit=20):
+    """Ranked by reach first, not engagement rate - a post that reached a
+    lot of people should never be invisible just because its interaction
+    rate was modest. Engagement rate is still shown as its own column for
+    anyone who wants the quality-adjusted view alongside the raw one."""
     with_metrics = [p for p in posts.values() if p.get("snapshots")]
-    ranked = sorted(
-        with_metrics,
-        key=lambda p: (post_engagement_rate(p) or -1),
-        reverse=True,
-    )[:limit]
+    ranked = sorted(with_metrics, key=post_reach, reverse=True)[:limit]
 
     if not ranked:
-        return "<tr><td colspan='6' class='muted'>No post-level data yet.</td></tr>"
+        return "<tr><td colspan='10' class='muted'>No post-level data yet.</td></tr>"
 
     def row(p):
         rate = post_engagement_rate(p)
         rate_str = f"{rate}%" if rate is not None else "—"
+        likes, comments, shares, saves = post_counts(p)
         caption = (p.get("caption") or "")[:60]
         if len(p.get("caption") or "") > 60:
             caption += "…"
         link = p.get("permalink") or "#"
         return (
             f"<tr><td>{p['published_at'][:10]}</td><td>{p['platform']}</td>"
-            f"<td>{p['format']}</td><td>{post_reach(p)}</td><td>{rate_str}</td>"
+            f"<td>{p['format']}</td><td>{post_reach(p)}</td><td>{post_views(p)}</td>"
+            f"<td>{fmt(likes)}</td><td>{fmt(comments)}</td><td>{fmt(shares)}</td>"
+            f"<td>{fmt(saves)}</td><td>{rate_str}</td>"
             f"<td><a href='{link}' target='_blank' rel='noopener'>{caption}</a></td></tr>"
         )
 
@@ -128,7 +169,7 @@ def render(account_snapshots, posts):
     padding-top: env(safe-area-inset-top, 0px);
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }}
-  body {{ font-family: system-ui, sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; }}
+  body {{ font-family: system-ui, sans-serif; max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }}
   h1 {{ margin-bottom: 0.2rem; }}
   .updated {{ color: #666; font-size: 0.9rem; margin-bottom: 2rem; }}
   h2 {{ margin-top: 2rem; border-bottom: 1px solid #ddd; padding-bottom: 0.3rem; }}
@@ -138,7 +179,7 @@ def render(account_snapshots, posts):
   .metric .value {{ display: block; font-size: 1.5rem; font-weight: bold; }}
   .metric .label {{ display: block; font-size: 0.8rem; color: #555; }}
   table {{ width: 100%; border-collapse: collapse; font-size: 0.85rem; }}
-  th, td {{ text-align: left; padding: 0.4rem; border-bottom: 1px solid #eee; }}
+  th, td {{ text-align: left; padding: 0.4rem; border-bottom: 1px solid #eee; white-space: nowrap; }}
   .table-wrap {{ overflow-x: auto; }}
   a {{ color: inherit; }}
   @media (prefers-color-scheme: dark) {{
@@ -158,11 +199,12 @@ def render(account_snapshots, posts):
   <h2>Instagram — latest</h2>
   {metric_cards(latest.get('instagram'))}
 
-  <h2>Recent posts, best performing first</h2>
-  <p class="muted">Ranked by engagement rate (interactions ÷ reach). Only posts from the last 35 days are tracked.</p>
+  <h2>Recent posts, furthest reaching first</h2>
+  <p class="muted">Posts from the last {LOOKBACK_DAYS} days. Engagement rate = interactions ÷ reach, shown alongside the raw counts.</p>
   <div class="table-wrap">
   <table>
-    <thead><tr><th>Date</th><th>Platform</th><th>Format</th><th>Reach</th><th>Eng. rate</th><th>Caption</th></tr></thead>
+    <thead><tr><th>Date</th><th>Platform</th><th>Format</th><th>Reach</th><th>Views</th>
+    <th>Likes</th><th>Comments</th><th>Shares</th><th>Saves</th><th>Eng. rate</th><th>Caption</th></tr></thead>
     <tbody>{posts_table_rows(posts)}</tbody>
   </table>
   </div>

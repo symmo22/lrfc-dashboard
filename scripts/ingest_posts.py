@@ -152,10 +152,20 @@ def fetch_facebook_post_insights(post_id, page_token, app_secret):
         f"{post_id}/insights",
         page_token,
         app_secret,
-        {"metric": "post_total_media_view_unique,post_media_view"},
+        {"metric": "post_total_media_view_unique,post_media_view", "period": "lifetime"},
     )
     metrics = {}
     for row in result.get("data", []):
+        # Belt-and-braces: even though we asked for lifetime only, only
+        # ever trust a row actually labelled lifetime. A prior version of
+        # this function didn't check this, and a same-named "day" row with
+        # a real 0 (these newer metrics can lack daily buckets even when
+        # the lifetime total is populated) silently overwrote a correct
+        # lifetime value with that 0. Confirmed against real data on
+        # 2026-09-20: a post with 173 lifetime unique viewers was reported
+        # as 0 because of exactly this collision.
+        if row.get("period") != "lifetime":
+            continue
         values = row.get("values", [])
         if values:
             metrics[row["name"]] = values[-1].get("value")
@@ -216,6 +226,11 @@ def list_instagram_media(ig_id, token, app_secret, cutoff_date):
 
 
 def fetch_instagram_media_insights(media_id, token, app_secret):
+    # No explicit period here, unlike the Facebook call above: Instagram
+    # media insights haven't shown the same multi-period response in
+    # testing, and this endpoint doesn't universally accept a period
+    # parameter the way the account-level and Facebook post endpoints do.
+    # The defensive check below still applies in case that ever changes.
     result = graph_get(
         f"{media_id}/insights",
         token,
@@ -224,6 +239,8 @@ def fetch_instagram_media_insights(media_id, token, app_secret):
     )
     metrics = {}
     for row in result.get("data", []):
+        if row.get("period") not in (None, "lifetime"):
+            continue
         values = row.get("values", [])
         if values:
             metrics[row["name"]] = values[-1].get("value")
