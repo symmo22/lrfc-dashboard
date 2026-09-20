@@ -37,7 +37,7 @@ CREST_B64_FILE = Path(__file__).resolve().parent / "crest_b64.txt"
 # over - it's currently missing on purpose rather than guessed.
 HISTORICAL_ANCHORS = {
     "facebook": {"date": "2025-08-01", "count": 1800, "approx": True},
-    # "instagram": {"date": "YYYY-MM-DD", "count": 1043, "approx": False},
+    "instagram": {"date": "2025-08-01", "count": 1043, "approx": False},
 }
 
 BRAND = {
