@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Run ingestion
+      - name: Run account-level ingestion
         env:
           META_SYSTEM_USER_TOKEN: ${{ secrets.META_SYSTEM_USER_TOKEN }}
           META_APP_SECRET: ${{ secrets.META_APP_SECRET }}
@@ -31,6 +31,14 @@ jobs:
           HEARTBEAT_URL: ${{ secrets.HEARTBEAT_URL }}
         run: python scripts/ingest.py
 
+      - name: Run post-level ingestion
+        env:
+          META_SYSTEM_USER_TOKEN: ${{ secrets.META_SYSTEM_USER_TOKEN }}
+          META_APP_SECRET: ${{ secrets.META_APP_SECRET }}
+          META_PAGE_ID: ${{ secrets.META_PAGE_ID }}
+          META_IG_USER_ID: ${{ secrets.META_IG_USER_ID }}
+        run: python scripts/ingest_posts.py
+
       - name: Regenerate static site
         run: python scripts/render_site.py
 
@@ -38,6 +46,6 @@ jobs:
         run: |
           git config user.name "lrfc-dashboard-bot"
           git config user.email "actions@github.com"
-          git add data/account_snapshots.json docs/index.html
+          git add data/account_snapshots.json data/posts.json docs/index.html
           git diff --cached --quiet || git commit -m "Daily snapshot: $(date -u +'%Y-%m-%d')"
           git push
