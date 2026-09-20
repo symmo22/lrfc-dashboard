@@ -11,7 +11,7 @@
   },
   "facebook:2026-09-20": {
     "date": "2026-09-20",
-    "fetched_at": "2026-09-20T15:20:59.954269+00:00",
+    "fetched_at": "2026-09-20T15:41:55.392551+00:00",
     "metrics": {
       "fan_count": 2174,
       "page_media_view": 3126,
@@ -31,11 +31,11 @@
   },
   "instagram:2026-09-20": {
     "date": "2026-09-20",
-    "fetched_at": "2026-09-20T15:21:01.455921+00:00",
+    "fetched_at": "2026-09-20T15:41:57.000874+00:00",
     "metrics": {
       "followers_count": 1454,
-      "reach": 2164,
-      "views": 8242
+      "reach": 2225,
+      "views": 8361
     },
     "platform": "instagram"
   }

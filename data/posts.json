@@ -1950,7 +1950,7 @@
     "snapshots": {
       "2026-09-20": {
         "post_media_view": 6047,
-        "post_total_media_view_unique": 4331
+        "post_total_media_view_unique": 4332
       }
     },
     "static_metrics": {
@@ -2026,7 +2026,7 @@
     "static_metrics": {
       "comments": 0,
       "reactions": 11,
-      "shares": 1
+      "shares": 0
     }
   },
   "facebook:1643647319253798_1631022118961070": {
@@ -2110,7 +2110,7 @@
     "snapshots": {
       "2026-09-20": {
         "post_media_view": 1396,
-        "post_total_media_view_unique": 881
+        "post_total_media_view_unique": 895
       }
     },
     "static_metrics": {
@@ -2135,13 +2135,38 @@
     "snapshots": {
       "2026-09-20": {
         "post_media_view": 866,
-        "post_total_media_view_unique": 540
+        "post_total_media_view_unique": 593
       }
     },
     "static_metrics": {
       "comments": 0,
       "reactions": 13,
       "shares": 1
+    }
+  },
+  "facebook:1643647319253798_1633756802020935": {
+    "caption": "Vets fixtures are here \ud83c\udfc9 and the knees have been consulted\u2026\n\nOld rivalries reignited this season: Stratford, Shipston on Stour and Old Leamingtonians all back on the card. The tape cupboard\u2019s fully stocked and ready. \ud83d\udc99\u2764\ufe0f\ud83d\udc9b\n\n#LeamingtonRFC #OneClubOneLeam #VetsRugby #RugbyFamily #MidlandsRugby",
+    "caption_length": 292,
+    "caption_length_bucket": "100_to_300",
+    "day_of_week": "Sunday",
+    "format": "image",
+    "hashtag_bucket": "4_to_8",
+    "hashtag_count": 5,
+    "hour_local": 16,
+    "permalink": "https://www.facebook.com/1633445288718753/posts/1633756802020935",
+    "platform": "facebook",
+    "post_id": "1643647319253798_1633756802020935",
+    "published_at": "2026-09-20T15:41:14+0000",
+    "snapshots": {
+      "2026-09-20": {
+        "post_media_view": 0,
+        "post_total_media_view_unique": 0
+      }
+    },
+    "static_metrics": {
+      "comments": 0,
+      "reactions": 0,
+      "shares": 0
     }
   },
   "instagram:17852629599689466": {
@@ -2349,16 +2374,16 @@
     "published_at": "2026-09-20T08:30:56+0000",
     "snapshots": {
       "2026-09-20": {
-        "reach": 747,
+        "reach": 803,
         "saved": 0,
         "shares": 1,
-        "total_interactions": 79,
-        "views": 1895
+        "total_interactions": 84,
+        "views": 1965
       }
     },
     "static_metrics": {
       "comments": 0,
-      "likes": 74
+      "likes": 78
     }
   },
   "instagram:17893788324303581": {
@@ -2557,6 +2582,33 @@
     "static_metrics": {
       "comments": 0,
       "likes": 14
+    }
+  },
+  "instagram:17950106901272822": {
+    "caption": "Vets fixtures are here \ud83c\udfc9 and the knees have been consulted\u2026\n\nOld rivalries reignited this season: Stratford, Shipston on Stour and Old Leamingtonians all back on the card. The tape cupboard\u2019s fully stocked and ready. \ud83d\udc99\u2764\ufe0f\ud83d\udc9b\n\n#LeamingtonRFC #OneClubOneLeam #VetsRugby #RugbyFamily #MidlandsRugby",
+    "caption_length": 292,
+    "caption_length_bucket": "100_to_300",
+    "day_of_week": "Sunday",
+    "format": "image",
+    "hashtag_bucket": "4_to_8",
+    "hashtag_count": 5,
+    "hour_local": 16,
+    "permalink": "https://www.instagram.com/p/Ddg7HVTi-JV/",
+    "platform": "instagram",
+    "post_id": "17950106901272822",
+    "published_at": "2026-09-20T15:41:03+0000",
+    "snapshots": {
+      "2026-09-20": {
+        "reach": 0,
+        "saved": 0,
+        "shares": 0,
+        "total_interactions": 2,
+        "views": 9
+      }
+    },
+    "static_metrics": {
+      "comments": 0,
+      "likes": 1
     }
   },
   "instagram:17954242815175532": {
@@ -3357,7 +3409,7 @@
         "saved": 2,
         "shares": 2,
         "total_interactions": 63,
-        "views": 1384
+        "views": 1387
       }
     },
     "static_metrics": {
@@ -3502,11 +3554,11 @@
     "published_at": "2026-09-19T16:55:44+0000",
     "snapshots": {
       "2026-09-20": {
-        "reach": 1495,
+        "reach": 1510,
         "saved": 0,
         "shares": 3,
         "total_interactions": 78,
-        "views": 3061
+        "views": 3082
       }
     },
     "static_metrics": {
