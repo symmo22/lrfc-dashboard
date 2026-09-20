@@ -40,7 +40,7 @@ from graph import (  # noqa: E402
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 POSTS_FILE = DATA_DIR / "posts.json"
-LOOKBACK_DAYS = 35
+LOOKBACK_DAYS = 180
 LONDON = ZoneInfo("Europe/London")
 
 HASHTAG_RE = re.compile(r"#\w+")
@@ -125,8 +125,8 @@ def list_facebook_posts(page_id, page_token, app_secret, cutoff_date):
     fields = (
         "id,message,created_time,permalink_url,"
         "attachments{media_type,subattachments{media_type}},"
-        "reactions.summary(true).total_count,"
-        "comments.summary(true).total_count,"
+        "reactions.summary(true),"
+        "comments.summary(true),"
         "shares"
     )
     result = graph_get(
