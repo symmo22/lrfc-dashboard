@@ -1,0 +1,133 @@
+{
+  "facebook": {
+    "current": {
+      "reach_28d": 40218,
+      "views": 100377
+    },
+    "prior": {
+      "reach_28d": 16269,
+      "views": 55211
+    }
+  },
+  "generated_at": "2026-09-21T19:54:29.873134+00:00",
+  "instagram": {
+    "current": {
+      "accounts_engaged": 759,
+      "comments": 9,
+      "likes": 1572,
+      "reach": 12535,
+      "saves": 18,
+      "shares": 67,
+      "total_interactions": 1767,
+      "views": 69198
+    },
+    "demographics": {
+      "age": {
+        "timeframe": "this_month",
+        "values": {
+          "13-17": 42,
+          "18-24": 253,
+          "25-34": 455,
+          "35-44": 341,
+          "45-54": 212,
+          "55-64": 102,
+          "65+": 33
+        }
+      },
+      "city": {
+        "timeframe": "this_month",
+        "values": {
+          "Alcester, England": 5,
+          "Baginton, England": 3,
+          "Banbury, England": 6,
+          "Bedworth, England": 5,
+          "Berkswell, England": 3,
+          "Birmingham, England": 30,
+          "Brandon, England": 6,
+          "Bristol, England": 9,
+          "Bubbenhall, England": 7,
+          "Cardiff, Wales": 4,
+          "Coventry, England": 84,
+          "Daventry, England": 7,
+          "Evesham, England": 7,
+          "Henley in Arden, England": 4,
+          "Hereford, England": 5,
+          "Hinckley, England": 9,
+          "Kenilworth, England": 75,
+          "Leamington Spa, England": 327,
+          "Liverpool, England": 3,
+          "London, England": 39,
+          "Loughborough, England": 4,
+          "Madrid, Comunidad de Madrid": 8,
+          "Melbourne, Victoria": 4,
+          "Meriden, England": 5,
+          "Northampton, England": 6,
+          "Nottingham, England": 3,
+          "Nuneaton, England": 13,
+          "Oxford, England": 3,
+          "Redditch, England": 4,
+          "Rugby, England": 39,
+          "Sialkot, Punjab": 29,
+          "Solihull, England": 13,
+          "Southam, England": 40,
+          "Stockport, England": 4,
+          "Stoke-on-Trent, England": 3,
+          "Stoneleigh, England": 9,
+          "Stratford-upon-Avon, England": 27,
+          "Sydney, New South Wales": 14,
+          "Warrington, England": 3,
+          "Warwick, England": 207,
+          "West Bridgford, England": 3,
+          "Woking, England": 4,
+          "Wolston, England": 4,
+          "Wolverhampton, England": 3,
+          "Worcester, England": 8
+        }
+      },
+      "gender": {
+        "timeframe": "this_month",
+        "values": {
+          "F": 364,
+          "M": 691,
+          "U": 383
+        }
+      }
+    },
+    "follows": {
+      "FOLLOWER": 51,
+      "NON_FOLLOWER": 10
+    },
+    "prior": {
+      "accounts_engaged": 264,
+      "comments": 2,
+      "likes": 502,
+      "reach": 4349,
+      "saves": 3,
+      "shares": 30,
+      "total_interactions": 584,
+      "views": 25942
+    },
+    "views_by_follower_type": null,
+    "views_by_product_type": {
+      "AD": 2530,
+      "CAROUSEL_CONTAINER": 16518,
+      "POST": 22580,
+      "REEL": 16843,
+      "STORY": 10727
+    }
+  },
+  "notes": [
+    "Instagram views by follower type: Non-retryable error (100): (#100) breakdown[0] must be one of the following values: country, city, age, gender, follow_type, media_product_type, contact_button_type"
+  ],
+  "window": {
+    "current": [
+      "2026-08-22",
+      "2026-09-21"
+    ],
+    "prior": [
+      "2026-07-23",
+      "2026-08-22"
+    ]
+  },
+  "window_days": 30
+}
