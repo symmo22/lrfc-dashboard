@@ -2,17 +2,27 @@ name: Daily insights ingest
 
 on:
   schedule:
-    # 06:17 UTC — a few minutes past the hour on purpose, since load-related
-    # delays on GitHub's scheduler cluster around the top of the hour.
+    # 06:17 UTC, a few minutes past the hour on purpose: GitHub's scheduler
+    # delays cluster around the top of the hour.
     - cron: "17 6 * * *"
-  workflow_dispatch: {}  # lets you trigger a run manually from the Actions tab
+  workflow_dispatch: {}  # manual "Run workflow" button in the Actions tab
 
 permissions:
-  contents: write  # needed to commit the updated data and site back to the repo
+  contents: write  # needed to commit the updated data and site back
+
+# A manual run and the scheduled run must never push at the same time.
+concurrency:
+  group: daily-ingest
+  cancel-in-progress: false
 
 jobs:
   ingest:
     runs-on: ubuntu-latest
+    env:
+      META_SYSTEM_USER_TOKEN: ${{ secrets.META_SYSTEM_USER_TOKEN }}
+      META_APP_SECRET: ${{ secrets.META_APP_SECRET }}
+      META_PAGE_ID: ${{ secrets.META_PAGE_ID }}
+      META_IG_USER_ID: ${{ secrets.META_IG_USER_ID }}
     steps:
       - name: Check out repo
         uses: actions/checkout@v4
@@ -23,21 +33,17 @@ jobs:
           python-version: "3.12"
 
       - name: Run account-level ingestion
-        env:
-          META_SYSTEM_USER_TOKEN: ${{ secrets.META_SYSTEM_USER_TOKEN }}
-          META_APP_SECRET: ${{ secrets.META_APP_SECRET }}
-          META_PAGE_ID: ${{ secrets.META_PAGE_ID }}
-          META_IG_USER_ID: ${{ secrets.META_IG_USER_ID }}
-          HEARTBEAT_URL: ${{ secrets.HEARTBEAT_URL }}
         run: python scripts/ingest.py
 
       - name: Run post-level ingestion
-        env:
-          META_SYSTEM_USER_TOKEN: ${{ secrets.META_SYSTEM_USER_TOKEN }}
-          META_APP_SECRET: ${{ secrets.META_APP_SECRET }}
-          META_PAGE_ID: ${{ secrets.META_PAGE_ID }}
-          META_IG_USER_ID: ${{ secrets.META_IG_USER_ID }}
         run: python scripts/ingest_posts.py
+
+      # Optional panels (30-day totals, audience, breakdowns). If Meta
+      # rejects anything here the dashboard shows a note on that panel and
+      # the rest of the run carries on.
+      - name: Run insights ingestion
+        continue-on-error: true
+        run: python scripts/ingest_insights.py
 
       - name: Regenerate static site
         run: python scripts/render_site.py
@@ -46,6 +52,20 @@ jobs:
         run: |
           git config user.name "lrfc-dashboard-bot"
           git config user.email "actions@github.com"
-          git add data/account_snapshots.json data/posts.json docs/index.html
+          git add data docs
           git diff --cached --quiet || git commit -m "Daily snapshot: $(date -u +'%Y-%m-%d')"
           git push
+
+      # Last step on purpose: healthchecks.io only hears from us when the
+      # whole run, including the site rebuild and commit, has succeeded.
+      - name: Ping heartbeat
+        if: success()
+        env:
+          HEARTBEAT_URL: ${{ secrets.HEARTBEAT_URL }}
+        run: |
+          if [ -n "$HEARTBEAT_URL" ]; then
+            curl -fsS -m 10 --retry 3 "$HEARTBEAT_URL" > /dev/null
+            echo "Heartbeat sent"
+          else
+            echo "No HEARTBEAT_URL secret set, skipping"
+          fi
