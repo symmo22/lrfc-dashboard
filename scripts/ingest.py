@@ -13,8 +13,8 @@ Required environment variables (set as GitHub Actions secrets):
   META_PAGE_ID
   META_IG_USER_ID
 
-Optional:
-  HEARTBEAT_URL   - pinged on success. Leave unset and this step is skipped.
+The heartbeat ping lives in the workflow as its final step, so it only
+fires once the whole run (ingest, site rebuild, commit) has succeeded.
 """
 
 import json
@@ -30,7 +30,6 @@ from graph import (  # noqa: E402
     env,
     get_page_token,
     graph_get,
-    ping_heartbeat,
 )
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"

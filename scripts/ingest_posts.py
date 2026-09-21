@@ -123,7 +123,7 @@ def facebook_format(item):
 
 def list_facebook_posts(page_id, page_token, app_secret, cutoff_date):
     fields = (
-        "id,message,created_time,permalink_url,"
+        "id,message,created_time,permalink_url,full_picture,"
         "attachments{media_type,subattachments{media_type}},"
         "reactions.summary(true),"
         "comments.summary(true),"
@@ -180,6 +180,10 @@ def build_facebook_record(item):
         "published_at": item["created_time"],
         "format": facebook_format(item),
         "caption": item.get("message", ""),
+        # Meta's image URLs are signed and expire after a few days. Every
+        # post inside LOOKBACK_DAYS is re-listed each run, so the stored URL
+        # is refreshed daily; the dashboard hides any that have lapsed.
+        "image": item.get("full_picture"),
         **derive_cuts(item.get("message", ""), item["created_time"]),
         "static_metrics": {
             "reactions": item.get("reactions", {}).get("summary", {}).get("total_count"),
@@ -208,7 +212,10 @@ def instagram_format(item):
 
 
 def list_instagram_media(ig_id, token, app_secret, cutoff_date):
-    fields = "id,caption,media_type,media_product_type,timestamp,permalink,like_count,comments_count"
+    fields = (
+        "id,caption,media_type,media_product_type,timestamp,permalink,"
+        "like_count,comments_count,media_url,thumbnail_url"
+    )
     result = graph_get(f"{ig_id}/media", token, app_secret, {"fields": fields, "limit": 25})
     items = []
     while True:
@@ -258,6 +265,9 @@ def build_instagram_record(item):
         "published_at": item["timestamp"],
         "format": instagram_format(item),
         "caption": caption,
+        # thumbnail_url first: for videos and Reels media_url is the video
+        # file itself, not a picture.
+        "image": item.get("thumbnail_url") or item.get("media_url"),
         **derive_cuts(caption, item["timestamp"]),
         "static_metrics": {
             "likes": item.get("like_count"),
