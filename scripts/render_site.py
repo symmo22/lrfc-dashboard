@@ -19,6 +19,7 @@ measured, day by day, since the pipeline went live.
 """
 
 import json
+import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -47,6 +48,82 @@ BRAND = {
     "green": "#60AC3F",
     "white": "#ffffff",
 }
+
+# Club Section classification, derived from the caption text alone - no
+# Notion, no manual tagging, works retroactively on every post. Verified
+# against the real Notion Socials Planner taxonomy on 2026-09-21 (fetched
+# directly, not assumed): Men's 1st XV, Men's Lions (2nd XV), Colts (U18),
+# Women's, Juniors - Boys, Juniors - Girls, Minis, Mixed Ability, Touch
+# Rugby, Walking Rugby, Whole Club. "Vets" was an earlier guess and isn't
+# actually one of Mark's categories - removed. "Mixed Ability" was missing
+# entirely - added. Order matters: more specific terms are checked before
+# generic ones.
+SECTION_KEYWORDS = [
+    ("Men's Lions (2nd XV)", ["2nd xv", "lions"]),
+    ("Men's 1st XV", ["1st xv", "first xv", "1sts"]),
+    ("Colts (U18)", ["colts"]),
+    ("Women's", ["women's", "womens", "ladies"]),
+    ("Mixed Ability", ["mixed ability"]),
+    ("Juniors Girls", ["juniors girls", "girls u1", "u12 girls", "u14 girls", "u16 girls"]),
+    ("Juniors Boys", ["juniors boys", "boys u1", "u12 boys", "u14 boys", "u16 boys"]),
+    ("Minis", ["minis"]),
+    ("Walking Rugby", ["walking rugby"]),
+    ("Touch Rugby", ["touch rugby", "tag rugby"]),
+]
+
+
+def classify_section(caption):
+    """Best-effort only. A post that matches nothing is Unclassified, not
+    silently folded into Whole Club - Whole Club is a real category (e.g.
+    centenary or community posts), not a fallback label for "couldn't
+    tell". Matches the brief's own rule: report failures honestly, never
+    let them block the rest of the summary."""
+    text = (caption or "").lower()
+    for section, keywords in SECTION_KEYWORDS:
+        if any(kw in text for kw in keywords):
+            return section
+    whole_club_markers = ["one club", "one leam", "centenary", "100 years", "whole club"]
+    if any(kw in text for kw in whole_club_markers):
+        return "Whole Club"
+    return "Unclassified"
+
+
+# Content theme classification, the secondary lens Mark asked for. The six
+# values are the exact "Category" options from the real Notion Socials
+# Planner (fetched 2026-09-21), used here as a reference taxonomy only -
+# nothing is read from Notion at run time. Weaker confidence than Section:
+# theme is inherently fuzzier than "does the caption say Colts", so this
+# leans conservative and falls to Unclassified rather than forcing a guess.
+CATEGORY_KEYWORDS = [
+    ("Core Rugby", ["match report", "final score", "kick off", "kick-off", "fixtures",
+                     "full time", "ft:", "preview", " v ", "final whistle"]),
+    ("Behind The Scrums", ["training", "coach", "volunteer", "committee", "pitch",
+                            "clubhouse", "groundwork", "behind the scenes"]),
+    ("Events & Promotions", ["sponsor", "fundraiser", "tickets", "join us", "sign up",
+                              "sign-up", "taster", "registration", "open day"]),
+    ("Engagement & Entertainment", ["poll", "quiz", "caption this", "guess", "vote for"]),
+    ("Values & Culture", ["one club", "one leam", "community", "inclusion", "inclusive",
+                           "mental health", "we are community"]),
+    ("Visuals & Evergreen", ["tbt", "throwback", "on this day", "founded", "history",
+                              "centenary", "100 years", "anniversary"]),
+]
+
+
+CATEGORY_YEAR_PATTERN = re.compile(r"\b(19\d{2}|20[01]\d)\b")
+
+
+def classify_category(caption):
+    text = (caption or "").lower()
+    for category, keywords in CATEGORY_KEYWORDS:
+        if any(kw in text for kw in keywords):
+            return category
+    # A caption mentioning an old year (pre-2020) with no other theme match
+    # is very likely a historical/evergreen post even without saying "TBT"
+    # outright - confirmed by a real caption tonight ("122-0. March 1980...")
+    # that had no keyword match otherwise.
+    if CATEGORY_YEAR_PATTERN.search(text):
+        return "Visuals & Evergreen"
+    return "Unclassified"
 
 
 def load_json(path):
@@ -172,6 +249,77 @@ def post_engagement_rate(record):
     return None if interactions is None else round(100 * interactions / reach, 1)
 
 
+PERIOD_DAYS = 28
+
+
+def posts_in_window(posts, end_date, days):
+    start_date = end_date.fromordinal(end_date.toordinal() - days)
+    result = []
+    for p in posts.values():
+        published = datetime.fromisoformat(p["published_at"].replace("Z", "+00:00")).date()
+        if start_date <= published < end_date:
+            result.append(p)
+    return result
+
+
+def window_totals(window_posts):
+    reach_total = sum(post_reach(p) for p in window_posts)
+    views_total = sum(post_views(p) for p in window_posts)
+    rates = [r for r in (post_engagement_rate(p) for p in window_posts) if r is not None]
+    avg_rate = round(sum(rates) / len(rates), 1) if rates else None
+    return {"count": len(window_posts), "reach": reach_total, "views": views_total, "avg_rate": avg_rate}
+
+
+def period_delta(current, previous, key):
+    if previous[key] in (None, 0) or current[key] is None:
+        return ""
+    diff = current[key] - previous[key]
+    pct = round(100 * diff / previous[key]) if previous[key] else None
+    if diff == 0 or pct == 0:
+        return "<span class='delta flat'>flat vs prior period</span>"
+    arrow = "▲" if diff > 0 else "▼"
+    cls = "up" if diff > 0 else "down"
+    sign = "+" if pct and pct > 0 else ""
+    return f"<span class='delta {cls}'>{arrow} {sign}{pct}% vs prior {PERIOD_DAYS} days</span>"
+
+
+def coverage_by(window_posts, classify_fn):
+    grouped = {}
+    for p in window_posts:
+        key = classify_fn(p.get("caption"))
+        grouped.setdefault(key, []).append(p)
+
+    rows = []
+    for key, group_posts in grouped.items():
+        reaches = [post_reach(p) for p in group_posts]
+        rates = [r for r in (post_engagement_rate(p) for p in group_posts) if r is not None]
+        rows.append({
+            "section": key,
+            "count": len(group_posts),
+            "avg_reach": round(sum(reaches) / len(reaches)) if reaches else 0,
+            "avg_rate": round(sum(rates) / len(rates), 1) if rates else None,
+        })
+    return sorted(rows, key=lambda r: r["count"], reverse=True)
+
+
+def coverage_table_html(rows, total_posts, label="Section"):
+    if not rows:
+        return "<p class='muted'>No posts in this period yet.</p>"
+    body = ""
+    for r in rows:
+        share = round(100 * r["count"] / total_posts) if total_posts else 0
+        rate_str = f"{r['avg_rate']}%" if r["avg_rate"] is not None else "—"
+        flag = " class='unclassified'" if r["section"] == "Unclassified" else ""
+        body += (
+            f"<tr{flag}><td>{r['section']}</td><td>{r['count']}</td><td>{share}%</td>"
+            f"<td>{r['avg_reach']:,}</td><td>{rate_str}</td></tr>"
+        )
+    return f"""<table>
+    <thead><tr><th>{label}</th><th>Posts</th><th>Share</th><th>Avg reach</th><th>Avg eng. rate</th></tr></thead>
+    <tbody>{body}</tbody>
+  </table>"""
+
+
 def fmt(value):
     return "—" if value is None else value
 
@@ -216,6 +364,16 @@ def render(account_snapshots, posts, crest_b64):
     has_growth_history = len(growth_dates) > 1
     has_top_posts = len(top_labels) > 0
     tracking_since = growth_dates[0] if growth_dates else generated_at
+
+    today = datetime.now(timezone.utc).date()
+    current_window = posts_in_window(posts, today, PERIOD_DAYS)
+    prior_window = posts_in_window(
+        posts, today.fromordinal(today.toordinal() - PERIOD_DAYS), PERIOD_DAYS
+    )
+    current_totals = window_totals(current_window)
+    prior_totals = window_totals(prior_window)
+    section_rows = coverage_by(current_window, classify_section)
+    category_rows = coverage_by(current_window, classify_category)
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -270,6 +428,7 @@ def render(account_snapshots, posts, crest_b64):
   th {{ background: var(--blue); color: white; text-align: left; padding: 0.5rem; font-weight: 700; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.03em; }}
   td {{ text-align: left; padding: 0.45rem 0.5rem; border-bottom: 1px solid rgba(128,128,128,0.2); white-space: nowrap; }}
   tbody tr:nth-child(even) {{ background: var(--card-bg); }}
+  tr.unclassified {{ font-style: italic; color: var(--muted); }}
   .table-wrap {{ overflow-x: auto; border-radius: 10px; }}
   a {{ color: var(--blue); }}
   footer {{ margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(128,128,128,0.25); display: flex; align-items: center; gap: 0.8rem; }}
@@ -290,6 +449,37 @@ def render(account_snapshots, posts, crest_b64):
   <div class="hero-row">
     {platform_hero(account_snapshots, 'facebook', 'Facebook', BRAND['blue'])}
     {platform_hero(account_snapshots, 'instagram', 'Instagram', BRAND['red'])}
+  </div>
+
+  <h2>Last {PERIOD_DAYS} days</h2>
+  <div class="hero-row">
+    <div class="hero-card" style="border-top-color:{BRAND['yellow']}">
+      <h3>Posts published</h3>
+      <div class="hero-number">{current_totals['count']}</div>
+      <div class="hero-label">{period_delta(current_totals, prior_totals, 'count')}</div>
+    </div>
+    <div class="hero-card" style="border-top-color:{BRAND['yellow']}">
+      <h3>Total reach</h3>
+      <div class="hero-number">{current_totals['reach']:,}</div>
+      <div class="hero-label">{period_delta(current_totals, prior_totals, 'reach')}</div>
+    </div>
+    <div class="hero-card" style="border-top-color:{BRAND['yellow']}">
+      <h3>Avg. engagement rate</h3>
+      <div class="hero-number">{f"{current_totals['avg_rate']}%" if current_totals['avg_rate'] is not None else "—"}</div>
+      <div class="hero-label">{period_delta(current_totals, prior_totals, 'avg_rate')}</div>
+    </div>
+  </div>
+
+  <h2>Coverage by section, last {PERIOD_DAYS} days</h2>
+  <p class="muted">Section is worked out from each caption automatically - not from any manual tag. "Unclassified" means the caption didn't mention a section clearly, not that anything's broken.</p>
+  <div class="table-wrap">
+    {coverage_table_html(section_rows, current_totals['count'], 'Section')}
+  </div>
+
+  <h2>Coverage by content theme, last {PERIOD_DAYS} days</h2>
+  <p class="muted">Same idea, a different lens - what kind of post it is (match content, behind the scenes, community, etc.), also worked out from the caption. This one's a softer read than Section - theme is fuzzier to detect, so a higher Unclassified share here is expected.</p>
+  <div class="table-wrap">
+    {coverage_table_html(category_rows, current_totals['count'], 'Category')}
   </div>
 
   <h2>Follower growth</h2>
