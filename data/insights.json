@@ -1,25 +1,25 @@
 {
   "facebook": {
     "current": {
-      "reach_28d": 40218,
-      "views": 100377
+      "reach_28d": 40981,
+      "views": 103404
     },
     "prior": {
-      "reach_28d": 16269,
-      "views": 55211
+      "reach_28d": 15950,
+      "views": 54165
     }
   },
-  "generated_at": "2026-09-21T19:54:29.873134+00:00",
+  "generated_at": "2026-09-22T11:36:49.181310+00:00",
   "instagram": {
     "current": {
-      "accounts_engaged": 759,
-      "comments": 9,
-      "likes": 1572,
-      "reach": 12535,
+      "accounts_engaged": 773,
+      "comments": 10,
+      "likes": 1595,
+      "reach": 12797,
       "saves": 18,
-      "shares": 67,
-      "total_interactions": 1767,
-      "views": 69198
+      "shares": 68,
+      "total_interactions": 1795,
+      "views": 70159
     },
     "demographics": {
       "age": {
@@ -98,22 +98,22 @@
       "NON_FOLLOWER": 10
     },
     "prior": {
-      "accounts_engaged": 264,
+      "accounts_engaged": 268,
       "comments": 2,
-      "likes": 502,
-      "reach": 4349,
+      "likes": 508,
+      "reach": 4382,
       "saves": 3,
       "shares": 30,
-      "total_interactions": 584,
-      "views": 25942
+      "total_interactions": 590,
+      "views": 26121
     },
     "views_by_follower_type": null,
     "views_by_product_type": {
-      "AD": 2530,
-      "CAROUSEL_CONTAINER": 16518,
-      "POST": 22580,
-      "REEL": 16843,
-      "STORY": 10727
+      "AD": 2665,
+      "CAROUSEL_CONTAINER": 16628,
+      "POST": 23107,
+      "REEL": 16951,
+      "STORY": 10808
     }
   },
   "notes": [
@@ -121,12 +121,12 @@
   ],
   "window": {
     "current": [
-      "2026-08-22",
-      "2026-09-21"
+      "2026-08-23",
+      "2026-09-22"
     ],
     "prior": [
-      "2026-07-23",
-      "2026-08-22"
+      "2026-07-24",
+      "2026-08-23"
     ]
   },
   "window_days": 30
