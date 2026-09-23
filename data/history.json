@@ -1,0 +1,4958 @@
+{
+ "daily": {
+  "facebook": {
+   "2024-09-24": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 684
+   },
+   "2024-09-25": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 410
+   },
+   "2024-09-26": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 362
+   },
+   "2024-09-27": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 1081
+   },
+   "2024-09-28": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1885
+   },
+   "2024-09-29": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 2544
+   },
+   "2024-09-30": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1144
+   },
+   "2024-10-01": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 2144
+   },
+   "2024-10-02": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 2383
+   },
+   "2024-10-03": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 845
+   },
+   "2024-10-04": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1893
+   },
+   "2024-10-05": {
+    "follows": 3,
+    "unfollows": 2,
+    "viewers": 0,
+    "views": 4147
+   },
+   "2024-10-06": {
+    "follows": 4,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 7087
+   },
+   "2024-10-07": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 2192
+   },
+   "2024-10-08": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 972
+   },
+   "2024-10-09": {
+    "follows": 3,
+    "unfollows": 2,
+    "viewers": 0,
+    "views": 3081
+   },
+   "2024-10-10": {
+    "follows": 0,
+    "unfollows": 3,
+    "viewers": 0,
+    "views": 2859
+   },
+   "2024-10-11": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 3920
+   },
+   "2024-10-12": {
+    "follows": 5,
+    "unfollows": 2,
+    "viewers": 0,
+    "views": 3149
+   },
+   "2024-10-13": {
+    "follows": 4,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 5691
+   },
+   "2024-10-14": {
+    "follows": 3,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 4295
+   },
+   "2024-10-15": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 2133
+   },
+   "2024-10-16": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 2161
+   },
+   "2024-10-17": {
+    "follows": 2,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 1816
+   },
+   "2024-10-18": {
+    "follows": 3,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 3620
+   },
+   "2024-10-19": {
+    "follows": 4,
+    "unfollows": 2,
+    "viewers": 0,
+    "views": 5633
+   },
+   "2024-10-20": {
+    "follows": 4,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 7401
+   },
+   "2024-10-21": {
+    "follows": 5,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 5748
+   },
+   "2024-10-22": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 2474
+   },
+   "2024-10-23": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 2066
+   },
+   "2024-10-24": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1775
+   },
+   "2024-10-25": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1722
+   },
+   "2024-10-26": {
+    "follows": 4,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 5718
+   },
+   "2024-10-27": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 4500
+   },
+   "2024-10-28": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 4139
+   },
+   "2024-10-29": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 3126
+   },
+   "2024-10-30": {
+    "follows": 3,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 9346
+   },
+   "2024-10-31": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 3608
+   },
+   "2024-11-01": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 3048
+   },
+   "2024-11-02": {
+    "follows": 5,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 4945
+   },
+   "2024-11-03": {
+    "follows": 3,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 4651
+   },
+   "2024-11-04": {
+    "follows": 8,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 14048
+   },
+   "2024-11-05": {
+    "follows": 11,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 11521
+   },
+   "2024-11-06": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 755
+   },
+   "2024-11-07": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 419
+   },
+   "2024-11-08": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 491
+   },
+   "2024-11-09": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1467
+   },
+   "2024-11-10": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 391
+   },
+   "2024-11-11": {
+    "follows": 2,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 1276
+   },
+   "2024-11-12": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 330
+   },
+   "2024-11-13": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 970
+   },
+   "2024-11-14": {
+    "follows": 3,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 774
+   },
+   "2024-11-15": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 2133
+   },
+   "2024-11-16": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1463
+   },
+   "2024-11-17": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1246
+   },
+   "2024-11-18": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1384
+   },
+   "2024-11-19": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 2146
+   },
+   "2024-11-20": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 831
+   },
+   "2024-11-21": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 534
+   },
+   "2024-11-22": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 347
+   },
+   "2024-11-23": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 574
+   },
+   "2024-11-24": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1714
+   },
+   "2024-11-25": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 458
+   },
+   "2024-11-26": {
+    "follows": 0,
+    "unfollows": 3,
+    "viewers": 0,
+    "views": 584
+   },
+   "2024-11-27": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 521
+   },
+   "2024-11-28": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 381
+   },
+   "2024-11-29": {
+    "follows": 3,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 648
+   },
+   "2024-11-30": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 3577
+   },
+   "2024-12-01": {
+    "follows": 1,
+    "unfollows": 3,
+    "viewers": 0,
+    "views": 2681
+   },
+   "2024-12-02": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 1970
+   },
+   "2024-12-03": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 628
+   },
+   "2024-12-04": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 909
+   },
+   "2024-12-05": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 551
+   },
+   "2024-12-06": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1252
+   },
+   "2024-12-07": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 3460
+   },
+   "2024-12-08": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 1636
+   },
+   "2024-12-09": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1180
+   },
+   "2024-12-10": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 603
+   },
+   "2024-12-11": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 450
+   },
+   "2024-12-12": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 328
+   },
+   "2024-12-13": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 655
+   },
+   "2024-12-14": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 1571
+   },
+   "2024-12-15": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 991
+   },
+   "2024-12-16": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 1106
+   },
+   "2024-12-17": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 411
+   },
+   "2024-12-18": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 256
+   },
+   "2024-12-19": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 214
+   },
+   "2024-12-20": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 405
+   },
+   "2024-12-21": {
+    "follows": 3,
+    "unfollows": 3,
+    "viewers": 0,
+    "views": 1435
+   },
+   "2024-12-22": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 607
+   },
+   "2024-12-23": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 618
+   },
+   "2024-12-24": {
+    "follows": 2,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 839
+   },
+   "2024-12-25": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 194
+   },
+   "2024-12-26": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 173
+   },
+   "2024-12-27": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 240
+   },
+   "2024-12-28": {
+    "follows": 2,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 144
+   },
+   "2024-12-29": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 903
+   },
+   "2024-12-30": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 259
+   },
+   "2024-12-31": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 188
+   },
+   "2025-01-01": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 159
+   },
+   "2025-01-02": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 276
+   },
+   "2025-01-03": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1790
+   },
+   "2025-01-04": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1958
+   },
+   "2025-01-05": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 898
+   },
+   "2025-01-06": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1071
+   },
+   "2025-01-07": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 306
+   },
+   "2025-01-08": {
+    "follows": 2,
+    "unfollows": 2,
+    "viewers": 0,
+    "views": 436
+   },
+   "2025-01-09": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 305
+   },
+   "2025-01-10": {
+    "follows": 2,
+    "unfollows": 2,
+    "viewers": 0,
+    "views": 319
+   },
+   "2025-01-11": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1025
+   },
+   "2025-01-12": {
+    "follows": 3,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 379
+   },
+   "2025-01-13": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 235
+   },
+   "2025-01-14": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 154
+   },
+   "2025-01-15": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 190
+   },
+   "2025-01-16": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 228
+   },
+   "2025-01-17": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 233
+   },
+   "2025-01-18": {
+    "follows": 2,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 2355
+   },
+   "2025-01-19": {
+    "follows": 3,
+    "unfollows": 2,
+    "viewers": 0,
+    "views": 627
+   },
+   "2025-01-20": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 372
+   },
+   "2025-01-21": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 335
+   },
+   "2025-01-22": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 1078
+   },
+   "2025-01-23": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 297
+   },
+   "2025-01-24": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 512
+   },
+   "2025-01-25": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 410
+   },
+   "2025-01-26": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 307
+   },
+   "2025-01-27": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 225
+   },
+   "2025-01-28": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1986
+   },
+   "2025-01-29": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 836
+   },
+   "2025-01-30": {
+    "follows": 2,
+    "unfollows": 3,
+    "viewers": 0,
+    "views": 330
+   },
+   "2025-01-31": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1378
+   },
+   "2025-02-01": {
+    "follows": 2,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 2095
+   },
+   "2025-02-02": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1145
+   },
+   "2025-02-03": {
+    "follows": 3,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1193
+   },
+   "2025-02-04": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1033
+   },
+   "2025-02-05": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 290
+   },
+   "2025-02-06": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 226
+   },
+   "2025-02-07": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 399
+   },
+   "2025-02-08": {
+    "follows": 4,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 2601
+   },
+   "2025-02-09": {
+    "follows": 3,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 910
+   },
+   "2025-02-10": {
+    "follows": 0,
+    "unfollows": 2,
+    "viewers": 0,
+    "views": 1207
+   },
+   "2025-02-11": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 458
+   },
+   "2025-02-12": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 230
+   },
+   "2025-02-13": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 206
+   },
+   "2025-02-14": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 212
+   },
+   "2025-02-15": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1713
+   },
+   "2025-02-16": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 623
+   },
+   "2025-02-17": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 242
+   },
+   "2025-02-18": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1135
+   },
+   "2025-02-19": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 417
+   },
+   "2025-02-20": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 295
+   },
+   "2025-02-21": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 146
+   },
+   "2025-02-22": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 261
+   },
+   "2025-02-23": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 214
+   },
+   "2025-02-24": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 239
+   },
+   "2025-02-25": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 465
+   },
+   "2025-02-26": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 146
+   },
+   "2025-02-27": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 99
+   },
+   "2025-02-28": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 232
+   },
+   "2025-03-01": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1169
+   },
+   "2025-03-02": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 331
+   },
+   "2025-03-03": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 686
+   },
+   "2025-03-04": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 425
+   },
+   "2025-03-05": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 386
+   },
+   "2025-03-06": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1882
+   },
+   "2025-03-07": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 587
+   },
+   "2025-03-08": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1198
+   },
+   "2025-03-09": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 491
+   },
+   "2025-03-10": {
+    "follows": 2,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 378
+   },
+   "2025-03-11": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 250
+   },
+   "2025-03-12": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 797
+   },
+   "2025-03-13": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 659
+   },
+   "2025-03-14": {
+    "follows": 2,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 555
+   },
+   "2025-03-15": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 580
+   },
+   "2025-03-16": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 371
+   },
+   "2025-03-17": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 378
+   },
+   "2025-03-18": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 124
+   },
+   "2025-03-19": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 81
+   },
+   "2025-03-20": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 74
+   },
+   "2025-03-21": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1053
+   },
+   "2025-03-22": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1250
+   },
+   "2025-03-23": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 2565
+   },
+   "2025-03-24": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1825
+   },
+   "2025-03-25": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 622
+   },
+   "2025-03-26": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 241
+   },
+   "2025-03-27": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 322
+   },
+   "2025-03-28": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 1241
+   },
+   "2025-03-29": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 456
+   },
+   "2025-03-30": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 257
+   },
+   "2025-03-31": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 125
+   },
+   "2025-04-01": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 291
+   },
+   "2025-04-02": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 191
+   },
+   "2025-04-03": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 569
+   },
+   "2025-04-04": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 281
+   },
+   "2025-04-05": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1316
+   },
+   "2025-04-06": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1417
+   },
+   "2025-04-07": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 654
+   },
+   "2025-04-08": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 704
+   },
+   "2025-04-09": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 461
+   },
+   "2025-04-10": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 284
+   },
+   "2025-04-11": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 232
+   },
+   "2025-04-12": {
+    "follows": 4,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 3388
+   },
+   "2025-04-13": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 941
+   },
+   "2025-04-14": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1161
+   },
+   "2025-04-15": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 331
+   },
+   "2025-04-16": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 197
+   },
+   "2025-04-17": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 260
+   },
+   "2025-04-18": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 301
+   },
+   "2025-04-19": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 195
+   },
+   "2025-04-20": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 236
+   },
+   "2025-04-21": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 110
+   },
+   "2025-04-22": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 135
+   },
+   "2025-04-23": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 87
+   },
+   "2025-04-24": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 133
+   },
+   "2025-04-25": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 136
+   },
+   "2025-04-26": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 191
+   },
+   "2025-04-27": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 116
+   },
+   "2025-04-28": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 0,
+    "views": 227
+   },
+   "2025-04-29": {
+    "follows": 3,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 1740
+   },
+   "2025-04-30": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 0,
+    "views": 3458
+   },
+   "2025-05-01": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1,
+    "views": 906
+   },
+   "2025-05-02": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 14,
+    "views": 602
+   },
+   "2025-05-03": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 11,
+    "views": 1955
+   },
+   "2025-05-04": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 12,
+    "views": 771
+   },
+   "2025-05-05": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 13,
+    "views": 473
+   },
+   "2025-05-06": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1273,
+    "views": 3157
+   },
+   "2025-05-07": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 665,
+    "views": 1270
+   },
+   "2025-05-08": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 313,
+    "views": 593
+   },
+   "2025-05-09": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 750,
+    "views": 1996
+   },
+   "2025-05-10": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 573,
+    "views": 1574
+   },
+   "2025-05-11": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 743,
+    "views": 2716
+   },
+   "2025-05-12": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 302,
+    "views": 1504
+   },
+   "2025-05-13": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 139,
+    "views": 564
+   },
+   "2025-05-14": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 619,
+    "views": 1746
+   },
+   "2025-05-15": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 493,
+    "views": 1449
+   },
+   "2025-05-16": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 624,
+    "views": 2225
+   },
+   "2025-05-17": {
+    "follows": 3,
+    "unfollows": 0,
+    "viewers": 493,
+    "views": 2184
+   },
+   "2025-05-18": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 539,
+    "views": 2015
+   },
+   "2025-05-19": {
+    "follows": 1,
+    "unfollows": 2,
+    "viewers": 495,
+    "views": 1479
+   },
+   "2025-05-20": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 791,
+    "views": 2361
+   },
+   "2025-05-21": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 469,
+    "views": 1164
+   },
+   "2025-05-22": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 396,
+    "views": 1007
+   },
+   "2025-05-23": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 577,
+    "views": 1308
+   },
+   "2025-05-24": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 349,
+    "views": 677
+   },
+   "2025-05-25": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 124,
+    "views": 312
+   },
+   "2025-05-26": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 838,
+    "views": 2000
+   },
+   "2025-05-27": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 201,
+    "views": 368
+   },
+   "2025-05-28": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 149,
+    "views": 361
+   },
+   "2025-05-29": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 113,
+    "views": 389
+   },
+   "2025-05-30": {
+    "follows": 0,
+    "unfollows": 2,
+    "viewers": 86,
+    "views": 155
+   },
+   "2025-05-31": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 92,
+    "views": 273
+   },
+   "2025-06-01": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 68,
+    "views": 260
+   },
+   "2025-06-02": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1578,
+    "views": 2842
+   },
+   "2025-06-03": {
+    "follows": 0,
+    "unfollows": 2,
+    "viewers": 2683,
+    "views": 4942
+   },
+   "2025-06-04": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 354,
+    "views": 738
+   },
+   "2025-06-05": {
+    "follows": 3,
+    "unfollows": 1,
+    "viewers": 3116,
+    "views": 6885
+   },
+   "2025-06-06": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 1779,
+    "views": 3259
+   },
+   "2025-06-07": {
+    "follows": 1,
+    "unfollows": 3,
+    "viewers": 13328,
+    "views": 23013
+   },
+   "2025-06-08": {
+    "follows": 4,
+    "unfollows": 0,
+    "viewers": 6988,
+    "views": 11073
+   },
+   "2025-06-09": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 426,
+    "views": 1110
+   },
+   "2025-06-10": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 573,
+    "views": 1027
+   },
+   "2025-06-11": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 721,
+    "views": 1367
+   },
+   "2025-06-12": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 395,
+    "views": 638
+   },
+   "2025-06-13": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 531,
+    "views": 1380
+   },
+   "2025-06-14": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 235,
+    "views": 612
+   },
+   "2025-06-15": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 194,
+    "views": 395
+   },
+   "2025-06-16": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 148,
+    "views": 402
+   },
+   "2025-06-17": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 756,
+    "views": 1804
+   },
+   "2025-06-18": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 361,
+    "views": 815
+   },
+   "2025-06-19": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 186,
+    "views": 336
+   },
+   "2025-06-20": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 651,
+    "views": 1323
+   },
+   "2025-06-21": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1081,
+    "views": 2063
+   },
+   "2025-06-22": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1357,
+    "views": 3236
+   },
+   "2025-06-23": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 992,
+    "views": 1994
+   },
+   "2025-06-24": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 640,
+    "views": 1442
+   },
+   "2025-06-25": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 564,
+    "views": 1272
+   },
+   "2025-06-26": {
+    "follows": 2,
+    "unfollows": 1,
+    "viewers": 1240,
+    "views": 2698
+   },
+   "2025-06-27": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 987,
+    "views": 2098
+   },
+   "2025-06-28": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 893,
+    "views": 1411
+   },
+   "2025-06-29": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 640,
+    "views": 1199
+   },
+   "2025-06-30": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 189,
+    "views": 749
+   },
+   "2025-07-01": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 116,
+    "views": 377
+   },
+   "2025-07-02": {
+    "follows": 0,
+    "unfollows": 3,
+    "viewers": 98,
+    "views": 302
+   },
+   "2025-07-03": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 75,
+    "views": 424
+   },
+   "2025-07-04": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 515,
+    "views": 1273
+   },
+   "2025-07-05": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1023,
+    "views": 2720
+   },
+   "2025-07-06": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 881,
+    "views": 2266
+   },
+   "2025-07-07": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 301,
+    "views": 612
+   },
+   "2025-07-08": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 199,
+    "views": 500
+   },
+   "2025-07-09": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 82,
+    "views": 290
+   },
+   "2025-07-10": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 243,
+    "views": 684
+   },
+   "2025-07-11": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 133,
+    "views": 617
+   },
+   "2025-07-12": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 102,
+    "views": 212
+   },
+   "2025-07-13": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 107,
+    "views": 365
+   },
+   "2025-07-14": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 86,
+    "views": 299
+   },
+   "2025-07-15": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 60,
+    "views": 134
+   },
+   "2025-07-16": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 50,
+    "views": 207
+   },
+   "2025-07-17": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 59,
+    "views": 180
+   },
+   "2025-07-18": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 50,
+    "views": 171
+   },
+   "2025-07-19": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 37,
+    "views": 174
+   },
+   "2025-07-20": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 31,
+    "views": 94
+   },
+   "2025-07-21": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 44,
+    "views": 188
+   },
+   "2025-07-22": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 37,
+    "views": 200
+   },
+   "2025-07-23": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 40,
+    "views": 89
+   },
+   "2025-07-24": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 32,
+    "views": 94
+   },
+   "2025-07-25": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 37,
+    "views": 117
+   },
+   "2025-07-26": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 30,
+    "views": 62
+   },
+   "2025-07-27": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 37,
+    "views": 76
+   },
+   "2025-07-28": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 34,
+    "views": 1479
+   },
+   "2025-07-29": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 35,
+    "views": 187
+   },
+   "2025-07-30": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 40,
+    "views": 94
+   },
+   "2025-07-31": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1311,
+    "views": 2765
+   },
+   "2025-08-01": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 353,
+    "views": 716
+   },
+   "2025-08-02": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 161,
+    "views": 470
+   },
+   "2025-08-03": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 106,
+    "views": 317
+   },
+   "2025-08-04": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 404,
+    "views": 765
+   },
+   "2025-08-05": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 104,
+    "views": 203
+   },
+   "2025-08-06": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 317,
+    "views": 686
+   },
+   "2025-08-07": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 234,
+    "views": 400
+   },
+   "2025-08-08": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 97,
+    "views": 311
+   },
+   "2025-08-09": {
+    "follows": 2,
+    "unfollows": 1,
+    "viewers": 486,
+    "views": 1570
+   },
+   "2025-08-10": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 669,
+    "views": 1443
+   },
+   "2025-08-11": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 283,
+    "views": 718
+   },
+   "2025-08-12": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 433,
+    "views": 1026
+   },
+   "2025-08-13": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 736,
+    "views": 1992
+   },
+   "2025-08-14": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 826,
+    "views": 2684
+   },
+   "2025-08-15": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 572,
+    "views": 1555
+   },
+   "2025-08-16": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 320,
+    "views": 651
+   },
+   "2025-08-17": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 193,
+    "views": 331
+   },
+   "2025-08-18": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 420,
+    "views": 837
+   },
+   "2025-08-19": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 468,
+    "views": 843
+   },
+   "2025-08-20": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 420,
+    "views": 811
+   },
+   "2025-08-21": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 492,
+    "views": 1113
+   },
+   "2025-08-22": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 228,
+    "views": 451
+   },
+   "2025-08-23": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 276,
+    "views": 518
+   },
+   "2025-08-24": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 263,
+    "views": 584
+   },
+   "2025-08-25": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 138,
+    "views": 273
+   },
+   "2025-08-26": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 90,
+    "views": 295
+   },
+   "2025-08-27": {
+    "follows": 0,
+    "unfollows": 2,
+    "viewers": 869,
+    "views": 1916
+   },
+   "2025-08-28": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 485,
+    "views": 862
+   },
+   "2025-08-29": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 402,
+    "views": 1089
+   },
+   "2025-08-30": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 230,
+    "views": 1554
+   },
+   "2025-08-31": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 144,
+    "views": 503
+   },
+   "2025-09-01": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 95,
+    "views": 301
+   },
+   "2025-09-02": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 661,
+    "views": 1475
+   },
+   "2025-09-03": {
+    "follows": 1,
+    "unfollows": 16,
+    "viewers": 1220,
+    "views": 2205
+   },
+   "2025-09-04": {
+    "follows": 0,
+    "unfollows": 14,
+    "viewers": 838,
+    "views": 1386
+   },
+   "2025-09-05": {
+    "follows": 1,
+    "unfollows": 10,
+    "viewers": 1837,
+    "views": 5251
+   },
+   "2025-09-06": {
+    "follows": 0,
+    "unfollows": 10,
+    "viewers": 1825,
+    "views": 2502
+   },
+   "2025-09-07": {
+    "follows": 0,
+    "unfollows": 6,
+    "viewers": 1686,
+    "views": 1642
+   },
+   "2025-09-08": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 1474,
+    "views": 1894
+   },
+   "2025-09-09": {
+    "follows": 2,
+    "unfollows": 1,
+    "viewers": 1026,
+    "views": 816
+   },
+   "2025-09-10": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 806,
+    "views": 1722
+   },
+   "2025-09-11": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1119,
+    "views": 1390
+   },
+   "2025-09-12": {
+    "follows": 2,
+    "unfollows": 3,
+    "viewers": 1169,
+    "views": 2144
+   },
+   "2025-09-13": {
+    "follows": 0,
+    "unfollows": 6,
+    "viewers": 864,
+    "views": 1195
+   },
+   "2025-09-14": {
+    "follows": 2,
+    "unfollows": 4,
+    "viewers": 828,
+    "views": 647
+   },
+   "2025-09-15": {
+    "follows": 0,
+    "unfollows": 2,
+    "viewers": 1194,
+    "views": 1036
+   },
+   "2025-09-16": {
+    "follows": 1,
+    "unfollows": 4,
+    "viewers": 1184,
+    "views": 2453
+   },
+   "2025-09-17": {
+    "follows": 1,
+    "unfollows": 4,
+    "viewers": 951,
+    "views": 2184
+   },
+   "2025-09-18": {
+    "follows": 2,
+    "unfollows": 4,
+    "viewers": 675,
+    "views": 1692
+   },
+   "2025-09-19": {
+    "follows": 3,
+    "unfollows": 3,
+    "viewers": 1460,
+    "views": 3803
+   },
+   "2025-09-20": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1852,
+    "views": 4456
+   },
+   "2025-09-21": {
+    "follows": 1,
+    "unfollows": 2,
+    "viewers": 2394,
+    "views": 4501
+   },
+   "2025-09-22": {
+    "follows": 2,
+    "unfollows": 1,
+    "viewers": 1709,
+    "views": 2975
+   },
+   "2025-09-23": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1468,
+    "views": 2835
+   },
+   "2025-09-24": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 798,
+    "views": 2124
+   },
+   "2025-09-25": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 596,
+    "views": 1549
+   },
+   "2025-09-26": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 540,
+    "views": 1284
+   },
+   "2025-09-27": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1279,
+    "views": 2664
+   },
+   "2025-09-28": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 343,
+    "views": 825
+   },
+   "2025-09-29": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 205,
+    "views": 515
+   },
+   "2025-09-30": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 461,
+    "views": 1099
+   },
+   "2025-10-01": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 305,
+    "views": 674
+   },
+   "2025-10-02": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 206,
+    "views": 524
+   },
+   "2025-10-03": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 576,
+    "views": 2158
+   },
+   "2025-10-04": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 728,
+    "views": 2570
+   },
+   "2025-10-05": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 361,
+    "views": 1143
+   },
+   "2025-10-06": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 565,
+    "views": 1257
+   },
+   "2025-10-07": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 513,
+    "views": 1222
+   },
+   "2025-10-08": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 222,
+    "views": 472
+   },
+   "2025-10-09": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 639,
+    "views": 1657
+   },
+   "2025-10-10": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 843,
+    "views": 2414
+   },
+   "2025-10-11": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 604,
+    "views": 1817
+   },
+   "2025-10-12": {
+    "follows": 2,
+    "unfollows": 1,
+    "viewers": 1227,
+    "views": 2721
+   },
+   "2025-10-13": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 917,
+    "views": 2193
+   },
+   "2025-10-14": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 736,
+    "views": 1513
+   },
+   "2025-10-15": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 293,
+    "views": 619
+   },
+   "2025-10-16": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 414,
+    "views": 1722
+   },
+   "2025-10-17": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 466,
+    "views": 1428
+   },
+   "2025-10-18": {
+    "follows": 2,
+    "unfollows": 1,
+    "viewers": 497,
+    "views": 1475
+   },
+   "2025-10-19": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 350,
+    "views": 1144
+   },
+   "2025-10-20": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1187,
+    "views": 3300
+   },
+   "2025-10-21": {
+    "follows": 2,
+    "unfollows": 1,
+    "viewers": 407,
+    "views": 1109
+   },
+   "2025-10-22": {
+    "follows": 1,
+    "unfollows": 2,
+    "viewers": 3711,
+    "views": 6129
+   },
+   "2025-10-23": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 2605,
+    "views": 3931
+   },
+   "2025-10-24": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 3031,
+    "views": 3904
+   },
+   "2025-10-25": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 3054,
+    "views": 4018
+   },
+   "2025-10-26": {
+    "follows": 3,
+    "unfollows": 0,
+    "viewers": 3683,
+    "views": 4669
+   },
+   "2025-10-27": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 3554,
+    "views": 4719
+   },
+   "2025-10-28": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 3370,
+    "views": 4019
+   },
+   "2025-10-29": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 3224,
+    "views": 3937
+   },
+   "2025-10-30": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 3846,
+    "views": 5086
+   },
+   "2025-10-31": {
+    "follows": 3,
+    "unfollows": 1,
+    "viewers": 2157,
+    "views": 3375
+   },
+   "2025-11-01": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 2416,
+    "views": 4069
+   },
+   "2025-11-02": {
+    "follows": 4,
+    "unfollows": 1,
+    "viewers": 2785,
+    "views": 4699
+   },
+   "2025-11-03": {
+    "follows": 3,
+    "unfollows": 0,
+    "viewers": 2647,
+    "views": 4669
+   },
+   "2025-11-04": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 2478,
+    "views": 4834
+   },
+   "2025-11-05": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 2247,
+    "views": 6943
+   },
+   "2025-11-06": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1212,
+    "views": 2524
+   },
+   "2025-11-07": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 730,
+    "views": 1816
+   },
+   "2025-11-08": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 506,
+    "views": 1384
+   },
+   "2025-11-09": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 1010,
+    "views": 1943
+   },
+   "2025-11-10": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 538,
+    "views": 1545
+   },
+   "2025-11-11": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 443,
+    "views": 938
+   },
+   "2025-11-12": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 424,
+    "views": 786
+   },
+   "2025-11-13": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 547,
+    "views": 865
+   },
+   "2025-11-14": {
+    "follows": 2,
+    "unfollows": 2,
+    "viewers": 568,
+    "views": 1141
+   },
+   "2025-11-15": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 887,
+    "views": 1810
+   },
+   "2025-11-16": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 717,
+    "views": 1302
+   },
+   "2025-11-17": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 612,
+    "views": 1378
+   },
+   "2025-11-18": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 611,
+    "views": 1226
+   },
+   "2025-11-19": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 445,
+    "views": 722
+   },
+   "2025-11-20": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 186,
+    "views": 410
+   },
+   "2025-11-21": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 372,
+    "views": 857
+   },
+   "2025-11-22": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 568,
+    "views": 1202
+   },
+   "2025-11-23": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 352,
+    "views": 685
+   },
+   "2025-11-24": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1038,
+    "views": 1862
+   },
+   "2025-11-25": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 387,
+    "views": 684
+   },
+   "2025-11-26": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 160,
+    "views": 341
+   },
+   "2025-11-27": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 88,
+    "views": 221
+   },
+   "2025-11-28": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 672,
+    "views": 2177
+   },
+   "2025-11-29": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 707,
+    "views": 1589
+   },
+   "2025-11-30": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 291,
+    "views": 892
+   },
+   "2025-12-01": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 214,
+    "views": 902
+   },
+   "2025-12-02": {
+    "follows": 2,
+    "unfollows": 3,
+    "viewers": 679,
+    "views": 1261
+   },
+   "2025-12-03": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 129,
+    "views": 294
+   },
+   "2025-12-04": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 71,
+    "views": 215
+   },
+   "2025-12-05": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 459,
+    "views": 1699
+   },
+   "2025-12-06": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 454,
+    "views": 1352
+   },
+   "2025-12-07": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 709,
+    "views": 2045
+   },
+   "2025-12-08": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 720,
+    "views": 1613
+   },
+   "2025-12-09": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 278,
+    "views": 554
+   },
+   "2025-12-10": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 309,
+    "views": 558
+   },
+   "2025-12-11": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 440,
+    "views": 1121
+   },
+   "2025-12-12": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 559,
+    "views": 1406
+   },
+   "2025-12-13": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 224,
+    "views": 481
+   },
+   "2025-12-14": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 271,
+    "views": 847
+   },
+   "2025-12-15": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 608,
+    "views": 1559
+   },
+   "2025-12-16": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 794,
+    "views": 1558
+   },
+   "2025-12-17": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 743,
+    "views": 1308
+   },
+   "2025-12-18": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 295,
+    "views": 565
+   },
+   "2025-12-19": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 531,
+    "views": 1182
+   },
+   "2025-12-20": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 269,
+    "views": 705
+   },
+   "2025-12-21": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 160,
+    "views": 397
+   },
+   "2025-12-22": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 329,
+    "views": 892
+   },
+   "2025-12-23": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1604,
+    "views": 3526
+   },
+   "2025-12-24": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 2246,
+    "views": 4149
+   },
+   "2025-12-25": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 931,
+    "views": 1704
+   },
+   "2025-12-26": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1390,
+    "views": 2435
+   },
+   "2025-12-27": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1454,
+    "views": 2184
+   },
+   "2025-12-28": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 730,
+    "views": 1223
+   },
+   "2025-12-29": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 441,
+    "views": 727
+   },
+   "2025-12-30": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 299,
+    "views": 526
+   },
+   "2025-12-31": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 190,
+    "views": 400
+   },
+   "2026-01-01": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 415,
+    "views": 852
+   },
+   "2026-01-02": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 180,
+    "views": 408
+   },
+   "2026-01-03": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 153,
+    "views": 351
+   },
+   "2026-01-04": {
+    "follows": 3,
+    "unfollows": 0,
+    "viewers": 2118,
+    "views": 4801
+   },
+   "2026-01-05": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1803,
+    "views": 4172
+   },
+   "2026-01-06": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1673,
+    "views": 3368
+   },
+   "2026-01-07": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1442,
+    "views": 3168
+   },
+   "2026-01-08": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1245,
+    "views": 2833
+   },
+   "2026-01-09": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1305,
+    "views": 3169
+   },
+   "2026-01-10": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1162,
+    "views": 2669
+   },
+   "2026-01-11": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 607,
+    "views": 1148
+   },
+   "2026-01-12": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 71,
+    "views": 204
+   },
+   "2026-01-13": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 70,
+    "views": 332
+   },
+   "2026-01-14": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 63,
+    "views": 262
+   },
+   "2026-01-15": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 56,
+    "views": 196
+   },
+   "2026-01-16": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 906,
+    "views": 2533
+   },
+   "2026-01-17": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 1271,
+    "views": 2934
+   },
+   "2026-01-18": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1970,
+    "views": 4584
+   },
+   "2026-01-19": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1446,
+    "views": 3996
+   },
+   "2026-01-20": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 1085,
+    "views": 2396
+   },
+   "2026-01-21": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 696,
+    "views": 1538
+   },
+   "2026-01-22": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 431,
+    "views": 1055
+   },
+   "2026-01-23": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 857,
+    "views": 1898
+   },
+   "2026-01-24": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 906,
+    "views": 2141
+   },
+   "2026-01-25": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 3309,
+    "views": 7449
+   },
+   "2026-01-26": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 2262,
+    "views": 4910
+   },
+   "2026-01-27": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 1355,
+    "views": 2851
+   },
+   "2026-01-28": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1855,
+    "views": 3117
+   },
+   "2026-01-29": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1267,
+    "views": 2180
+   },
+   "2026-01-30": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 327,
+    "views": 804
+   },
+   "2026-01-31": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 556,
+    "views": 1439
+   },
+   "2026-02-01": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 309,
+    "views": 714
+   },
+   "2026-02-02": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 152,
+    "views": 855
+   },
+   "2026-02-03": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 384,
+    "views": 784
+   },
+   "2026-02-04": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 414,
+    "views": 830
+   },
+   "2026-02-05": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 478,
+    "views": 895
+   },
+   "2026-02-06": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1593,
+    "views": 3794
+   },
+   "2026-02-07": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1535,
+    "views": 3536
+   },
+   "2026-02-08": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 1232,
+    "views": 2502
+   },
+   "2026-02-09": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 1010,
+    "views": 2145
+   },
+   "2026-02-10": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 759,
+    "views": 1551
+   },
+   "2026-02-11": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 365,
+    "views": 653
+   },
+   "2026-02-12": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 200,
+    "views": 492
+   },
+   "2026-02-13": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 406,
+    "views": 1042
+   },
+   "2026-02-14": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 943,
+    "views": 2643
+   },
+   "2026-02-15": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 956,
+    "views": 2411
+   },
+   "2026-02-16": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1034,
+    "views": 2429
+   },
+   "2026-02-17": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 746,
+    "views": 1543
+   },
+   "2026-02-18": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 685,
+    "views": 1630
+   },
+   "2026-02-19": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 385,
+    "views": 707
+   },
+   "2026-02-20": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 560,
+    "views": 1197
+   },
+   "2026-02-21": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 450,
+    "views": 912
+   },
+   "2026-02-22": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 958,
+    "views": 2467
+   },
+   "2026-02-23": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 5618,
+    "views": 10314
+   },
+   "2026-02-24": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 4234,
+    "views": 7256
+   },
+   "2026-02-25": {
+    "follows": 1,
+    "unfollows": 2,
+    "viewers": 2193,
+    "views": 4784
+   },
+   "2026-02-26": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1673,
+    "views": 3115
+   },
+   "2026-02-27": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1058,
+    "views": 2853
+   },
+   "2026-02-28": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 2064,
+    "views": 4793
+   },
+   "2026-03-01": {
+    "follows": 4,
+    "unfollows": 0,
+    "viewers": 3960,
+    "views": 7656
+   },
+   "2026-03-02": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 6251,
+    "views": 12535
+   },
+   "2026-03-03": {
+    "follows": 2,
+    "unfollows": 1,
+    "viewers": 2114,
+    "views": 3721
+   },
+   "2026-03-04": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 1275,
+    "views": 2250
+   },
+   "2026-03-05": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 700,
+    "views": 1110
+   },
+   "2026-03-06": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 804,
+    "views": 2152
+   },
+   "2026-03-07": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 907,
+    "views": 2373
+   },
+   "2026-03-08": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1031,
+    "views": 2078
+   },
+   "2026-03-09": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1054,
+    "views": 1992
+   },
+   "2026-03-10": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1446,
+    "views": 2444
+   },
+   "2026-03-11": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 828,
+    "views": 1642
+   },
+   "2026-03-12": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 679,
+    "views": 1436
+   },
+   "2026-03-13": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 1362,
+    "views": 2980
+   },
+   "2026-03-14": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 1840,
+    "views": 4218
+   },
+   "2026-03-15": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1150,
+    "views": 2091
+   },
+   "2026-03-16": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 1434,
+    "views": 2561
+   },
+   "2026-03-17": {
+    "follows": 3,
+    "unfollows": 0,
+    "viewers": 2258,
+    "views": 3161
+   },
+   "2026-03-18": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 925,
+    "views": 1728
+   },
+   "2026-03-19": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 828,
+    "views": 1552
+   },
+   "2026-03-20": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 873,
+    "views": 1897
+   },
+   "2026-03-21": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 568,
+    "views": 1246
+   },
+   "2026-03-22": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1006,
+    "views": 1967
+   },
+   "2026-03-23": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1187,
+    "views": 2048
+   },
+   "2026-03-24": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 374,
+    "views": 665
+   },
+   "2026-03-25": {
+    "follows": 5,
+    "unfollows": 1,
+    "viewers": 3494,
+    "views": 6975
+   },
+   "2026-03-26": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1262,
+    "views": 2347
+   },
+   "2026-03-27": {
+    "follows": 1,
+    "unfollows": 2,
+    "viewers": 1256,
+    "views": 3022
+   },
+   "2026-03-28": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1178,
+    "views": 3009
+   },
+   "2026-03-29": {
+    "follows": 1,
+    "unfollows": 2,
+    "viewers": 1608,
+    "views": 4101
+   },
+   "2026-03-30": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 971,
+    "views": 2271
+   },
+   "2026-03-31": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 710,
+    "views": 1876
+   },
+   "2026-04-01": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1333,
+    "views": 2441
+   },
+   "2026-04-02": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 414,
+    "views": 77
+   },
+   "2026-04-03": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 555,
+    "views": 79
+   },
+   "2026-04-04": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 109,
+    "views": 287
+   },
+   "2026-04-05": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 828,
+    "views": 1395
+   },
+   "2026-04-06": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 660,
+    "views": 1320
+   },
+   "2026-04-07": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 746,
+    "views": 1662
+   },
+   "2026-04-08": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 798,
+    "views": 1224
+   },
+   "2026-04-09": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 396,
+    "views": 700
+   },
+   "2026-04-10": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 209,
+    "views": 548
+   },
+   "2026-04-11": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 112,
+    "views": 560
+   },
+   "2026-04-12": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1840,
+    "views": 3539
+   },
+   "2026-04-13": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1746,
+    "views": 4283
+   },
+   "2026-04-14": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 2065,
+    "views": 4263
+   },
+   "2026-04-15": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1424,
+    "views": 3183
+   },
+   "2026-04-16": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1249,
+    "views": 2353
+   },
+   "2026-04-17": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1178,
+    "views": 2845
+   },
+   "2026-04-18": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 1646,
+    "views": 3598
+   },
+   "2026-04-19": {
+    "follows": 0,
+    "unfollows": 2,
+    "viewers": 1134,
+    "views": 2453
+   },
+   "2026-04-20": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 2268,
+    "views": 5611
+   },
+   "2026-04-21": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 762,
+    "views": 1780
+   },
+   "2026-04-22": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 3678,
+    "views": 6639
+   },
+   "2026-04-23": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 2446,
+    "views": 3894
+   },
+   "2026-04-24": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1175,
+    "views": 3124
+   },
+   "2026-04-25": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 956,
+    "views": 2558
+   },
+   "2026-04-26": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1556,
+    "views": 3887
+   },
+   "2026-04-27": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 2133,
+    "views": 5669
+   },
+   "2026-04-28": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1112,
+    "views": 2259
+   },
+   "2026-04-29": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 858,
+    "views": 1915
+   },
+   "2026-04-30": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 428,
+    "views": 748
+   },
+   "2026-05-01": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 244,
+    "views": 520
+   },
+   "2026-05-02": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 863,
+    "views": 1849
+   },
+   "2026-05-03": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 344,
+    "views": 710
+   },
+   "2026-05-04": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 187,
+    "views": 429
+   },
+   "2026-05-05": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 101,
+    "views": 251
+   },
+   "2026-05-06": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 58,
+    "views": 153
+   },
+   "2026-05-07": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 775,
+    "views": 1650
+   },
+   "2026-05-08": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1366,
+    "views": 2739
+   },
+   "2026-05-09": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1131,
+    "views": 1954
+   },
+   "2026-05-10": {
+    "follows": 1,
+    "unfollows": 4,
+    "viewers": 4477,
+    "views": 10728
+   },
+   "2026-05-11": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 2280,
+    "views": 4397
+   },
+   "2026-05-12": {
+    "follows": 3,
+    "unfollows": 0,
+    "viewers": 1591,
+    "views": 3344
+   },
+   "2026-05-13": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1554,
+    "views": 2817
+   },
+   "2026-05-14": {
+    "follows": 3,
+    "unfollows": 0,
+    "viewers": 4960,
+    "views": 9735
+   },
+   "2026-05-15": {
+    "follows": 2,
+    "unfollows": 1,
+    "viewers": 1456,
+    "views": 2676
+   },
+   "2026-05-16": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 713,
+    "views": 1298
+   },
+   "2026-05-17": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1597,
+    "views": 3474
+   },
+   "2026-05-18": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 4277,
+    "views": 7223
+   },
+   "2026-05-19": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 2902,
+    "views": 4517
+   },
+   "2026-05-20": {
+    "follows": 1,
+    "unfollows": 2,
+    "viewers": 1952,
+    "views": 3403
+   },
+   "2026-05-21": {
+    "follows": 1,
+    "unfollows": 2,
+    "viewers": 1211,
+    "views": 1997
+   },
+   "2026-05-22": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 1930,
+    "views": 3161
+   },
+   "2026-05-23": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1318,
+    "views": 2690
+   },
+   "2026-05-24": {
+    "follows": 5,
+    "unfollows": 1,
+    "viewers": 4888,
+    "views": 7932
+   },
+   "2026-05-25": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1335,
+    "views": 2064
+   },
+   "2026-05-26": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 342,
+    "views": 525
+   },
+   "2026-05-27": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1003,
+    "views": 1607
+   },
+   "2026-05-28": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 1024,
+    "views": 1565
+   },
+   "2026-05-29": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 317,
+    "views": 535
+   },
+   "2026-05-30": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 108,
+    "views": 200
+   },
+   "2026-05-31": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 109,
+    "views": 320
+   },
+   "2026-06-01": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 56,
+    "views": 115
+   },
+   "2026-06-02": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 54,
+    "views": 101
+   },
+   "2026-06-03": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 760,
+    "views": 1297
+   },
+   "2026-06-04": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 577,
+    "views": 895
+   },
+   "2026-06-05": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1382,
+    "views": 2527
+   },
+   "2026-06-06": {
+    "follows": 2,
+    "unfollows": 1,
+    "viewers": 963,
+    "views": 1957
+   },
+   "2026-06-07": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 2299,
+    "views": 3854
+   },
+   "2026-06-08": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 425,
+    "views": 801
+   },
+   "2026-06-09": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 258,
+    "views": 590
+   },
+   "2026-06-10": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 288,
+    "views": 483
+   },
+   "2026-06-11": {
+    "follows": 0,
+    "unfollows": 2,
+    "viewers": 2307,
+    "views": 4481
+   },
+   "2026-06-12": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1355,
+    "views": 2526
+   },
+   "2026-06-13": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1271,
+    "views": 2711
+   },
+   "2026-06-14": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 681,
+    "views": 1318
+   },
+   "2026-06-15": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 238,
+    "views": 475
+   },
+   "2026-06-16": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 154,
+    "views": 286
+   },
+   "2026-06-17": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 786,
+    "views": 1494
+   },
+   "2026-06-18": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1940,
+    "views": 3273
+   },
+   "2026-06-19": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 473,
+    "views": 869
+   },
+   "2026-06-20": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 193,
+    "views": 375
+   },
+   "2026-06-21": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 162,
+    "views": 262
+   },
+   "2026-06-22": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 129,
+    "views": 393
+   },
+   "2026-06-23": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 77,
+    "views": 149
+   },
+   "2026-06-24": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 328,
+    "views": 544
+   },
+   "2026-06-25": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 349,
+    "views": 484
+   },
+   "2026-06-26": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 77,
+    "views": 292
+   },
+   "2026-06-27": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 56,
+    "views": 149
+   },
+   "2026-06-28": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 2490,
+    "views": 3682
+   },
+   "2026-06-29": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 2681,
+    "views": 3816
+   },
+   "2026-06-30": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 305,
+    "views": 527
+   },
+   "2026-07-01": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 169,
+    "views": 370
+   },
+   "2026-07-02": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 117,
+    "views": 293
+   },
+   "2026-07-03": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 79,
+    "views": 227
+   },
+   "2026-07-04": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 71,
+    "views": 208
+   },
+   "2026-07-05": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 2181,
+    "views": 3463
+   },
+   "2026-07-06": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1292,
+    "views": 1940
+   },
+   "2026-07-07": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1392,
+    "views": 2279
+   },
+   "2026-07-08": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1024,
+    "views": 1669
+   },
+   "2026-07-09": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1756,
+    "views": 2895
+   },
+   "2026-07-10": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1675,
+    "views": 2458
+   },
+   "2026-07-11": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 993,
+    "views": 1578
+   },
+   "2026-07-12": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1143,
+    "views": 1840
+   },
+   "2026-07-13": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 2155,
+    "views": 3616
+   },
+   "2026-07-14": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 2958,
+    "views": 4381
+   },
+   "2026-07-15": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 1294,
+    "views": 1832
+   },
+   "2026-07-16": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 884,
+    "views": 1470
+   },
+   "2026-07-17": {
+    "follows": 3,
+    "unfollows": 0,
+    "viewers": 1031,
+    "views": 1471
+   },
+   "2026-07-18": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 804,
+    "views": 1151
+   },
+   "2026-07-19": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1011,
+    "views": 1430
+   },
+   "2026-07-20": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1194,
+    "views": 1893
+   },
+   "2026-07-21": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1134,
+    "views": 1604
+   },
+   "2026-07-22": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1066,
+    "views": 1501
+   },
+   "2026-07-23": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1096,
+    "views": 1783
+   },
+   "2026-07-24": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1905,
+    "views": 3644
+   },
+   "2026-07-25": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1526,
+    "views": 2473
+   },
+   "2026-07-26": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1539,
+    "views": 2407
+   },
+   "2026-07-27": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1184,
+    "views": 1847
+   },
+   "2026-07-28": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1119,
+    "views": 1758
+   },
+   "2026-07-29": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1110,
+    "views": 1541
+   },
+   "2026-07-30": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1026,
+    "views": 1492
+   },
+   "2026-07-31": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 782,
+    "views": 1171
+   },
+   "2026-08-01": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1406,
+    "views": 1878
+   },
+   "2026-08-02": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1314,
+    "views": 1876
+   },
+   "2026-08-03": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1154,
+    "views": 1615
+   },
+   "2026-08-04": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1934,
+    "views": 2978
+   },
+   "2026-08-05": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 3583,
+    "views": 6100
+   },
+   "2026-08-06": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1245,
+    "views": 1869
+   },
+   "2026-08-07": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1301,
+    "views": 2037
+   },
+   "2026-08-08": {
+    "follows": 0,
+    "unfollows": 1,
+    "viewers": 1202,
+    "views": 1711
+   },
+   "2026-08-09": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1637,
+    "views": 2204
+   },
+   "2026-08-10": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1915,
+    "views": 2848
+   },
+   "2026-08-11": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 322,
+    "views": 666
+   },
+   "2026-08-12": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 48,
+    "views": 99
+   },
+   "2026-08-13": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 63,
+    "views": 119
+   },
+   "2026-08-14": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 2303,
+    "views": 4178
+   },
+   "2026-08-15": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1358,
+    "views": 2008
+   },
+   "2026-08-16": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1143,
+    "views": 1576
+   },
+   "2026-08-17": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 679,
+    "views": 1166
+   },
+   "2026-08-18": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 260,
+    "views": 354
+   },
+   "2026-08-19": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 181,
+    "views": 339
+   },
+   "2026-08-20": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 165,
+    "views": 241
+   },
+   "2026-08-21": {
+    "follows": 1,
+    "unfollows": 1,
+    "viewers": 547,
+    "views": 1233
+   },
+   "2026-08-22": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 363,
+    "views": 737
+   },
+   "2026-08-23": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 256,
+    "views": 557
+   },
+   "2026-08-24": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 89,
+    "views": 458
+   },
+   "2026-08-25": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 47,
+    "views": 157
+   },
+   "2026-08-26": {
+    "follows": 1,
+    "unfollows": 2,
+    "viewers": 349,
+    "views": 625
+   },
+   "2026-08-27": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 220,
+    "views": 419
+   },
+   "2026-08-28": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 408,
+    "views": 708
+   },
+   "2026-08-29": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 418,
+    "views": 652
+   },
+   "2026-08-30": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 57,
+    "views": 139
+   },
+   "2026-08-31": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 724,
+    "views": 1337
+   },
+   "2026-09-01": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 867,
+    "views": 1412
+   },
+   "2026-09-02": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 251,
+    "views": 522
+   },
+   "2026-09-03": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 150,
+    "views": 250
+   },
+   "2026-09-04": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 150,
+    "views": 378
+   },
+   "2026-09-05": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 100,
+    "views": 512
+   },
+   "2026-09-06": {
+    "follows": 2,
+    "unfollows": 1,
+    "viewers": 78,
+    "views": 269
+   },
+   "2026-09-07": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 1330,
+    "views": 3786
+   },
+   "2026-09-08": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 3559,
+    "views": 6129
+   },
+   "2026-09-09": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 3453,
+    "views": 5494
+   },
+   "2026-09-10": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 2939,
+    "views": 5362
+   },
+   "2026-09-11": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 5884,
+    "views": 10506
+   },
+   "2026-09-12": {
+    "follows": 7,
+    "unfollows": 2,
+    "viewers": 7756,
+    "views": 11583
+   },
+   "2026-09-13": {
+    "follows": 3,
+    "unfollows": 1,
+    "viewers": 7165,
+    "views": 12487
+   },
+   "2026-09-14": {
+    "follows": 5,
+    "unfollows": 0,
+    "viewers": 6602,
+    "views": 10818
+   },
+   "2026-09-15": {
+    "follows": 4,
+    "unfollows": 2,
+    "viewers": 3552,
+    "views": 5516
+   },
+   "2026-09-16": {
+    "follows": 3,
+    "unfollows": 3,
+    "viewers": 2612,
+    "views": 3718
+   },
+   "2026-09-17": {
+    "follows": 4,
+    "unfollows": 0,
+    "viewers": 2369,
+    "views": 3610
+   },
+   "2026-09-18": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 2142,
+    "views": 3126
+   },
+   "2026-09-19": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 2373,
+    "views": 3877
+   },
+   "2026-09-20": {
+    "follows": 2,
+    "unfollows": 0,
+    "viewers": 2974,
+    "views": 5233
+   },
+   "2026-09-21": {
+    "follows": 1,
+    "unfollows": 0,
+    "viewers": 2406,
+    "views": 3773
+   },
+   "2026-09-22": {
+    "follows": 0,
+    "unfollows": 0,
+    "viewers": 1279,
+    "views": 1965
+   }
+  },
+  "instagram": {
+   "2026-06-26": {
+    "accounts_engaged": 6,
+    "comments": 1,
+    "follows": 2,
+    "likes": 5,
+    "profile_links_taps": 0,
+    "reach": 225,
+    "saves": 0,
+    "shares": 1,
+    "total_interactions": 8,
+    "unfollows": 1,
+    "views": 457
+   },
+   "2026-06-27": {
+    "accounts_engaged": 11,
+    "comments": 0,
+    "follows": 3,
+    "likes": 8,
+    "profile_links_taps": 0,
+    "reach": 331,
+    "saves": 0,
+    "shares": 4,
+    "total_interactions": 16,
+    "unfollows": 3,
+    "views": 706
+   },
+   "2026-06-28": {
+    "accounts_engaged": 44,
+    "comments": 0,
+    "follows": 2,
+    "likes": 45,
+    "profile_links_taps": 0,
+    "reach": 551,
+    "saves": 2,
+    "shares": 36,
+    "total_interactions": 119,
+    "unfollows": 2,
+    "views": 1973
+   },
+   "2026-06-29": {
+    "accounts_engaged": 16,
+    "comments": 1,
+    "follows": 1,
+    "likes": 17,
+    "profile_links_taps": 0,
+    "reach": 306,
+    "saves": 1,
+    "shares": 1,
+    "total_interactions": 21,
+    "unfollows": 0,
+    "views": 795
+   },
+   "2026-06-30": {
+    "accounts_engaged": 4,
+    "comments": 0,
+    "follows": 2,
+    "likes": 4,
+    "profile_links_taps": 0,
+    "reach": 71,
+    "saves": 0,
+    "shares": 0,
+    "total_interactions": 4,
+    "unfollows": 0,
+    "views": 237
+   },
+   "2026-07-01": {
+    "accounts_engaged": 2,
+    "comments": 0,
+    "follows": 1,
+    "likes": 2,
+    "profile_links_taps": 0,
+    "reach": 43,
+    "saves": 0,
+    "shares": 0,
+    "total_interactions": 2,
+    "unfollows": 0,
+    "views": 190
+   },
+   "2026-07-02": {
+    "accounts_engaged": 0,
+    "comments": 0,
+    "follows": 0,
+    "likes": 0,
+    "profile_links_taps": 0,
+    "reach": 49,
+    "saves": 0,
+    "shares": 0,
+    "total_interactions": 0,
+    "unfollows": 1,
+    "views": 169
+   },
+   "2026-07-03": {
+    "accounts_engaged": 4,
+    "comments": 0,
+    "follows": 1,
+    "likes": 3,
+    "profile_links_taps": 0,
+    "reach": 120,
+    "saves": 0,
+    "shares": 1,
+    "total_interactions": 5,
+    "unfollows": 1,
+    "views": 340
+   },
+   "2026-07-04": {
+    "accounts_engaged": 3,
+    "comments": 0,
+    "follows": 1,
+    "likes": 2,
+    "profile_links_taps": 0,
+    "reach": 158,
+    "saves": 1,
+    "shares": 0,
+    "total_interactions": 4,
+    "unfollows": 0,
+    "views": 261
+   },
+   "2026-07-05": {
+    "accounts_engaged": 63,
+    "comments": 1,
+    "follows": 2,
+    "likes": 82,
+    "profile_links_taps": 0,
+    "reach": 1114,
+    "saves": 0,
+    "shares": 5,
+    "total_interactions": 93,
+    "unfollows": 1,
+    "views": 4005
+   },
+   "2026-07-06": {
+    "accounts_engaged": 41,
+    "comments": 0,
+    "follows": 1,
+    "likes": 55,
+    "profile_links_taps": 0,
+    "reach": 716,
+    "saves": 1,
+    "shares": 3,
+    "total_interactions": 62,
+    "unfollows": 1,
+    "views": 2188
+   },
+   "2026-07-07": {
+    "accounts_engaged": 33,
+    "comments": 0,
+    "follows": 3,
+    "likes": 36,
+    "profile_links_taps": 0,
+    "reach": 371,
+    "saves": 0,
+    "shares": 6,
+    "total_interactions": 48,
+    "unfollows": 0,
+    "views": 1675
+   },
+   "2026-07-08": {
+    "accounts_engaged": 12,
+    "comments": 0,
+    "follows": 3,
+    "likes": 17,
+    "profile_links_taps": 0,
+    "reach": 124,
+    "saves": 0,
+    "shares": 0,
+    "total_interactions": 17,
+    "unfollows": 0,
+    "views": 545
+   },
+   "2026-07-09": {
+    "accounts_engaged": 49,
+    "comments": 0,
+    "follows": 0,
+    "likes": 54,
+    "profile_links_taps": 0,
+    "reach": 497,
+    "saves": 0,
+    "shares": 1,
+    "total_interactions": 56,
+    "unfollows": 0,
+    "views": 1783
+   },
+   "2026-07-10": {
+    "accounts_engaged": 7,
+    "comments": 0,
+    "follows": 1,
+    "likes": 7,
+    "profile_links_taps": 0,
+    "reach": 257,
+    "saves": 0,
+    "shares": 0,
+    "total_interactions": 7,
+    "unfollows": 1,
+    "views": 466
+   },
+   "2026-07-11": {
+    "accounts_engaged": 4,
+    "comments": 0,
+    "follows": 0,
+    "likes": 3,
+    "profile_links_taps": 0,
+    "reach": 87,
+    "saves": 0,
+    "shares": 1,
+    "total_interactions": 5,
+    "unfollows": 1,
+    "views": 200
+   },
+   "2026-07-12": {
+    "accounts_engaged": 5,
+    "comments": 0,
+    "follows": 2,
+    "likes": 5,
+    "profile_links_taps": 0,
+    "reach": 81,
+    "saves": 0,
+    "shares": 0,
+    "total_interactions": 5,
+    "unfollows": 0,
+    "views": 483
+   },
+   "2026-07-13": {
+    "accounts_engaged": 29,
+    "comments": 0,
+    "follows": 2,
+    "likes": 31,
+    "profile_links_taps": 0,
+    "reach": 296,
+    "saves": 0,
+    "shares": 0,
+    "total_interactions": 31,
+    "unfollows": 1,
+    "views": 890
+   },
+   "2026-07-14": {
+    "accounts_engaged": 10,
+    "comments": 0,
+    "follows": 0,
+    "likes": 10,
+    "profile_links_taps": 0,
+    "reach": 174,
+    "saves": 0,
+    "shares": 1,
+    "total_interactions": 12,
+    "unfollows": 1,
+    "views": 391
+   },
+   "2026-07-15": {
+    "accounts_engaged": 3,
+    "comments": 0,
+    "follows": 2,
+    "likes": 3,
+    "profile_links_taps": 0,
+    "reach": 149,
+    "saves": 0,
+    "shares": 1,
+    "total_interactions": 6,
+    "unfollows": 0,
+    "views": 802
+   },
+   "2026-07-16": {
+    "accounts_engaged": 7,
+    "comments": 0,
+    "follows": 2,
+    "likes": 6,
+    "profile_links_taps": 0,
+    "reach": 347,
+    "saves": 0,
+    "shares": 0,
+    "total_interactions": 6,
+    "unfollows": 1,
+    "views": 761
+   },
+   "2026-07-17": {
+    "accounts_engaged": 7,
+    "comments": 0,
+    "follows": 0,
+    "likes": 6,
+    "profile_links_taps": 0,
+    "reach": 152,
+    "saves": 0,
+    "shares": 1,
+    "total_interactions": 8,
+    "unfollows": 0,
+    "views": 244
+   },
+   "2026-07-18": {
+    "accounts_engaged": 0,
+    "comments": 0,
+    "follows": 0,
+    "likes": 0,
+    "profile_links_taps": 0,
+    "reach": 73,
+    "saves": 0,
+    "shares": 0,
+    "total_interactions": 0,
+    "unfollows": 0,
+    "views": 172
+   },
+   "2026-07-19": {
+    "accounts_engaged": 4,
+    "comments": 0,
+    "follows": 0,
+    "likes": 4,
+    "profile_links_taps": 0,
+    "reach": 72,
+    "saves": 0,
+    "shares": 1,
+    "total_interactions": 6,
+    "unfollows": 1,
+    "views": 353
+   },
+   "2026-07-20": {
+    "accounts_engaged": 2,
+    "comments": 0,
+    "follows": 0,
+    "likes": 2,
+    "profile_links_taps": 0,
+    "reach": 104,
+    "saves": 0,
+    "shares": 0,
+    "total_interactions": 2,
+    "unfollows": 0,
+    "views": 153
+   },
+   "2026-07-21": {
+    "accounts_engaged": 1,
+    "comments": 0,
+    "follows": 1,
+    "likes": 1,
+    "profile_links_taps": 0,
+    "reach": 45,
+    "saves": 0,
+    "shares": 0,
+    "total_interactions": 1,
+    "unfollows": 0,
+    "views": 363
+   },
+   "2026-07-22": {
+    "accounts_engaged": 0,
+    "comments": 0,
+    "follows": 0,
+    "likes": 0,
+    "profile_links_taps": 1,
+    "reach": 32,
+    "saves": 0,
+    "shares": 0,
+    "total_interactions": 0,
+    "unfollows": 0,
+    "views": 140
+   },
+   "2026-07-23": {
+    "accounts_engaged": 0,
+    "comments": 0,
+    "follows": 0,
+    "likes": 0,
+    "profile_links_taps": 0,
+    "reach": 35,
+    "saves": 0,
+    "shares": 0,
+    "total_interactions": 0,
+    "unfollows": 1,
+    "views": 206
+   },
+   "2026-07-24": {
+    "accounts_engaged": 115,
+    "comments": 0,
+    "follows": 3,
+    "likes": 115,
+    "profile_links_taps": 1,
+    "reach": 1448,
+    "saves": 0,
+    "shares": 5,
+    "total_interactions": 129,
+    "unfollows": 3,
+    "views": 4107
+   },
+   "2026-07-25": {
+    "accounts_engaged": 33,
+    "comments": 0,
+    "follows": 4,
+    "likes": 37,
+    "profile_links_taps": 0,
+    "reach": 710,
+    "saves": 0,
+    "shares": 0,
+    "total_interactions": 39,
+    "unfollows": 0,
+    "views": 2225
+   },
+   "2026-09-20": {
+    "accounts_engaged": 145,
+    "comments": 1,
+    "follows": 3,
+    "likes": 179,
+    "profile_links_taps": 0,
+    "reach": 1818,
+    "saves": 0,
+    "shares": 3,
+    "total_interactions": 190,
+    "unfollows": 3,
+    "views": 6694
+   },
+   "2026-09-21": {
+    "accounts_engaged": 30,
+    "comments": 1,
+    "follows": 4,
+    "likes": 29,
+    "profile_links_taps": 0,
+    "reach": 537,
+    "saves": 0,
+    "shares": 1,
+    "total_interactions": 34,
+    "unfollows": 2,
+    "views": 1346
+   },
+   "2026-09-22": {
+    "accounts_engaged": 17,
+    "comments": 0,
+    "follows": 1,
+    "likes": 15,
+    "profile_links_taps": 0,
+    "reach": 373,
+    "saves": 1,
+    "shares": 0,
+    "total_interactions": 16,
+    "unfollows": 0,
+    "views": 941
+   }
+  }
+ },
+ "facebook_backfilled": {
+  "page_daily_follows_unique": true,
+  "page_daily_unfollows_unique": true,
+  "page_media_view": true,
+  "page_total_media_view_unique": true
+ },
+ "last_run_note_count": 0,
+ "last_run_notes": [],
+ "monthly_reach": {
+  "facebook": {
+   "2024-09": {
+    "days": 28,
+    "to": "2024-09-30",
+    "value": 0
+   },
+   "2024-10": {
+    "days": 28,
+    "to": "2024-10-31",
+    "value": 0
+   },
+   "2024-11": {
+    "days": 28,
+    "to": "2024-11-30",
+    "value": 0
+   },
+   "2024-12": {
+    "days": 28,
+    "to": "2024-12-31",
+    "value": 0
+   },
+   "2025-01": {
+    "days": 28,
+    "to": "2025-01-31",
+    "value": 0
+   },
+   "2025-02": {
+    "days": 28,
+    "to": "2025-02-28",
+    "value": 0
+   },
+   "2025-03": {
+    "days": 28,
+    "to": "2025-03-31",
+    "value": 0
+   },
+   "2025-04": {
+    "days": 28,
+    "to": "2025-04-30",
+    "value": 0
+   },
+   "2025-05": {
+    "days": 28,
+    "to": "2025-05-31",
+    "value": 6049
+   },
+   "2025-06": {
+    "days": 28,
+    "to": "2025-06-30",
+    "value": 28438
+   },
+   "2025-07": {
+    "days": 28,
+    "to": "2025-07-31",
+    "value": 3634
+   },
+   "2025-08": {
+    "days": 28,
+    "to": "2025-08-31",
+    "value": 5220
+   },
+   "2025-09": {
+    "days": 28,
+    "to": "2025-09-30",
+    "value": 16730
+   },
+   "2025-10": {
+    "days": 28,
+    "to": "2025-10-31",
+    "value": 21576
+   },
+   "2025-11": {
+    "days": 28,
+    "to": "2025-11-30",
+    "value": 11879
+   },
+   "2025-12": {
+    "days": 28,
+    "to": "2025-12-31",
+    "value": 8871
+   },
+   "2026-01": {
+    "days": 28,
+    "to": "2026-01-31",
+    "value": 16462
+   },
+   "2026-02": {
+    "days": 28,
+    "to": "2026-02-28",
+    "value": 17245
+   },
+   "2026-03": {
+    "days": 28,
+    "to": "2026-03-31",
+    "value": 16318
+   },
+   "2026-04": {
+    "days": 28,
+    "to": "2026-04-30",
+    "value": 13660
+   },
+   "2026-05": {
+    "days": 28,
+    "to": "2026-05-31",
+    "value": 20861
+   },
+   "2026-06": {
+    "days": 28,
+    "to": "2026-06-30",
+    "value": 12816
+   },
+   "2026-07": {
+    "days": 28,
+    "to": "2026-07-31",
+    "value": 15986
+   },
+   "2026-08": {
+    "days": 28,
+    "to": "2026-08-31",
+    "value": 13736
+   }
+  },
+  "instagram": {
+   "2026-07": {
+    "days": 30,
+    "from": "2026-07-02",
+    "to": "2026-07-31",
+    "value": 4569
+   },
+   "2026-08": {
+    "days": 30,
+    "from": "2026-08-02",
+    "to": "2026-08-31",
+    "value": 3050
+   }
+  }
+ },
+ "updated": "2026-09-23T19:58:11.367031+00:00"
+}
