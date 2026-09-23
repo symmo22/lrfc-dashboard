@@ -71,14 +71,116 @@
       }
     }
   },
-  "generated_at": "2026-09-23T19:56:14.724752+00:00",
+  "facebook_demographics": {
+    "city": {
+      "period": "day",
+      "values": {
+        "Adelaide, SA, Australia": 4,
+        "Alcester, UK": 6,
+        "Banbury, UK": 12,
+        "Bedworth, UK": 7,
+        "Belo Horizonte, MG, Brazil": 10,
+        "Birmingham, UK": 28,
+        "Bristol, UK": 5,
+        "Bromsgrove, UK": 3,
+        "Bubbenhall, UK": 7,
+        "Cardiff, UK": 5,
+        "Coventry, UK": 122,
+        "Daventry, UK": 6,
+        "Dublin, Ireland": 4,
+        "Evesham, UK": 5,
+        "Halesowen, UK": 4,
+        "Hereford, UK": 6,
+        "Hinckley, UK": 10,
+        "Islamabad, Islamabad Capital Territory, Pakistan": 13,
+        "Kenilworth, UK": 64,
+        "Kidderminster, UK": 5,
+        "Leamington Spa, UK": 511,
+        "Ledbury, UK": 4,
+        "London, UK": 25,
+        "Madrid, Spain": 9,
+        "Manchester, UK": 3,
+        "Melton Mowbray, UK": 3,
+        "Northampton, UK": 3,
+        "Norwich, UK": 4,
+        "Nuneaton, UK": 18,
+        "Pescia, Tuscany, Italy": 12,
+        "Prato, Tuscany, Italy": 4,
+        "Redditch, UK": 5,
+        "Rugby, UK": 51,
+        "Shipston on Stour, UK": 6,
+        "Sialkot, Punjab, Pakistan": 26,
+        "Solihull, UK": 12,
+        "Southam, UK": 49,
+        "Stoneleigh, UK": 4,
+        "Stratford-upon-Avon, UK": 34,
+        "Sydney, NSW, Australia": 8,
+        "Tamworth, UK": 5,
+        "Walsall, UK": 4,
+        "Warwick, UK": 267,
+        "Wexford, Ireland": 5,
+        "Wolston, UK": 6
+      }
+    },
+    "country": {
+      "period": "day",
+      "values": {
+        "AE": 4,
+        "AR": 4,
+        "AU": 30,
+        "BD": 7,
+        "BF": 1,
+        "BJ": 1,
+        "BR": 15,
+        "CA": 2,
+        "CH": 1,
+        "CL": 1,
+        "CY": 1,
+        "DE": 5,
+        "EG": 1,
+        "ES": 26,
+        "FJ": 3,
+        "FR": 7,
+        "GB": 1833,
+        "GG": 1,
+        "GH": 1,
+        "GR": 1,
+        "HK": 2,
+        "HU": 1,
+        "ID": 20,
+        "IE": 21,
+        "IM": 1,
+        "IN": 3,
+        "IR": 1,
+        "IT": 32,
+        "KE": 1,
+        "MG": 2,
+        "NG": 2,
+        "NL": 3,
+        "NZ": 21,
+        "PG": 2,
+        "PK": 67,
+        "PL": 3,
+        "PT": 5,
+        "QA": 1,
+        "RO": 1,
+        "SE": 1,
+        "SG": 1,
+        "SO": 1,
+        "TR": 2,
+        "US": 17,
+        "ZA": 7
+      }
+    }
+  },
+  "generated_at": "2026-09-23T20:53:41.482580+00:00",
   "notes": [],
   "windows": {
     "30": {
       "facebook": {
         "current": {
           "reach": 41495,
-          "views": 104821
+          "views": 104822
         },
         "prior": {
           "reach": 15749,
@@ -141,7 +243,7 @@
     "90": {
       "facebook": {
         "current": {
-          "views": 209845
+          "views": 209846
         },
         "prior": {
           "views": 207412
