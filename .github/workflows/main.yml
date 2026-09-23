@@ -45,6 +45,12 @@ jobs:
         continue-on-error: true
         run: python scripts/ingest_insights.py
 
+      # The dashboard's own daily history, so the 12-month view doesn't
+      # depend on how long Meta keeps data (90 days on Instagram).
+      - name: Save daily history
+        continue-on-error: true
+        run: python scripts/ingest_history.py
+
       - name: Regenerate static site
         run: python scripts/render_site.py
 
