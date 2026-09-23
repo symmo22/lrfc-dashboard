@@ -2,28 +2,28 @@
 """
 Leamington RFC social dashboard - rolling-window and audience insights.
 
-Fetches, for both platforms:
-  - account totals for the last 30 days and the 30 days before that
-    (so every headline figure has a like-for-like comparison from day one)
-  - Instagram views split by followers vs non-followers
-  - Instagram views split by content type (posts, Reels, Stories...)
-  - Instagram follows and unfollows
-  - Instagram follower demographics (age, gender, city)
+For each dashboard window (30 and 90 days) fetches account totals for
+that window and the one before it, plus Instagram breakdowns (followers vs
+non-followers, content type, follows and unfollows). Also fetches
+Instagram follower demographics once (they aren't window-based).
 
-Writes the latest set to data/insights.json, overwritten each run. Every
-figure here is a rolling window Meta can recompute on demand, so there is
-nothing to accumulate.
+Writes data/insights.json, overwritten each run: every figure is a rolling
+window Meta can recompute, so there's nothing to accumulate.
 
-Robustness: every metric is fetched on its own and any failure is recorded
-as a note rather than stopping the run. The workflow also runs this step
-with continue-on-error, so nothing here can block the core daily snapshot
-in ingest.py and ingest_posts.py.
+Meta's limits, handled explicitly rather than papered over:
+  - Instagram accepts at most 30 days per request. Longer windows are
+    fetched as 30-day chunks and summed, but only for counts that can be
+    summed (views, likes, interactions...). Reach counts unique accounts,
+    so it can't be summed across chunks and isn't given beyond 30 days.
+  - Instagram keeps account-level data for 90 days, so there is no
+    "previous 90 days" to compare against.
+  - Facebook reach (unique people) only exists as Meta's own 28-day
+    figure. Facebook views are summed from daily values.
+  - If any chunk of a summed figure fails, the whole figure is dropped,
+    never shown as a partial total.
 
-Windows: Instagram uses exactly 30 days to match what the Instagram app
-shows. Facebook views are summed from daily values over the same 30 days
-(views can be summed). Facebook reach cannot be summed across days because
-it counts unique people, so it uses Meta's own 28-day rolling figure and is
-labelled as 28 days on the dashboard.
+Every figure is fetched on its own; failures become notes, never a crash.
+The workflow also runs this step with continue-on-error.
 """
 
 import json
@@ -36,27 +36,48 @@ from graph import env, get_page_token, graph_get  # noqa: E402
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 INSIGHTS_FILE = DATA_DIR / "insights.json"
-WINDOW_DAYS = 30
+WINDOWS = [30, 90]  # 12 months comes from saved history (ingest_history.py)
+IG_MAX_RANGE = 30
+IG_RETENTION_DAYS = 90
+FB_REACH_PERIOD = {30: ("days_28", 28)}
+
+IG_REACH_GROUP = ["reach", "accounts_engaged"]
+IG_SUM_GROUPS = [["views", "total_interactions"], ["likes", "comments", "shares", "saves"],
+                 ["profile_links_taps"]]
 
 
 def midnight_ts(day):
     return int(datetime(day.year, day.month, day.day, tzinfo=timezone.utc).timestamp())
 
 
-class Notes:
-    """Collects failures from optional fetches instead of raising."""
+def chunks(since, until, max_days):
+    start = since
+    while start < until:
+        end = min(start + timedelta(days=max_days), until)
+        yield start, end
+        start = end
 
+
+class Notes:
     def __init__(self):
         self.items = []
 
     def attempt(self, label, fn):
         try:
             return fn()
-        except Exception as exc:  # noqa: BLE001 - optional panel, never fatal
-            message = f"{label}: {exc}"
-            self.items.append(message)
-            print(f"  WARN {message}", file=sys.stderr)
+        except Exception as exc:  # noqa: BLE001 - optional figure, never fatal
+            self.items.append(f"{label}: {exc}")
+            print(f"  WARN {label}: {exc}", file=sys.stderr)
             return None
+
+
+def _add(total, value):
+    if isinstance(value, dict):
+        total = dict(total or {})
+        for k, v in value.items():
+            total[k] = (total.get(k) or 0) + (v or 0)
+        return total
+    return (total or 0) + (value or 0)
 
 
 # ---------------------------------------------------------------------------
@@ -64,13 +85,8 @@ class Notes:
 # ---------------------------------------------------------------------------
 
 def ig_totals(ig_id, token, app_secret, metrics, since, until, breakdown=None):
-    params = {
-        "metric": ",".join(metrics),
-        "period": "day",
-        "metric_type": "total_value",
-        "since": midnight_ts(since),
-        "until": midnight_ts(until),
-    }
+    params = {"metric": ",".join(metrics), "period": "day", "metric_type": "total_value",
+              "since": midnight_ts(since), "until": midnight_ts(until)}
     if breakdown:
         params["breakdown"] = breakdown
     result = graph_get(f"{ig_id}/insights", token, app_secret, params)
@@ -78,11 +94,8 @@ def ig_totals(ig_id, token, app_secret, metrics, since, until, breakdown=None):
     for row in result.get("data", []):
         total = row.get("total_value") or {}
         if breakdown:
-            breakdowns = total.get("breakdowns") or [{}]
-            results = breakdowns[0].get("results", [])
-            out[row["name"]] = {
-                "/".join(r.get("dimension_values", [])): r.get("value") for r in results
-            }
+            results = (total.get("breakdowns") or [{}])[0].get("results", [])
+            out[row["name"]] = {"/".join(r.get("dimension_values", [])): r.get("value") for r in results}
         else:
             out[row["name"]] = total.get("value")
     if not out:
@@ -90,36 +103,30 @@ def ig_totals(ig_id, token, app_secret, metrics, since, until, breakdown=None):
     return out
 
 
+def ig_summed(ig_id, token, app_secret, metrics, since, until, breakdown=None):
+    """Sum a summable metric over any length of window, 30 days at a time.
+    Any failing chunk raises, so a partial total is never returned."""
+    totals = {}
+    for a, b in chunks(since, until, IG_MAX_RANGE):
+        for name, value in ig_totals(ig_id, token, app_secret, metrics, a, b, breakdown).items():
+            totals[name] = _add(totals.get(name), value)
+    return totals
+
+
 def ig_demographics(ig_id, token, app_secret, breakdown):
     last_error = None
     for timeframe in ("this_month", "this_week"):
         try:
-            result = graph_get(
-                f"{ig_id}/insights",
-                token,
-                app_secret,
-                {
-                    "metric": "follower_demographics",
-                    "period": "lifetime",
-                    "metric_type": "total_value",
-                    "timeframe": timeframe,
-                    "breakdown": breakdown,
-                },
-            )
+            result = graph_get(f"{ig_id}/insights", token, app_secret, {
+                "metric": "follower_demographics", "period": "lifetime", "metric_type": "total_value",
+                "timeframe": timeframe, "breakdown": breakdown})
             data = result.get("data") or []
-            if not data:
-                raise ValueError("no data returned")
-            breakdowns = (data[0].get("total_value") or {}).get("breakdowns") or [{}]
-            results = breakdowns[0].get("results", [])
+            results = ((data[0].get("total_value") or {}).get("breakdowns") or [{}])[0].get("results", []) if data else []
             if not results:
                 raise ValueError("empty breakdown")
-            return {
-                "timeframe": timeframe,
-                "values": {
-                    "/".join(r.get("dimension_values", [])): r.get("value") for r in results
-                },
-            }
-        except Exception as exc:  # noqa: BLE001 - try the next timeframe
+            return {"timeframe": timeframe,
+                    "values": {"/".join(r.get("dimension_values", [])): r.get("value") for r in results}}
+        except Exception as exc:  # noqa: BLE001
             last_error = exc
     raise last_error
 
@@ -129,44 +136,31 @@ def ig_demographics(ig_id, token, app_secret, breakdown):
 # ---------------------------------------------------------------------------
 
 def fb_daily_sum(page_id, page_token, app_secret, metric, since, until):
-    result = graph_get(
-        f"{page_id}/insights",
-        page_token,
-        app_secret,
-        {"metric": metric, "period": "day", "since": midnight_ts(since), "until": midnight_ts(until)},
-    )
     total, count = 0, 0
-    for row in result.get("data", []):
-        if row.get("period") != "day":
-            continue
-        for value in row.get("values", []):
-            v = value.get("value")
-            if isinstance(v, (int, float)):
-                total += v
-                count += 1
+    for a, b in chunks(since, until, 30):
+        result = graph_get(f"{page_id}/insights", page_token, app_secret, {
+            "metric": metric, "period": "day", "since": midnight_ts(a), "until": midnight_ts(b)})
+        for row in result.get("data", []):
+            if row.get("period") != "day":
+                continue
+            for value in row.get("values", []):
+                if isinstance(value.get("value"), (int, float)):
+                    total += value["value"]
+                    count += 1
     if count == 0:
         raise ValueError("no daily values returned")
     return total
 
 
 def fb_rolling_latest(page_id, page_token, app_secret, metric, period, end):
-    result = graph_get(
-        f"{page_id}/insights",
-        page_token,
-        app_secret,
-        {
-            "metric": metric,
-            "period": period,
-            "since": midnight_ts(end - timedelta(days=2)),
-            "until": midnight_ts(end),
-        },
-    )
+    result = graph_get(f"{page_id}/insights", page_token, app_secret, {
+        "metric": metric, "period": period,
+        "since": midnight_ts(end - timedelta(days=2)), "until": midnight_ts(end)})
     for row in result.get("data", []):
-        if row.get("period") != period:
-            continue
-        values = [v.get("value") for v in row.get("values", []) if isinstance(v.get("value"), (int, float))]
-        if values:
-            return values[-1]
+        if row.get("period") == period:
+            values = [v.get("value") for v in row.get("values", []) if isinstance(v.get("value"), (int, float))]
+            if values:
+                return values[-1]
     raise ValueError(f"no {period} values returned")
 
 
@@ -177,92 +171,72 @@ def main():
     app_secret = env("META_APP_SECRET")
     page_id = env("META_PAGE_ID")
     ig_id = env("META_IG_USER_ID")
-
     today = datetime.now(timezone.utc).date()
-    cur_since, cur_until = today - timedelta(days=WINDOW_DAYS), today
-    prev_since, prev_until = cur_since - timedelta(days=WINDOW_DAYS), cur_since
-    windows = (("current", cur_since, cur_until), ("prior", prev_since, prev_until))
-
     notes = Notes()
+    page_token = notes.attempt("Facebook page token", lambda: get_page_token(page_id, token, app_secret))
 
-    print("Instagram 30-day totals...")
-    ig = {"current": {}, "prior": {}}
-    for label, since, until in windows:
-        for group, metrics in (
-            ("reach and views", ["reach", "views", "accounts_engaged", "total_interactions"]),
-            ("engagement", ["likes", "comments", "shares", "saves"]),
-        ):
-            got = notes.attempt(
-                f"Instagram {label} {group}",
-                lambda m=metrics, s=since, u=until: ig_totals(ig_id, token, app_secret, m, s, u),
-            )
-            if got:
-                ig[label].update(got)
+    windows = {}
+    for days in WINDOWS:
+        print(f"{days}-day window...")
+        ranges = {"current": (today - timedelta(days=days), today),
+                  "prior": (today - timedelta(days=2 * days), today - timedelta(days=days))}
+        ig = {"current": {}, "prior": {}, "unavailable": {}}
+        fb = {"current": {}, "prior": {}, "reach_days": FB_REACH_PERIOD.get(days, (None, None))[1]}
 
-    print("Instagram breakdowns...")
-    by_follower = notes.attempt(
-        "Instagram views by follower type",
-        lambda: ig_totals(ig_id, token, app_secret, ["views"], cur_since, cur_until, "follower_type"),
-    )
-    ig["views_by_follower_type"] = (by_follower or {}).get("views")
-    by_product = notes.attempt(
-        "Instagram views by content type",
-        lambda: ig_totals(ig_id, token, app_secret, ["views"], cur_since, cur_until, "media_product_type"),
-    )
-    ig["views_by_product_type"] = (by_product or {}).get("views")
-    follows = notes.attempt(
-        "Instagram follows and unfollows",
-        lambda: ig_totals(
-            ig_id, token, app_secret, ["follows_and_unfollows"], cur_since, cur_until, "follow_type"
-        ),
-    )
-    ig["follows"] = (follows or {}).get("follows_and_unfollows")
+        for label, (since, until) in ranges.items():
+            if (today - since).days > IG_RETENTION_DAYS:
+                ig["unavailable"][label] = "Instagram keeps account data for 90 days"
+                continue
+            if days <= IG_MAX_RANGE:
+                got = notes.attempt(f"Instagram {days}d {label} reach",
+                                    lambda s=since, u=until: ig_totals(ig_id, token, app_secret, IG_REACH_GROUP, s, u))
+                if got:
+                    ig[label].update(got)
+            for group in IG_SUM_GROUPS:
+                got = notes.attempt(f"Instagram {days}d {label} {'/'.join(group)}",
+                                    lambda g=group, s=since, u=until: ig_summed(ig_id, token, app_secret, g, s, u))
+                if got:
+                    ig[label].update(got)
+
+        since, until = ranges["current"]
+        for key, metric, breakdown in (("views_by_follower_type", "views", "follow_type"),
+                                       ("views_by_product_type", "views", "media_product_type"),
+                                       ("follows", "follows_and_unfollows", "follow_type")):
+            got = notes.attempt(f"Instagram {days}d {metric} by {breakdown}",
+                                lambda m=metric, b=breakdown: ig_summed(ig_id, token, app_secret, [m], since, until, b))
+            ig[key] = (got or {}).get(metric)
+
+        if page_token:
+            for label, (s, u) in ranges.items():
+                views = notes.attempt(f"Facebook {days}d {label} views",
+                                      lambda s=s, u=u: fb_daily_sum(page_id, page_token, app_secret, "page_media_view", s, u))
+                if views is not None:
+                    fb[label]["views"] = views
+                period = FB_REACH_PERIOD.get(days)
+                if period:
+                    reach = notes.attempt(f"Facebook {days}d {label} reach",
+                                          lambda u=u, p=period[0]: fb_rolling_latest(
+                                              page_id, page_token, app_secret, "page_total_media_view_unique", p, u))
+                    if reach is not None:
+                        fb[label]["reach"] = reach
+
+        windows[str(days)] = {"range": {k: [a.isoformat(), b.isoformat()] for k, (a, b) in ranges.items()},
+                              "instagram": ig, "facebook": fb}
+        print(f"  Instagram {windows[str(days)]['instagram']['current']}")
+        print(f"  Facebook {windows[str(days)]['facebook']['current']}")
 
     print("Instagram audience...")
     demographics = {}
     for breakdown in ("age", "gender", "city"):
-        got = notes.attempt(
-            f"Instagram follower {breakdown}",
-            lambda b=breakdown: ig_demographics(ig_id, token, app_secret, b),
-        )
+        got = notes.attempt(f"Instagram follower {breakdown}",
+                            lambda b=breakdown: ig_demographics(ig_id, token, app_secret, b))
         if got:
             demographics[breakdown] = got
-    ig["demographics"] = demographics
 
-    print("Facebook 30-day totals...")
-    fb = {"current": {}, "prior": {}}
-    page_token = notes.attempt("Facebook page token", lambda: get_page_token(page_id, token, app_secret))
-    if page_token:
-        for label, since, until in windows:
-            views = notes.attempt(
-                f"Facebook {label} views",
-                lambda s=since, u=until: fb_daily_sum(page_id, page_token, app_secret, "page_media_view", s, u),
-            )
-            if views is not None:
-                fb[label]["views"] = views
-            reach = notes.attempt(
-                f"Facebook {label} reach",
-                lambda u=until: fb_rolling_latest(
-                    page_id, page_token, app_secret, "page_total_media_view_unique", "days_28", u
-                ),
-            )
-            if reach is not None:
-                fb[label]["reach_28d"] = reach
-
-    output = {
-        "generated_at": datetime.now(timezone.utc).isoformat(),
-        "window_days": WINDOW_DAYS,
-        "window": {"current": [cur_since.isoformat(), cur_until.isoformat()],
-                   "prior": [prev_since.isoformat(), prev_until.isoformat()]},
-        "instagram": ig,
-        "facebook": fb,
-        "notes": notes.items,
-    }
+    output = {"generated_at": datetime.now(timezone.utc).isoformat(), "windows": windows,
+              "demographics": demographics, "notes": notes.items}
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     INSIGHTS_FILE.write_text(json.dumps(output, indent=2, sort_keys=True), encoding="utf-8")
-
-    print(f"  Instagram current: {ig['current']}")
-    print(f"  Facebook current: {fb['current']}")
     print(f"Done with {len(notes.items)} note(s).")
 
 

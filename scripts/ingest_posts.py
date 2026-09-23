@@ -23,7 +23,8 @@ Required environment variables: same four as ingest.py.
 import json
 import re
 import sys
-from datetime import datetime, timezone
+import zlib
+from datetime import date, datetime, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
@@ -40,7 +41,16 @@ from graph import (  # noqa: E402
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 POSTS_FILE = DATA_DIR / "posts.json"
-LOOKBACK_DAYS = 180
+# Instagram keeps per-post insights for 2 years; a couple of days' margin.
+LOOKBACK_DAYS = 728
+# Posts younger than this are refreshed every run. Older posts' lifetime
+# figures barely move, so each is refreshed once a week, spread across the
+# week by post ID so no single run does them all.
+DAILY_REFRESH_DAYS = 90
+# Cap on never-measured posts per run, newest first. Keeps the first run
+# after widening the lookback (~800 posts) inside Meta's rate limits; the
+# backlog clears over a few runs.
+MAX_NEW_PER_RUN = 100
 LONDON = ZoneInfo("Europe/London")
 
 HASHTAG_RE = re.compile(r"#\w+")
@@ -291,17 +301,46 @@ def save_posts(posts):
     POSTS_FILE.write_text(json.dumps(posts, indent=2, sort_keys=True), encoding="utf-8")
 
 
-def upsert_post(posts, record, snapshot_date, snapshot_metrics):
-    """Static fields (format, caption, cuts) overwrite each run in case they
-    change; the snapshots dict only ever gains new dated entries, never
-    loses old ones - that's the decay curve building up over time. Running
-    the same day twice overwrites that one day's entry, never duplicates."""
-    key = f"{record['platform']}:{record['post_id']}"
-    existing = posts.get(key, {"snapshots": {}})
+def refresh_status(record, existing, today):
+    """'new' if never measured, 'due' if it should be re-measured this run,
+    None if its current figures are fresh enough."""
+    latest = (existing.get("latest") or {}).get("date")
+    if not latest and not existing.get("snapshots"):
+        return "new"
+    published = datetime.fromisoformat(record["published_at"].replace("Z", "+00:00")).date()
+    if (today - published).days <= DAILY_REFRESH_DAYS:
+        return "due"
+    if not latest or (today - date.fromisoformat(latest)).days >= 8:
+        return "due"
+    if zlib.crc32(record["post_id"].encode()) % 7 == today.weekday():
+        return "due"
+    return None
+
+
+def post_key(record):
+    return f"{record['platform']}:{record['post_id']}"
+
+
+def upsert_post(posts, record, today_str, metrics, keep_snapshot):
+    """Every post in the window gets its latest lifetime numbers on every
+    run ("latest"). Dated checkpoint snapshots are kept only on decay-
+    schedule days, or when a post has never been snapshotted, so the file
+    doesn't grow by one entry per post per day.
+
+    An earlier version only fetched numbers on schedule days, which meant
+    posts first seen on an off-schedule day were listed but never
+    measured: 172 of the first 207 posts, found on 2026-09-21. Fixed here.
+
+    metrics=None (a failed fetch) keeps whatever was there before."""
+    key = post_key(record)
+    existing = posts.get(key, {})
     snapshots = existing.get("snapshots", {})
-    if snapshot_metrics is not None:
-        snapshots[snapshot_date] = snapshot_metrics
-    posts[key] = {**record, "snapshots": snapshots}
+    latest = existing.get("latest")
+    if metrics is not None:
+        latest = {"date": today_str, "metrics": metrics}
+        if keep_snapshot:
+            snapshots[today_str] = metrics
+    posts[key] = {**record, "snapshots": snapshots, "latest": latest}
 
 
 # ---------------------------------------------------------------------------
@@ -324,33 +363,42 @@ def main():
 
     posts = load_posts()
 
+    def refresh(label, items, build, fetch):
+        measured, failed, new, waiting = 0, 0, 0, 0
+        for item in items:
+            record = build(item)
+            existing = posts.get(post_key(record), {})
+            status = refresh_status(record, existing, today)
+            if status == "new" and new >= MAX_NEW_PER_RUN:
+                waiting += 1
+                status = None
+            metrics = None
+            if status:
+                try:
+                    metrics = fetch(item["id"])
+                    measured += 1
+                    new += status == "new"
+                except (AuthError, BlockedError):
+                    raise
+                except Exception as exc:  # noqa: BLE001 - one bad post must not stop the rest
+                    print(f"  WARN {label} post {item['id']}: {exc}", file=sys.stderr)
+                    failed += 1
+            keep = snapshot_due(record["published_at"], today) or not existing.get("snapshots")
+            upsert_post(posts, record, today_str, metrics, keep)
+        print(f"  {label}: measured {measured} ({new} for the first time), {failed} failed, "
+              f"{waiting} waiting for a later run.")
+
     print(f"Listing Facebook posts since {cutoff}...")
     fb_items = list_facebook_posts(page_id, page_token, app_secret, cutoff)
     print(f"  Found {len(fb_items)} post(s) in window.")
-    fb_snapshotted = 0
-    for item in fb_items:
-        record = build_facebook_record(item)
-        if snapshot_due(record["published_at"], today):
-            metrics = fetch_facebook_post_insights(item["id"], page_token, app_secret)
-            fb_snapshotted += 1
-        else:
-            metrics = None
-        upsert_post(posts, record, today_str, metrics)
-    print(f"  Snapshotted {fb_snapshotted} Facebook post(s) today.")
+    refresh("Facebook", fb_items, build_facebook_record,
+            lambda pid: fetch_facebook_post_insights(pid, page_token, app_secret))
 
     print(f"Listing Instagram media since {cutoff}...")
     ig_items = list_instagram_media(ig_id, token, app_secret, cutoff)
     print(f"  Found {len(ig_items)} post(s) in window.")
-    ig_snapshotted = 0
-    for item in ig_items:
-        record = build_instagram_record(item)
-        if snapshot_due(record["published_at"], today):
-            metrics = fetch_instagram_media_insights(item["id"], token, app_secret)
-            ig_snapshotted += 1
-        else:
-            metrics = None
-        upsert_post(posts, record, today_str, metrics)
-    print(f"  Snapshotted {ig_snapshotted} Instagram post(s) today.")
+    refresh("Instagram", ig_items, build_instagram_record,
+            lambda pid: fetch_instagram_media_insights(pid, token, app_secret))
 
     print("Saving data/posts.json...")
     save_posts(posts)
