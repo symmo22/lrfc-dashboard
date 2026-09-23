@@ -32,7 +32,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from graph import env, get_page_token, graph_get  # noqa: E402
+from graph import Notes, env, get_page_token, graph_get  # noqa: E402
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 INSIGHTS_FILE = DATA_DIR / "insights.json"
@@ -57,18 +57,6 @@ def chunks(since, until, max_days):
         yield start, end
         start = end
 
-
-class Notes:
-    def __init__(self):
-        self.items = []
-
-    def attempt(self, label, fn):
-        try:
-            return fn()
-        except Exception as exc:  # noqa: BLE001 - optional figure, never fatal
-            self.items.append(f"{label}: {exc}")
-            print(f"  WARN {label}: {exc}", file=sys.stderr)
-            return None
 
 
 def _add(total, value):
@@ -164,6 +152,24 @@ def fb_rolling_latest(page_id, page_token, app_secret, metric, period, end):
     raise ValueError(f"no {period} values returned")
 
 
+def fb_latest_breakdown(page_id, page_token, app_secret, metric, today):
+    """Latest follower breakdown (e.g. by town). Meta removed Facebook age
+    and gender in 2024; town and country may remain. Tries both periods Meta
+    has used for these metrics and reports the response shape if neither
+    works, so the note says exactly what came back."""
+    last = None
+    for period in ("day", "lifetime"):
+        result = graph_get(f"{page_id}/insights", page_token, app_secret, {
+            "metric": metric, "period": period,
+            "since": midnight_ts(today - timedelta(days=4)), "until": midnight_ts(today)})
+        for row in result.get("data", []):
+            values = [v.get("value") for v in row.get("values", []) if isinstance(v.get("value"), dict) and v.get("value")]
+            if values:
+                return {"period": period, "values": values[-1]}
+        last = result
+    raise ValueError("no breakdown returned: " + json.dumps(last)[:300])
+
+
 # ---------------------------------------------------------------------------
 
 def main():
@@ -233,11 +239,20 @@ def main():
         if got:
             demographics[breakdown] = got
 
+    print("Facebook audience...")
+    fb_demographics = {}
+    if page_token:
+        for field, metric in (("city", "page_follows_city"), ("country", "page_follows_country")):
+            got = notes.attempt(f"Facebook follower {field}",
+                                lambda m=metric: fb_latest_breakdown(page_id, page_token, app_secret, m, today))
+            if got:
+                fb_demographics[field] = got
+
     output = {"generated_at": datetime.now(timezone.utc).isoformat(), "windows": windows,
-              "demographics": demographics, "notes": notes.items}
+              "demographics": demographics, "facebook_demographics": fb_demographics, "notes": notes.items}
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     INSIGHTS_FILE.write_text(json.dumps(output, indent=2, sort_keys=True), encoding="utf-8")
-    print(f"Done with {len(notes.items)} note(s).")
+    print(f"Done with {notes.summary()}.")
 
 
 if __name__ == "__main__":

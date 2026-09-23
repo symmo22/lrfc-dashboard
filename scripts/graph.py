@@ -124,3 +124,46 @@ def ping_heartbeat():
         urllib.request.urlopen(url, timeout=10)
     except Exception as exc:  # noqa: BLE001
         print(f"Heartbeat ping failed (non-fatal): {exc}", file=sys.stderr)
+
+
+def is_rate_limited(exc):
+    """graph_get raises 'Gave up after N attempts' only after exhausting its
+    retries on a rate-limit or transient server error."""
+    return str(exc).startswith("Gave up after")
+
+
+class Notes:
+    """Runs optional fetches, turning failures into notes instead of crashes.
+
+    Circuit breaker: once a platform is rate-limited (retries exhausted),
+    every later call for that platform in the same run is skipped rather
+    than each one waiting minutes through its own retries. Without this, a
+    rate-limited backfill could hang the job for hours and lose the whole
+    day's commit. The platform is taken from the first word of the label
+    ("Instagram ..." / "Facebook ..."); skipped work is retried next run."""
+
+    def __init__(self):
+        self.items = []
+        self.stopped = set()
+        self.skipped = 0
+
+    def attempt(self, label, fn):
+        platform = label.split()[0]
+        if platform in self.stopped:
+            self.skipped += 1
+            return None
+        try:
+            return fn()
+        except Exception as exc:  # noqa: BLE001 - optional figure, never fatal
+            self.items.append(f"{label}: {exc}")
+            print(f"  WARN {label}: {exc}", file=sys.stderr)
+            if is_rate_limited(exc):
+                self.stopped.add(platform)
+                print(f"  {platform} rate-limited: skipping its remaining calls this run.", file=sys.stderr)
+            return None
+
+    def summary(self):
+        text = f"{len(self.items)} note(s)"
+        if self.stopped:
+            text += f"; rate-limited: {', '.join(sorted(self.stopped))}, {self.skipped} call(s) left for the next run"
+        return text

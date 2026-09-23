@@ -37,6 +37,7 @@ from graph import (  # noqa: E402
     get_page_token,
     graph_get,
     graph_get_url,
+    is_rate_limited,
 )
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
@@ -365,10 +366,14 @@ def main():
 
     def refresh(label, items, build, fetch):
         measured, failed, new, waiting = 0, 0, 0, 0
+        limited = False  # circuit breaker: see graph.Notes
         for item in items:
             record = build(item)
             existing = posts.get(post_key(record), {})
             status = refresh_status(record, existing, today)
+            if status and limited:
+                waiting += 1
+                status = None
             if status == "new" and new >= MAX_NEW_PER_RUN:
                 waiting += 1
                 status = None
@@ -383,6 +388,9 @@ def main():
                 except Exception as exc:  # noqa: BLE001 - one bad post must not stop the rest
                     print(f"  WARN {label} post {item['id']}: {exc}", file=sys.stderr)
                     failed += 1
+                    if is_rate_limited(exc):
+                        limited = True
+                        print(f"  {label} rate-limited: remaining posts wait for the next run.", file=sys.stderr)
             keep = snapshot_due(record["published_at"], today) or not existing.get("snapshots")
             upsert_post(posts, record, today_str, metrics, keep)
         print(f"  {label}: measured {measured} ({new} for the first time), {failed} failed, "

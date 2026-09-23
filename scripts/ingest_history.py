@@ -15,6 +15,13 @@ data/history.json
       follows, unfollows, profile_links_taps
   daily.facebook["YYYY-MM-DD"]
       views, viewers (unique that day), follows, unfollows
+      page_views (Page visits), page_follows (follower total, if Meta provides it)
+      views_by_is_from_followers, views_by_is_from_ads (raw breakdowns, labelled in the renderer)
+  rolling_reach.instagram["YYYY-MM-DD"]  unique accounts reached in the 30 days ending that day
+  rolling_reach.facebook["YYYY-MM-DD"]   Meta's 28-day unique reach ending that day
+      These are the figures the apps show; saving one per day gives a real
+      reach trend line. Instagram can only be backfilled while the 30-day
+      window is inside Meta's 90 days (about 60 days back); Facebook 2 years.
   monthly_reach.instagram["YYYY-MM"]  {"value", "days": 30}  30 days to month end
   monthly_reach.facebook["YYYY-MM"]   {"value", "days": 28}  Meta's 28-day figure at month end
 
@@ -37,7 +44,7 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from graph import env, get_page_token, graph_get  # noqa: E402
+from graph import Notes, env, get_page_token, graph_get  # noqa: E402
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 HISTORY_FILE = DATA_DIR / "history.json"
@@ -45,13 +52,19 @@ HISTORY_FILE = DATA_DIR / "history.json"
 IG_RETENTION_DAYS = 89       # one day inside Meta's 90, to avoid edge-of-window errors
 FB_RETENTION_DAYS = 729      # one day inside Meta's 2 years
 IG_BACKFILL_PER_RUN = 30     # days per run while backfilling; keeps calls modest
+IG_ROLLING_PER_RUN = 30      # rolling-reach days per run while backfilling
 REFETCH_RECENT_DAYS = 3      # Meta finalises figures late
 FB_MONTHS_BACK = 24
 
 IG_DAY_METRICS = ["reach", "accounts_engaged", "views", "total_interactions",
                   "likes", "comments", "shares", "saves"]
 FB_DAILY_METRICS = {"views": "page_media_view", "viewers": "page_total_media_view_unique",
-                    "follows": "page_daily_follows_unique", "unfollows": "page_daily_unfollows_unique"}
+                    "follows": "page_daily_follows_unique", "unfollows": "page_daily_unfollows_unique",
+                    "page_views": "page_views_total", "page_follows": "page_follows"}
+# Stored raw (Meta's own keys) and labelled in the renderer: the key names
+# for these breakdowns aren't documented clearly enough to hard-code here.
+FB_BREAKDOWNS = {"views_by_is_from_followers": ("page_media_view", "is_from_followers"),
+                 "views_by_is_from_ads": ("page_media_view", "is_from_ads")}
 
 
 def midnight_ts(day):
@@ -83,18 +96,6 @@ def fb_value_day(end_time):
     (07:00 UTC the next morning), so the value belongs to the day before."""
     return date.fromisoformat(end_time[:10]) - timedelta(days=1)
 
-
-class Notes:
-    def __init__(self):
-        self.items = []
-
-    def attempt(self, label, fn):
-        try:
-            return fn()
-        except Exception as exc:  # noqa: BLE001 - never fatal, retried next run
-            self.items.append(f"{label}: {exc}")
-            print(f"  WARN {label}: {exc}", file=sys.stderr)
-            return None
 
 
 # ---------------------------------------------------------------------------
@@ -169,6 +170,29 @@ def fb_series(page_id, page_token, app_secret, metric, period, since, until):
     return out
 
 
+def fb_breakdown_series(page_id, page_token, app_secret, metric, breakdown, since, until):
+    """{date: {breakdown_value: n}}. If Meta's response isn't the expected
+    shape, raises with a sample of it so the next version can adapt: the
+    note lands in history.json, which is readable in the public repo."""
+    out = {}
+    for a, b in chunks(since, until, 30):
+        result = graph_get(f"{page_id}/insights", page_token, app_secret, {
+            "metric": metric, "period": "day", "breakdown": breakdown,
+            "since": midnight_ts(a), "until": midnight_ts(b)})
+        for row in result.get("data", []):
+            if row.get("period") not in (None, "day"):
+                continue
+            for v in row.get("values", []):
+                value, end = v.get("value"), v.get("end_time")
+                if not end:
+                    continue
+                if not isinstance(value, dict):
+                    raise ValueError("unexpected breakdown shape: " + json.dumps(row)[:400])
+                out.setdefault(fb_value_day(end).isoformat(), {}).update(
+                    {str(k): n for k, n in value.items() if isinstance(n, (int, float))})
+    return out
+
+
 # ---------------------------------------------------------------------------
 
 def load_history():
@@ -224,6 +248,22 @@ def main():
                                "from": since.isoformat(), "to": last.isoformat()}
             print(f"  Instagram {key} reach saved: {got['reach']:,}")
 
+    # --- Instagram rolling 30-day reach, one value per day
+    rolling = history.setdefault("rolling_reach", {})
+    ig_rolling = rolling.setdefault("instagram", {})
+    fb_rolling = rolling.setdefault("facebook", {})
+    first_end = oldest + timedelta(days=29)   # earliest 30-day window still inside retention
+    ends = [first_end + timedelta(days=i) for i in range((today - first_end).days)]
+    recent_ends = ends[-REFETCH_RECENT_DAYS:]
+    rolling_backlog = [d for d in ends if d not in recent_ends and d.isoformat() not in ig_rolling]
+    for end in rolling_backlog[:IG_ROLLING_PER_RUN] + recent_ends:
+        got = notes.attempt(f"Instagram {end} 30-day reach",
+                            lambda e=end: ig_total(ig_id, token, app_secret, ["reach"],
+                                                   e - timedelta(days=29), e + timedelta(days=1)))
+        if got and got.get("reach") is not None:
+            ig_rolling[end.isoformat()] = got["reach"]
+    print(f"  Instagram rolling reach: {len(ig_rolling)} day(s) saved, {max(0, len(rolling_backlog) - IG_ROLLING_PER_RUN)} to go.")
+
     # --- Facebook
     page_token = notes.attempt("Facebook page token", lambda: get_page_token(page_id, token, app_secret))
     if page_token:
@@ -238,6 +278,29 @@ def main():
                 fb_daily.setdefault(day, {})[field] = value
             if full:
                 fb_done[metric] = True
+            print(f"  Facebook {field}: {len(series)} day(s) {'backfilled' if full else 'refreshed'}.")
+
+        full = not fb_done.get("rolling_reach")
+        since = today - timedelta(days=FB_RETENTION_DAYS if full else REFETCH_RECENT_DAYS + 2)
+        series = notes.attempt("Facebook rolling 28-day reach",
+                               lambda s=since: fb_series(page_id, page_token, app_secret,
+                                                         "page_total_media_view_unique", "days_28", s, today))
+        if series is not None:
+            fb_rolling.update(series)
+            fb_done["rolling_reach"] = True
+            print(f"  Facebook rolling reach: {len(series)} day(s) {'backfilled' if full else 'refreshed'}.")
+
+        for field, (metric, breakdown) in FB_BREAKDOWNS.items():
+            full = not fb_done.get(field)
+            since = today - timedelta(days=FB_RETENTION_DAYS if full else REFETCH_RECENT_DAYS + 2)
+            series = notes.attempt(f"Facebook daily {field}",
+                                   lambda m=metric, b=breakdown, s=since: fb_breakdown_series(
+                                       page_id, page_token, app_secret, m, b, s, today))
+            if series is None:
+                continue
+            for day, split in series.items():
+                fb_daily.setdefault(day, {})[field] = split
+            fb_done[field] = True
             print(f"  Facebook {field}: {len(series)} day(s) {'backfilled' if full else 'refreshed'}.")
 
         for key, first, last in completed_months(today, FB_MONTHS_BACK):
@@ -263,7 +326,8 @@ def main():
           + (f", from {ig_days[0]}" if ig_days else ""))
     print(f"Facebook history: {len(fb_days)} day(s)" + (f", from {fb_days[0]}" if fb_days else ""))
     print(f"Monthly reach saved: Instagram {sorted(ig_monthly)}, Facebook {len(fb_monthly)} month(s)")
-    print(f"Done with {len(notes.items)} note(s).")
+    print(f"Rolling reach saved: Instagram {len(ig_rolling)} day(s), Facebook {len(fb_rolling)} day(s)")
+    print(f"Done with {notes.summary()}.")
 
 
 if __name__ == "__main__":

@@ -655,6 +655,13 @@ def demographics_block(insights, charts):
         charts.append(bars("cityChart", [k.split(",")[0] for k, _ in top], [v for _, v in top],
                            BRAND["red"], horizontal=True, label="Followers"))
         out.append(chart_card("Top towns and cities", "Instagram followers", "cityChart", "Bar chart of followers by city"))
+    fb_city = ((insights.get("facebook_demographics") or {}).get("city") or {}).get("values") or {}
+    if fb_city:
+        top = sorted(fb_city.items(), key=lambda kv: kv[1], reverse=True)[:8]
+        charts.append(bars("fbCityChart", [k.split(",")[0] for k, _ in top], [v for _, v in top],
+                           BRAND["blue"], horizontal=True, label="Followers"))
+        out.append(chart_card("Top towns and cities", "Facebook followers", "fbCityChart",
+                              "Bar chart of Facebook followers by city"))
     if not out:
         out.append(empty_card("Audience", "Meta didn't return follower demographics on the last run. "
                                           "Facebook no longer shares age or gender at all."))
@@ -693,6 +700,11 @@ def history_note(history):
         days = sorted(k for k, v in (daily.get(platform) or {}).items() if not v.get("_incomplete"))
         if days:
             parts.append(f"{name} from {datetime.fromisoformat(days[0]).strftime('%d %B %Y')} ({len(days):,} days)")
+    rolling = history.get("rolling_reach") or {}
+    reach_parts = [f"{name} {len(rolling.get(platform) or {}):,} days" for platform, name in
+                   (("instagram", "Instagram"), ("facebook", "Facebook")) if rolling.get(platform)]
+    if reach_parts:
+        parts.append("reach trend: " + ", ".join(reach_parts))
     if not parts:
         return "The dashboard's own daily history starts on the next run. It powers the 12-month view, coming next."
     return ("Saved daily history so far: " + " · ".join(parts) + ". This powers the 12-month view, coming next, "
