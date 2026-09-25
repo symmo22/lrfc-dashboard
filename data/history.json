@@ -5838,8 +5838,16 @@
     "page_follows": 2176,
     "page_views": 28,
     "unfollows": 0,
-    "viewers": 1324,
-    "views": 1693
+    "viewers": 1343,
+    "views": 1708
+   },
+   "2026-09-24": {
+    "follows": 0,
+    "page_follows": 2176,
+    "page_views": 53,
+    "unfollows": 0,
+    "viewers": 1493,
+    "views": 2240
    }
   },
   "instagram": {
@@ -7003,7 +7011,7 @@
    "2026-09-23": {
     "accounts_engaged": 17,
     "comments": 0,
-    "follows": 0,
+    "follows": 2,
     "likes": 17,
     "profile_links_taps": 0,
     "reach": 331,
@@ -7012,6 +7020,19 @@
     "total_interactions": 18,
     "unfollows": 0,
     "views": 730
+   },
+   "2026-09-24": {
+    "accounts_engaged": 42,
+    "comments": 0,
+    "follows": 0,
+    "likes": 45,
+    "profile_links_taps": 0,
+    "reach": 612,
+    "saves": 1,
+    "shares": 2,
+    "total_interactions": 52,
+    "unfollows": 0,
+    "views": 1712
    }
   }
  },
@@ -7026,8 +7047,8 @@
  },
  "last_run_note_count": 2,
  "last_run_notes": [
-  "Facebook daily views_by_is_from_followers: unexpected breakdown shape: {\"name\": \"page_media_view\", \"period\": \"day\", \"values\": [{\"value\": 191, \"end_time\": \"2024-09-26T07:00:00+0000\", \"start_time\": \"2024-09-25T07:00:00+0000\", \"is_from_followers\": \"1\"}, {\"value\": 219, \"end_time\": \"2024-09-26T07:00:00+0000\", \"start_time\": \"2024-09-25T07:00:00+0000\", \"is_from_followers\": \"0\"}, {\"value\": 169, \"end_time\": \"2024-09-27T07:00:00+0000\", \"start_time\": \"2024-09-26T07:00:00+0000\",",
-  "Facebook daily views_by_is_from_ads: unexpected breakdown shape: {\"name\": \"page_media_view\", \"period\": \"day\", \"values\": [{\"value\": 410, \"end_time\": \"2024-09-26T07:00:00+0000\", \"start_time\": \"2024-09-25T07:00:00+0000\", \"is_from_ads\": \"0\"}, {\"value\": 0, \"end_time\": \"2024-09-26T07:00:00+0000\", \"start_time\": \"2024-09-25T07:00:00+0000\", \"is_from_ads\": \"1\"}, {\"value\": 362, \"end_time\": \"2024-09-27T07:00:00+0000\", \"start_time\": \"2024-09-26T07:00:00+0000\", \"is_from_ads\""
+  "Facebook daily views_by_is_from_followers: unexpected breakdown shape: {\"name\": \"page_media_view\", \"period\": \"day\", \"values\": [{\"value\": 169, \"end_time\": \"2024-09-27T07:00:00+0000\", \"start_time\": \"2024-09-26T07:00:00+0000\", \"is_from_followers\": \"1\"}, {\"value\": 193, \"end_time\": \"2024-09-27T07:00:00+0000\", \"start_time\": \"2024-09-26T07:00:00+0000\", \"is_from_followers\": \"0\"}, {\"value\": 803, \"end_time\": \"2024-09-28T07:00:00+0000\", \"start_time\": \"2024-09-27T07:00:00+0000\",",
+  "Facebook daily views_by_is_from_ads: unexpected breakdown shape: {\"name\": \"page_media_view\", \"period\": \"day\", \"values\": [{\"value\": 362, \"end_time\": \"2024-09-27T07:00:00+0000\", \"start_time\": \"2024-09-26T07:00:00+0000\", \"is_from_ads\": \"0\"}, {\"value\": 0, \"end_time\": \"2024-09-27T07:00:00+0000\", \"start_time\": \"2024-09-26T07:00:00+0000\", \"is_from_ads\": \"1\"}, {\"value\": 1081, \"end_time\": \"2024-09-28T07:00:00+0000\", \"start_time\": \"2024-09-27T07:00:00+0000\", \"is_from_ads"
  ],
  "monthly_reach": {
   "facebook": {
@@ -7898,7 +7919,8 @@
    "2026-09-20": 40218,
    "2026-09-21": 40981,
    "2026-09-22": 41495,
-   "2026-09-23": 42397
+   "2026-09-23": 42397,
+   "2026-09-24": 43038
   },
   "instagram": {
    "2026-07-25": 4267,
@@ -7961,8 +7983,9 @@
    "2026-09-20": 12535,
    "2026-09-21": 12797,
    "2026-09-22": 12890,
-   "2026-09-23": 12946
+   "2026-09-23": 12946,
+   "2026-09-24": 13004
   }
  },
- "updated": "2026-09-24T11:48:51.580702+00:00"
+ "updated": "2026-09-25T11:52:17.805479+00:00"
 }
