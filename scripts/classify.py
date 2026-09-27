@@ -57,6 +57,33 @@ def is_match(text):
     return bool(SCORE.search(text)) or any(w in text for w in MATCH_WORDS)
 
 
+# Instagram collab posts: if the other account on the post is a section's
+# own account (matched on its username), the post belongs to that section
+# whatever the caption says. Captions on the Women's account's own posts
+# often don't say "Women's" because on their own grid they don't need to.
+SECTION_HANDLE_RULES = [
+    ("Women's", re.compile(r"women|ladies|wxv", re.I)),
+]
+
+
+def collab_handles(post):
+    collab = (post or {}).get("collab") or {}
+    handles = list(collab.get("with") or [])
+    if collab.get("owner"):
+        handles.append(collab["owner"])
+    return handles
+
+
+def classify_post(post):
+    """classify_section for a stored post record, taking account of who it
+    was made with. Returns (section, named)."""
+    for handle in collab_handles(post):
+        for section, pattern in SECTION_HANDLE_RULES:
+            if pattern.search(handle):
+                return section, True
+    return classify_section(post.get("caption"))
+
+
 def classify_section(caption):
     """Returns (section, named). named=False means the caption didn't name a
     team and a stated rule placed it: historical posts -> Whole Club, match

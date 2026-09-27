@@ -81,11 +81,14 @@ def _handle_http_error(exc, attempt):
     raise RuntimeError(f"Non-retryable error ({code}): {message}")
 
 
-def graph_get(path, token, app_secret, params=None):
+def graph_get(path, token, app_secret, params=None, version=None):
+    """version overrides GRAPH_VERSION for one call, for features Meta
+    ships to a newer API version first."""
     params = dict(params or {})
     params["access_token"] = token
     params["appsecret_proof"] = appsecret_proof(token, app_secret)
-    url = f"{GRAPH_BASE}/{path}?{urllib.parse.urlencode(params)}"
+    base = f"https://graph.facebook.com/{version}" if version else GRAPH_BASE
+    url = f"{base}/{path}?{urllib.parse.urlencode(params)}"
     return graph_get_url(url)
 
 

@@ -23,19 +23,20 @@ Honesty rules:
     request limit. Views are counts, so they can be.
   - Posts are always shown per platform.
   - Figures Meta doesn't provide for a window show as "—" with the reason.
-  - HISTORICAL_ANCHORS are figures given by the Communications Manager,
-    shown as "then vs now", never plotted as if measured daily.
+  - IG_START_FIGURE (Instagram, 1 Aug 2025) was given by the Communications
+    Manager. It is drawn only as a dashed, labelled estimate up to the first
+    real Instagram day. Facebook growth uses Meta's own daily counts.
   - Auto-written insights only appear when enough posts sit behind them.
 """
 
 import json
 import sys
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 from html import escape
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from classify import SECTIONS, THEMES, classify_section, classify_theme  # noqa: E402
+from classify import SECTIONS, THEMES, classify_post, classify_theme  # noqa: E402
 from ingest_posts import LOOKBACK_DAYS  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
@@ -45,6 +46,7 @@ ACCOUNT_FILE = DATA_DIR / "account_snapshots.json"
 POSTS_FILE = DATA_DIR / "posts.json"
 INSIGHTS_FILE = DATA_DIR / "insights.json"
 HISTORY_FILE = DATA_DIR / "history.json"
+COLLAB_STATUS_FILE = DATA_DIR / "collab_status.json"
 OUTPUT_FILE = ROOT / "docs" / "index.html"
 CREST_FILE = HERE / "crest_b64.txt"
 
@@ -52,11 +54,6 @@ PERIODS = [30, 90]
 DEFAULT_PERIOD = 30
 MIN_SAMPLE = 3
 QUIET_MIN_AGE_DAYS = 7
-
-HISTORICAL_ANCHORS = {
-    "facebook": {"date": "2025-08-01", "count": 1800, "approx": True},
-    "instagram": {"date": "2025-08-01", "count": 1043, "approx": False},
-}
 
 BRAND = {"blue": "#3E3787", "yellow": "#FAE226", "red": "#CF3B41", "green": "#60AC3F"}
 PALETTE = [BRAND["blue"], BRAND["red"], BRAND["yellow"], BRAND["green"],
@@ -105,7 +102,29 @@ def post_metrics(p):
 
 
 def is_measured(p):
-    return bool(post_metrics(p))
+    """Has reach-level figures. A collab post another account created may
+    only have counts (Meta may not share its reach with collaborators);
+    those are shown separately, never ranked or averaged on reach."""
+    m = post_metrics(p)
+    return bool(m) and not m.get("counts_only")
+
+
+def is_counts_only(p):
+    return bool(post_metrics(p).get("counts_only"))
+
+
+def collab_of(p):
+    return p.get("collab") or {}
+
+
+def collab_text(p):
+    """Plain words for a collab post, or '' for an ordinary one."""
+    c = collab_of(p)
+    if c.get("role") == "guest":
+        return f"Collab by @{c.get('owner')}"
+    if c.get("role") == "host":
+        return "Collab with " + ", ".join(f"@{h}" for h in c.get("with") or [])
+    return ""
 
 
 def post_reach(p):
@@ -140,7 +159,7 @@ def format_label(p):
 
 
 def section_of(p):
-    return classify_section(p.get("caption"))[0]
+    return classify_post(p)[0]
 
 
 def theme_of(p):
@@ -308,7 +327,7 @@ def post_card(p, rank=None):
     return f"""<a class='post' href='{link}' target='_blank' rel='noopener'>
   <div class='{"thumb" if image else "thumb noimg"}'>{img_html}<span class='badge' style='background:{PLATFORM_COLOUR[platform]}'>{PLATFORM_NAME[platform]}</span>{rank_html}</div>
   <div class='body'>
-    <div class='date'>{published_date(p).strftime("%a %d %b")} · {escape(format_label(p))} · {escape(section_of(p))}</div>
+    <div class='date'>{published_date(p).strftime("%a %d %b")} · {escape(format_label(p))} · {escape(section_of(p))}{(" · " + escape(collab_text(p))) if collab_text(p) else ""}</div>
     <div class='cap'>{caption}</div>
     <div class='nums'><span><b>{num(post_reach(p))}</b> reach</span><span><b>{num(post_views(p))}</b> views</span>
     <span>{plural(likes, 'like')}</span><span>{plural(comments, 'comment')}</span><span>{plural(shares, 'share')}</span></div>
@@ -316,7 +335,7 @@ def post_card(p, rank=None):
 </a>"""
 
 
-def platform_growth_card(snapshots, platform):
+def platform_growth_card(snapshots, platform, anchor=None):
     colour, name = PLATFORM_COLOUR[platform], PLATFORM_NAME[platform]
     latest = latest_by_platform(snapshots).get(platform)
     if not latest:
@@ -332,7 +351,6 @@ def platform_growth_card(snapshots, platform):
             cls, arrow = ("up", "▲") if diff > 0 else ("down", "▼")
             delta = f"<span class='delta {cls}'>{arrow} {abs(diff)} since yesterday</span>"
     story = ""
-    anchor = HISTORICAL_ANCHORS.get(platform)
     if anchor and cur:
         growth = round(100 * (cur - anchor["count"]) / anchor["count"])
         when = datetime.fromisoformat(anchor["date"]).strftime("%B %Y")
@@ -360,7 +378,8 @@ class Period:
         self.themes = group_stats(self.cur, theme_of)
         self.formats = group_stats(self.cur, format_label)
         self.weekdays = group_stats(self.cur, lambda p: p.get("day_of_week") or "Unknown")
-        self.placed_by_rule = sum(1 for p in self.cur if not classify_section(p.get("caption"))[1])
+        self.placed_by_rule = sum(1 for p in self.cur if not classify_post(p)[1])
+        self.collabs = [p for p in self.cur if collab_of(p)]
         self.today = today
 
     def cid(self, base):
@@ -417,7 +436,11 @@ def insight_lines(P):
     return lines
 
 
-def overview_block(P, charts):
+def followers_now(snapshots, platform):
+    return follower_count(latest_by_platform(snapshots or {}).get(platform), platform)
+
+
+def overview_block(P, charts, snapshots=None):
     ig, fb = P.ins.get("instagram") or {}, P.ins.get("facebook") or {}
     igc, igp = ig.get("current") or {}, ig.get("prior") or {}
     fbc, fbp = fb.get("current") or {}, fb.get("prior") or {}
@@ -429,14 +452,18 @@ def overview_block(P, charts):
     no_ig_prior = (ig.get("unavailable") or {}).get("prior")
 
     if P.days <= 30:
-        ig_reach = stat_card("Instagram reach", num(igc.get("reach")), "accounts that saw your content",
+        ig_f = followers_now(snapshots, "instagram")
+        ig_mult = f" · {igc['reach'] / ig_f:.1f}× your followers" if igc.get("reach") and ig_f else ""
+        ig_reach = stat_card("Instagram reach", num(igc.get("reach")), "accounts that saw your content" + ig_mult,
                              delta_html(igc.get("reach"), igp.get("reach"), P.vs), BRAND["red"])
     else:
         ig_reach = stat_card("Instagram reach", "—", "Meta only reports Instagram reach for up to 30 days",
                              "", BRAND["red"])
     reach_days = fb.get("reach_days")
     if reach_days:
-        fb_reach = stat_card("Facebook reach", num(fbc.get("reach")), f"people who saw your content, {reach_days} days",
+        fb_f = followers_now(snapshots, "facebook")
+        fb_mult = f" · {fbc['reach'] / fb_f:.1f}× your followers" if fbc.get("reach") and fb_f else ""
+        fb_reach = stat_card("Facebook reach", num(fbc.get("reach")), f"people who saw your content, {reach_days} days" + fb_mult,
                              delta_html(fbc.get("reach"), fbp.get("reach"), f"vs previous {reach_days} days"),
                              BRAND["blue"])
     else:
@@ -468,8 +495,9 @@ def overview_block(P, charts):
         cards.append(stat_card("Instagram net followers", f"{'+' if net >= 0 else ''}{net:,}",
                                f"{follows['FOLLOWER']:,} followed · {follows['NON_FOLLOWER']:,} unfollowed", "",
                                BRAND["green"]))
-    taps = igc.get("profile_links_taps")
-    if taps is not None:
+    by_button = ig.get("link_taps_by_button") or {}
+    taps = sum(v for v in by_button.values() if v) if by_button else igc.get("profile_links_taps")
+    if taps:  # hidden when Meta reports none: a run of zeros is more likely missing data than no taps
         cards.append(stat_card("Instagram link taps", num(taps), "taps on the website and contact links in the profile",
                                delta_html(taps, igp.get("profile_links_taps"), P.vs), BRAND["red"]))
 
@@ -494,9 +522,30 @@ def overview_block(P, charts):
   </div>"""
 
 
-def watching_block(P, charts):
+def watching_block(P, charts, saved=None):
     ig = P.ins.get("instagram") or {}
     out = []
+    fb_cards = []
+    if saved is not None:
+        since = P.today - timedelta(days=P.days)
+        split = saved.fb_split("views_by_is_from_followers", since, P.today)
+        if split and sum(split.values()):
+            f, nf = split.get("1", 0), split.get("0", 0)
+            charts.append(donut(P.cid("fbFollowerSplit"), ["Followers", "Not following yet"], [f, nf],
+                                [BRAND["blue"], BRAND["yellow"]], f"{round(100 * nf / (f + nf))}%", "non-followers"))
+            fb_cards.append(chart_card("Who's watching on Facebook", f"Views from followers vs people who don't follow yet, {P.label}",
+                                       P.cid("fbFollowerSplit"), "Donut chart of Facebook views by followers"))
+        else:
+            fb_cards.append(empty_card("Who's watching on Facebook", "Collected from the next run."))
+        paid = saved.fb_split("views_by_is_from_ads", since, P.today)
+        if paid and sum(paid.values()):
+            organic, ads = paid.get("0", 0), paid.get("1", 0)
+            charts.append(donut(P.cid("fbPaidSplit"), ["Organic", "Paid (ads)"], [organic, ads],
+                                [BRAND["green"], BRAND["red"]], f"{round(100 * ads / (organic + ads))}%", "from ads"))
+            fb_cards.append(chart_card("Paid vs organic on Facebook", f"Views that came from ads vs unpaid, {P.label}",
+                                       P.cid("fbPaidSplit"), "Donut chart of Facebook paid vs organic views"))
+        else:
+            fb_cards.append(empty_card("Paid vs organic on Facebook", "Collected from the next run."))
     split = ig.get("views_by_follower_type") or {}
     nf, f = split.get("NON_FOLLOWER"), split.get("FOLLOWER")
     if nf is not None and f is not None and nf + f > 0:
@@ -517,7 +566,7 @@ def watching_block(P, charts):
                               P.cid("productSplit"), "Donut chart of views by content type"))
     else:
         out.append(empty_card("What they watched", "Not returned by Meta on the last run."))
-    return f"<div class='grid2'>{''.join(out)}</div>"
+    return f"<div class='grid2'>{''.join(out + fb_cards)}</div>"
 
 
 def content_block(P, charts):
@@ -562,6 +611,13 @@ def club_block(P, charts):
         return f"<div class='chips'>{chips}</div><p class='note'>No posts in the last {P.label}.</p>"
     note = (f"<p class='note'>{P.placed_by_rule} of {len(P.cur)} posts didn't name a team, so were placed by rule: "
             "match and senior-squad posts as Men's 1st XV, everything else as Whole Club.</p>") if P.placed_by_rule else ""
+    if P.collabs:
+        by_other = sum(1 for p in P.collabs if collab_of(p).get("role") == "guest")
+        n = len(P.collabs)
+        note += (f"<p class='note'>{plural(n, 'post')} {'was an Instagram collab' if n == 1 else 'were Instagram collabs'}"
+                 + (f", {by_other} of them created by another account" if by_other else "")
+                 + ". A collab is one post on both accounts' grids, so its figures include both audiences. "
+                 "Collabs with the Women's account count as Women's.</p>")
 
     def pair(rows, ref, prefix, title):
         rows = sorted(rows, key=lambda r: ref.index(r["key"]) if r["key"] in ref else 99)
@@ -599,6 +655,13 @@ def posts_block(P):
 # ---------------------------------------------------------------------------
 # Period-independent sections
 # ---------------------------------------------------------------------------
+
+def growth_cards(snapshots, saved):
+    fb_anchor = facebook_start_figure(saved)
+    ig_anchor = {**IG_START_FIGURE, "approx": False}
+    return ("<div class='stats two'>" + platform_growth_card(snapshots, "instagram", ig_anchor)
+            + platform_growth_card(snapshots, "facebook", fb_anchor) + "</div>")
+
 
 def growth_block(snapshots, charts):
     by_platform = {"facebook": {}, "instagram": {}}
@@ -674,9 +737,9 @@ def table_block(measured):
     for p in rows:
         likes, comments, shares, saves = post_counts(p)
         rate = post_engagement_rate(p)
-        section, named = classify_section(p.get("caption"))
+        section, named = classify_post(p)
         caption = escape((p.get("caption") or "")[:70] + ("…" if len(p.get("caption") or "") > 70 else ""))
-        body += (f"<tr><td>{published_date(p).isoformat()}</td><td>{PLATFORM_NAME[p['platform']]}</td>"
+        body += (f"<tr><td>{published_date(p).isoformat()}</td><td>{PLATFORM_NAME[p['platform']]}{' (collab)' if collab_of(p) else ''}</td>"
                  f"<td>{escape(format_label(p))}</td><td>{escape(section)}{'' if named else ' *'}</td>"
                  f"<td>{escape(theme_of(p))}</td><td>{num(post_reach(p))}</td><td>{num(post_views(p))}</td>"
                  f"<td>{num(likes)}</td><td>{num(comments)}</td><td>{num(shares)}</td><td>{num(saves)}</td>"
@@ -691,6 +754,47 @@ def table_block(measured):
       <tbody>{body}</tbody>
     </table></div>
   </details>"""
+
+
+def collab_counts_block(all_posts, today):
+    """Collab posts another account created, where Meta shares counts but
+    not reach. Listed so they're visible, kept out of reach figures."""
+    rows = sorted((p for p in all_posts if is_counts_only(p)), key=published_date, reverse=True)
+    if not rows:
+        return ""
+    body = ""
+    for p in rows[:40]:
+        likes, comments, shares, saves = post_counts(p)
+        caption = escape((p.get("caption") or "")[:70] + ("…" if len(p.get("caption") or "") > 70 else ""))
+        body += (f"<tr><td>{published_date(p).isoformat()}</td><td>{escape(collab_text(p))}</td>"
+                 f"<td>{escape(section_of(p))}</td><td>{num(likes)}</td><td>{num(comments)}</td>"
+                 f"<td>{num(shares)}</td><td>{num(saves)}</td>"
+                 f"<td><a href='{escape(p.get('permalink') or '#', quote=True)}' target='_blank' rel='noopener'>{caption}</a></td></tr>")
+    return f"""<details>
+    <summary>Collab posts created by other accounts ({len(rows)})</summary>
+    <p class='note'>These appear on our Instagram grid, but Meta doesn't give us their reach, so they're kept out of the
+    rankings and averages above. Figures are pooled across every account the post appears on.</p>
+    <div class='table-wrap'><table>
+      <thead><tr><th>Date</th><th>Created by</th><th>Section</th><th>Likes</th><th>Comments</th><th>Shares</th><th>Saves</th><th>Caption</th></tr></thead>
+      <tbody>{body}</tbody>
+    </table></div>
+  </details>"""
+
+
+def collab_note(status):
+    """Plain-words status of collab post collection, from the last run."""
+    if not status:
+        return None
+    base = ("Instagram collab posts are flagged. A collab is one post shown on each collaborator's grid with one "
+            "shared set of figures, so it counts once here and its figures include the other account's audience. "
+            "Posts the Women's account publishes without adding Leamington RFC as a collaborator aren't visible "
+            "to the dashboard.")
+    if status.get("collaborative_media") == "ok":
+        found = status.get("collab_posts_found", 0)
+        return base + (f" {plural(found, 'collab post')} created by other accounts {'was' if found == 1 else 'were'} "
+                       "found on the last run.")
+    return base + (" Collab posts created by other accounts (such as the Women's account) couldn't be collected on "
+                   "the last run, so only collabs created by Leamington RFC are included.")
 
 
 def history_note(history):
@@ -711,7 +815,7 @@ def history_note(history):
             "and keeps figures Meta later deletes.")
 
 
-def notes_block(insights, unmeasured, today, history=None):
+def notes_block(insights, unmeasured, today, history=None, collab_status=None):
     notes = [
         "Instagram gives reach for up to 30 days, so the 90-day view shows views but not Instagram reach. "
         "Instagram also keeps account data for 90 days, so the 90-day view has no previous-period comparison yet.",
@@ -721,10 +825,14 @@ def notes_block(insights, unmeasured, today, history=None):
         "Posts shared into Facebook groups, and ads built directly in Ads Manager, don't appear on the Page and aren't "
         "included in post figures. Instagram ad views do appear in the 'What they watched' chart.",
         "Section and theme are read from caption text. Posts that don't name a team are placed by rule and marked * in the table.",
-        "Growth since August 2025 uses figures supplied by the Communications Manager (Facebook rounded to 1,800). "
-        "Daily tracking began when this dashboard went live.",
+        "Growth since August 2025: Facebook uses Meta's own daily follower count. Instagram uses the 1,043 supplied "
+        "by the Communications Manager, because Meta holds no Instagram data before late June 2026.",
+        "Instagram link taps are only shown when Meta reports some. If the bio has a website link and this stays "
+        "hidden, the figure isn't reaching the dashboard.",
     ]
     notes.append(history_note(history or {}))
+    if collab_note(collab_status):
+        notes.append(collab_note(collab_status))
     if unmeasured:
         notes.append(f"{unmeasured} post(s) are listed but haven't been measured yet. They're measured in batches over the next few runs.")
     generated = insights.get("generated_at")
@@ -737,6 +845,277 @@ def notes_block(insights, unmeasured, today, history=None):
     for n in insights.get("notes") or []:
         notes.append("Not available on the last run: " + escape(n.split(":")[0]) + ".")
     return "<ul class='notes'>" + "".join(f"<li>{n}</li>" for n in notes) + "</ul>"
+
+
+
+# ---------------------------------------------------------------------------
+# Trends: the last 12 months, from the dashboard's own saved history
+# ---------------------------------------------------------------------------
+
+TREND_DAYS = 365
+TREND_WEEKS = 52
+# Given by the Communications Manager; Meta holds no Instagram data before late June 2026.
+IG_START_FIGURE = {"date": "2025-08-01", "count": 1043}
+
+
+def day_list(start, end):
+    days, d = [], start
+    while d < end:
+        days.append(d)
+        d += timedelta(days=1)
+    return days
+
+
+def week_start(d):
+    return d - timedelta(days=d.weekday())
+
+
+class SavedHistory:
+    """Reads data/history.json plus the daily follower snapshots."""
+
+    def __init__(self, history, snapshots):
+        daily = (history or {}).get("daily") or {}
+        self.ig = daily.get("instagram") or {}
+        self.fb = daily.get("facebook") or {}
+        rolling = (history or {}).get("rolling_reach") or {}
+        self.ig_reach = rolling.get("instagram") or {}
+        self.fb_reach = rolling.get("facebook") or {}
+        self.ig_real = {r["date"]: follower_count(r, "instagram") for r in (snapshots or {}).values()
+                        if r["platform"] == "instagram" and follower_count(r, "instagram") is not None}
+        self.ig_followers = self._instagram_followers()
+
+    def _instagram_followers(self):
+        """Instagram follower count per day, worked back from the latest real
+        count using saved daily follows and unfollows. Checked against six
+        real daily counts on 2026-09-24: within 2 followers every day. Real
+        saved counts override the worked-back figure where they exist."""
+        if not self.ig_real:
+            return {}
+        last = max(self.ig_real)
+        running = self.ig_real[last]
+        out = {}
+        for d in sorted((d for d in self.ig if d <= last), reverse=True):
+            out[d] = running
+            v = self.ig[d]
+            running -= (v.get("follows") or 0) - (v.get("unfollows") or 0)
+        out.update(self.ig_real)
+        return out
+
+    def fb_followers(self, day):
+        return (self.fb.get(day) or {}).get("page_follows")
+
+    def ig_week_complete(self, days):
+        return all(d in self.ig and not self.ig[d].get("_incomplete") for d in days)
+
+    def fb_split(self, field, since, until):
+        """Sum a saved Facebook breakdown over [since, until). None if absent."""
+        totals, found = {}, False
+        for d in day_list(since, until):
+            split = (self.fb.get(d.isoformat()) or {}).get(field)
+            if split:
+                found = True
+                for k, v in split.items():
+                    totals[k] = totals.get(k, 0) + v
+        return totals if found else None
+
+
+def facebook_start_figure(saved):
+    """Facebook's real follower count on the same date as the Instagram
+    start figure, from Meta's own history (replaces the rounded 1,800 given
+    earlier: Meta shows 2,053 on 1 August 2025)."""
+    value = saved.fb_followers(IG_START_FIGURE["date"])
+    return {"date": IG_START_FIGURE["date"], "count": value} if value else None
+
+
+def trend_line(cid, labels, datasets, y_title, extra_scales=None):
+    scales = {"x": {"grid": {"display": False}, "ticks": {"maxTicksLimit": 12, "autoSkip": True}},
+              "y": {"beginAtZero": False, "title": {"display": True, "text": y_title}}}
+    scales.update(extra_scales or {})
+    return {"id": cid, "config": {
+        "type": "line", "data": {"labels": labels, "datasets": datasets},
+        "options": {"responsive": True, "maintainAspectRatio": False, "spanGaps": False,
+                    "interaction": {"mode": "index", "intersect": False},
+                    "plugins": {"legend": {"position": "bottom"}}, "scales": scales}}}
+
+
+def series(label, data, colour, dashed=False, axis=None, fill=False):
+    ds = {"label": label, "data": data, "borderColor": colour, "backgroundColor": colour + ("22" if fill else ""),
+          "pointRadius": 0, "borderWidth": 2, "cubicInterpolationMode": "monotone", "fill": fill}
+    if dashed:
+        ds["borderDash"] = [6, 5]
+    if axis:
+        ds["yAxisID"] = axis
+    return ds
+
+
+def trends_section(saved, measured, today, charts):
+    start = today - timedelta(days=TREND_DAYS)
+    days = day_list(start, today)
+    keys = [d.isoformat() for d in days]
+    labels = [d.strftime("%d %b %y") for d in days]
+    cards = []
+
+    # 1. Followers
+    fb_line = [saved.fb_followers(k) for k in keys]
+    ig_real = [saved.ig_followers.get(k) for k in keys]
+    first_real = min(saved.ig_followers) if saved.ig_followers else None
+    ig_est = [None] * len(keys)
+    if first_real:
+        a_day = date.fromisoformat(IG_START_FIGURE["date"])
+        b_day = date.fromisoformat(first_real)
+        a, b = IG_START_FIGURE["count"], saved.ig_followers[first_real]
+        span = (b_day - a_day).days or 1
+        for i, d in enumerate(days):
+            if a_day <= d <= b_day:
+                ig_est[i] = round(a + (b - a) * (d - a_day).days / span)
+    if any(v is not None for v in fb_line + ig_real):
+        charts.append(trend_line("trendFollowers", labels, [
+            series("Facebook", fb_line, BRAND["blue"]),
+            series("Instagram", ig_real, BRAND["red"]),
+            series("Instagram, estimated", ig_est, BRAND["red"], dashed=True),
+        ], "Followers"))
+        est_note = (f" Instagram is estimated before {date.fromisoformat(first_real):%d %B} (dashed): a straight line from "
+                    f"the {IG_START_FIGURE['count']:,} you gave for 1 August 2025, because Meta holds no earlier Instagram data.") \
+            if first_real else ""
+        cards.append("<div class='grid1'>" + chart_card(
+            "Followers, last 12 months", "Facebook is Meta's own daily count. Instagram is worked back from real daily "
+            "follows and unfollows." + est_note, "trendFollowers", "Line chart of followers over 12 months", tall=True) + "</div>")
+
+    # 2 + 3. Reach and reach as a multiple of followers
+    fb_reach = [saved.fb_reach.get(k) for k in keys]
+    ig_reach = [saved.ig_reach.get(k) for k in keys]
+    reach_cards = []
+    if any(v is not None for v in fb_reach + ig_reach):
+        charts.append(trend_line("trendReach", labels, [
+            series("Facebook, previous 28 days", fb_reach, BRAND["blue"], fill=True),
+            series("Instagram, previous 30 days", ig_reach, BRAND["red"], fill=True),
+        ], "People reached"))
+        reach_cards.append(chart_card(
+            "Reach over time", "Each point is the number of different people reached in the 28 or 30 days up to that day, "
+            "the same figure the apps show. Instagram starts late July, the earliest Meta still holds.",
+            "trendReach", "Line chart of reach over 12 months", tall=True))
+
+        def multiple(reach_values, follower_lookup):
+            out = []
+            for k, r in zip(keys, reach_values):
+                f = follower_lookup(k)
+                out.append(round(r / f, 1) if r and f else None)
+            return out
+        fb_mult = multiple(fb_reach, saved.fb_followers)
+        ig_mult = multiple(ig_reach, lambda k: saved.ig_followers.get(k))
+        charts.append(trend_line("trendMultiple", labels, [
+            series("Facebook", fb_mult, BRAND["blue"]),
+            series("Instagram", ig_mult, BRAND["red"]),
+            {**series("Followers only (1×)", [1] * len(keys), GREY, dashed=True), "borderWidth": 1},
+        ], "× followers", {"y": {"beginAtZero": True, "title": {"display": True, "text": "× followers"}}}))
+        reach_cards.append(chart_card(
+            "How far beyond your followers", "Reach divided by followers. Above 1× means posts are reaching people who "
+            "don't follow the club: the route to new players, parents and supporters.",
+            "trendMultiple", "Line chart of reach as a multiple of followers", tall=True))
+    if reach_cards:
+        cards.append("<div class='grid2'>" + "".join(reach_cards) + "</div>")
+
+    # Weekly buckets: complete weeks only
+    this_monday = week_start(today)
+    weeks = [this_monday - timedelta(weeks=TREND_WEEKS - i) for i in range(TREND_WEEKS)]
+    week_labels = [f"w/c {w:%d %b}" for w in weeks]
+
+    def week_days(w):
+        return [(w + timedelta(days=i)).isoformat() for i in range(7)]
+
+    # 4. Weekly views
+    fb_views, ig_views = [], []
+    for w in weeks:
+        wd = week_days(w)
+        fb_vals = [(saved.fb.get(d) or {}).get("views") for d in wd]
+        fb_views.append(sum(fb_vals) if all(v is not None for v in fb_vals) else None)
+        ig_views.append(sum((saved.ig[d].get("views") or 0) for d in wd) if saved.ig_week_complete(wd) else None)
+    if any(v is not None for v in fb_views + ig_views):
+        charts.append({"id": "trendViews", "config": {
+            "type": "bar", "data": {"labels": week_labels, "datasets": [
+                {"label": "Facebook", "data": fb_views, "backgroundColor": BRAND["blue"], "stack": "v"},
+                {"label": "Instagram", "data": ig_views, "backgroundColor": BRAND["red"], "stack": "v"}]},
+            "options": {"responsive": True, "maintainAspectRatio": False, "plugins": {"legend": {"position": "bottom"}},
+                        "scales": {"x": {"stacked": True, "grid": {"display": False}, "ticks": {"maxTicksLimit": 13}},
+                                   "y": {"stacked": True, "beginAtZero": True}}}}})
+        cards.append("<div class='grid1'>" + chart_card(
+            "Views per week", "All views of the club's content, both platforms. Instagram weeks start from late June, "
+            "when Meta's Instagram history begins.", "trendViews", "Stacked bar chart of weekly views", tall=True) + "</div>")
+
+    # 5. Posts per week against average reach per post; 6. weekly interactions
+    by_week = {}
+    for p in measured:
+        w = week_start(published_date(p))
+        if weeks[0] <= w < this_monday:
+            by_week.setdefault(w, []).append(p)
+    ig_posts = [sum(1 for p in by_week.get(w, []) if p["platform"] == "instagram") for w in weeks]
+    fb_posts = [sum(1 for p in by_week.get(w, []) if p["platform"] == "facebook") for w in weeks]
+    avg_reach = [round(sum(post_reach(p) for p in by_week[w]) / len(by_week[w])) if by_week.get(w) else None for w in weeks]
+    if any(ig_posts) or any(fb_posts):
+        charts.append({"id": "trendCadence", "config": {
+            "type": "bar", "data": {"labels": week_labels, "datasets": [
+                {"type": "line", "label": "Average reach per post", "data": avg_reach, "borderColor": BRAND["green"],
+                 "backgroundColor": BRAND["green"], "yAxisID": "yReach", "pointRadius": 2, "borderWidth": 2,
+                 "spanGaps": True, "cubicInterpolationMode": "monotone"},
+                {"label": "Instagram posts", "data": ig_posts, "backgroundColor": BRAND["red"] + "cc", "stack": "p", "yAxisID": "yPosts"},
+                {"label": "Facebook posts", "data": fb_posts, "backgroundColor": BRAND["blue"] + "cc", "stack": "p", "yAxisID": "yPosts"}]},
+            "options": {"responsive": True, "maintainAspectRatio": False, "plugins": {"legend": {"position": "bottom"}},
+                        "scales": {"x": {"stacked": True, "grid": {"display": False}, "ticks": {"maxTicksLimit": 13}},
+                                   "yPosts": {"stacked": True, "position": "left", "beginAtZero": True,
+                                              "title": {"display": True, "text": "Posts"}, "ticks": {"precision": 0}},
+                                   "yReach": {"position": "right", "beginAtZero": True, "grid": {"drawOnChartArea": False},
+                                              "title": {"display": True, "text": "Average reach per post"}}}}}})
+        cards.append("<div class='grid1'>" + chart_card(
+            "Does posting more help?", "Posts published each week (bars) against the average reach of those posts "
+            "(line), lifetime figures. If the line holds up in busy weeks, volume isn't diluting reach.",
+            "trendCadence", "Chart of posts per week against average reach", tall=True) + "</div>")
+
+        ig_int = [sum(post_interactions(p) for p in by_week.get(w, []) if p["platform"] == "instagram") for w in weeks]
+        fb_int = [sum(post_interactions(p) for p in by_week.get(w, []) if p["platform"] == "facebook") for w in weeks]
+        charts.append({"id": "trendInteractions", "config": {
+            "type": "bar", "data": {"labels": week_labels, "datasets": [
+                {"label": "Facebook", "data": fb_int, "backgroundColor": BRAND["blue"], "stack": "i"},
+                {"label": "Instagram", "data": ig_int, "backgroundColor": BRAND["red"], "stack": "i"}]},
+            "options": {"responsive": True, "maintainAspectRatio": False, "plugins": {"legend": {"position": "bottom"}},
+                        "scales": {"x": {"stacked": True, "grid": {"display": False}, "ticks": {"maxTicksLimit": 7}},
+                                   "y": {"stacked": True, "beginAtZero": True}}}}})
+        interaction_card = chart_card("Likes, comments and shares per week", "On posts published that week, lifetime figures.",
+                                      "trendInteractions", "Stacked bar chart of weekly interactions", tall=True)
+    else:
+        interaction_card = ""
+
+    # 7. Net new followers per week
+    fb_net, ig_net = [], []
+    for w in weeks:
+        wd = week_days(w)
+        fb_vals = [saved.fb.get(d) for d in wd]
+        fb_net.append(sum((v.get("follows") or 0) - (v.get("unfollows") or 0) for v in fb_vals)
+                      if all(v and "follows" in v for v in fb_vals) else None)
+        ig_net.append(sum((saved.ig[d].get("follows") or 0) - (saved.ig[d].get("unfollows") or 0) for d in wd)
+                      if saved.ig_week_complete(wd) else None)
+    net_card = ""
+    if any(v is not None for v in fb_net + ig_net):
+        charts.append({"id": "trendNet", "config": {
+            "type": "bar", "data": {"labels": week_labels, "datasets": [
+                {"label": "Facebook", "data": fb_net, "backgroundColor": BRAND["blue"]},
+                {"label": "Instagram", "data": ig_net, "backgroundColor": BRAND["red"]}]},
+            "options": {"responsive": True, "maintainAspectRatio": False, "plugins": {"legend": {"position": "bottom"}},
+                        "scales": {"x": {"grid": {"display": False}, "ticks": {"maxTicksLimit": 7}},
+                                   "y": {"ticks": {"precision": 0}}}}}})
+        net_card = chart_card("Net new followers per week", "Follows minus unfollows. Instagram from late June.",
+                              "trendNet", "Bar chart of weekly net new followers", tall=True)
+    if interaction_card or net_card:
+        cards.append("<div class='grid2'>" + interaction_card + net_card + "</div>")
+
+    if not cards:
+        body = "<p class='note'>Trends appear once the dashboard has saved some history. That starts on the next run.</p>"
+    else:
+        body = "".join(cards)
+    return f"""<section id='trends'>
+  <h2>Trends: the last 12 months</h2>
+  <p class='lede'>Built from history the dashboard saves itself every day, so it keeps growing whatever Meta later deletes.</p>
+  {body}
+</section>"""
 
 
 # ---------------------------------------------------------------------------
@@ -831,7 +1210,7 @@ PAGE = """<!DOCTYPE html>
 </div></header>
 <nav><div class="inner">
   <div class="period-toggle" role="group" aria-label="Time period">%%TOGGLE%%</div>
-  <div class="links"><a href="#overview">Overview</a><a href="#audience">Audience</a><a href="#content">What works</a>
+  <div class="links"><a href="#overview">Overview</a><a href="#trends">Trends</a><a href="#audience">Audience</a><a href="#content">What works</a>
   <a href="#club">One Club, One Leam</a><a href="#posts">Posts</a><a href="#notes">About</a></div>
 </div></nav>
 <main>
@@ -846,10 +1225,11 @@ var CHARTS = %%CHARTS%%;
 </html>"""
 
 
-def render(account_snapshots, posts, insights, crest, today=None, history=None):
+def render(account_snapshots, posts, insights, crest, today=None, history=None, collab_status=None):
     today = today or datetime.now(timezone.utc).date()
     all_posts = list(posts.values())
     measured = [p for p in all_posts if is_measured(p)]
+    saved = SavedHistory(history, account_snapshots)
     charts = {"common": []}
     periods = [Period(d, insights, measured, today) for d in PERIODS]
     for P in periods:
@@ -859,12 +1239,13 @@ def render(account_snapshots, posts, insights, crest, today=None, history=None):
         return "".join(period_block(P.days, fn(P, charts[str(P.days)])) for P in periods)
 
     body = f"""
-<section id='overview'>{per_period(overview_block)}</section>
+<section id='overview'>{per_period(lambda P, c: overview_block(P, c, account_snapshots))}</section>
+{trends_section(saved, measured, today, charts['common'])}
 <section id='audience'>
   <h2>Audience</h2>
   <p class='lede'>How the following has grown, who is watching, and who they are.</p>
-  {growth_block(account_snapshots, charts['common'])}
-  {per_period(watching_block)}
+  {growth_cards(account_snapshots, saved)}
+  {per_period(lambda P, c: watching_block(P, c, saved))}
   {demographics_block(insights, charts['common'])}
 </section>
 <section id='content'>
@@ -882,8 +1263,9 @@ def render(account_snapshots, posts, insights, crest, today=None, history=None):
   <p class='lede'>The furthest-reaching posts of the selected period, lifetime figures. Tap any card to open the post.</p>
   {per_period(lambda P, c: posts_block(P))}
   {table_block(measured)}
+  {collab_counts_block(all_posts, today)}
 </section>
-<section id='notes'><h2>About these numbers</h2>{notes_block(insights, len(all_posts) - len(measured), today, history)}</section>
+<section id='notes'><h2>About these numbers</h2>{notes_block(insights, sum(1 for p in all_posts if not post_metrics(p)), today, history, collab_status)}</section>
 """
     toggle = "".join(f"<button type='button' data-period='{d}' aria-pressed='{'true' if d == DEFAULT_PERIOD else 'false'}'>"
                      f"{d} days</button>" for d in PERIODS)
@@ -901,7 +1283,7 @@ def render(account_snapshots, posts, insights, crest, today=None, history=None):
 def main():
     crest = CREST_FILE.read_text(encoding="ascii").strip() if CREST_FILE.exists() else ""
     html = render(load_json(ACCOUNT_FILE), load_json(POSTS_FILE), load_json(INSIGHTS_FILE), crest,
-                  history=load_json(HISTORY_FILE))
+                  history=load_json(HISTORY_FILE), collab_status=load_json(COLLAB_STATUS_FILE))
     OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_FILE.write_text(html, encoding="utf-8")
     print(f"Wrote {OUTPUT_FILE}")

@@ -205,7 +205,8 @@ def main():
                     ig[label].update(got)
 
         since, until = ranges["current"]
-        for key, metric, breakdown in (("views_by_follower_type", "views", "follow_type"),
+        for key, metric, breakdown in (("link_taps_by_button", "profile_links_taps", "contact_button_type"),
+                                       ("views_by_follower_type", "views", "follow_type"),
                                        ("views_by_product_type", "views", "media_product_type"),
                                        ("follows", "follows_and_unfollows", "follow_type")):
             got = notes.attempt(f"Instagram {days}d {metric} by {breakdown}",

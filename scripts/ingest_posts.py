@@ -16,6 +16,14 @@ Scope of this version, stated plainly rather than left implicit:
     edge this script reads from.
   - Facebook video posts and Reels are both recorded as format "video".
     Distinguishing them is a reasonable next refinement, not done here.
+  - Instagram collab posts. The /media edge only returns posts this account
+    created. Collab posts another account created (for example the Women's
+    account) with this account as an accepted collaborator come from the
+    separate collaborative_media edge (added by Meta in April 2026). Both
+    kinds are flagged in a "collab" field. A collab post is one post with
+    one pooled set of figures, shared by every account it appears on.
+    Posts the Women's account publishes without inviting this account are
+    not visible to this token at all.
 
 Required environment variables: same four as ingest.py.
 """
@@ -42,6 +50,7 @@ from graph import (  # noqa: E402
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 POSTS_FILE = DATA_DIR / "posts.json"
+COLLAB_STATUS_FILE = DATA_DIR / "collab_status.json"
 # Instagram keeps per-post insights for 2 years; a couple of days' margin.
 LOOKBACK_DAYS = 728
 # Posts younger than this are refreshed every run. Older posts' lifetime
@@ -222,12 +231,58 @@ def instagram_format(item):
     return media_type.lower() or "unknown"
 
 
-def list_instagram_media(ig_id, token, app_secret, cutoff_date):
-    fields = (
-        "id,caption,media_type,media_product_type,timestamp,permalink,"
-        "like_count,comments_count,media_url,thumbnail_url"
-    )
-    result = graph_get(f"{ig_id}/media", token, app_secret, {"fields": fields, "limit": 25})
+IG_FIELDS = (
+    "id,caption,media_type,media_product_type,timestamp,permalink,"
+    "like_count,comments_count,media_url,thumbnail_url"
+)
+# The collaborators edge, requested inline so it costs no extra calls.
+COLLABORATORS_FIELD = "collaborators{username,invite_status}"
+
+
+def list_instagram_media(ig_id, token, app_secret, cutoff_date, status):
+    """Posts this account created. Asks for each post's collaborators too;
+    if Meta refuses that, lists without it and records why, so a refusal
+    can never cost the core post figures."""
+    try:
+        result = graph_get(f"{ig_id}/media", token, app_secret,
+                           {"fields": f"{IG_FIELDS},{COLLABORATORS_FIELD}", "limit": 25})
+        status["collaborators_field"] = "ok"
+    except AuthError:
+        raise
+    except Exception as exc:  # noqa: BLE001 - optional enrichment only
+        status["collaborators_field"] = f"unavailable: {exc}"
+        print(f"  WARN collaborators not available, listing without them: {exc}", file=sys.stderr)
+        result = graph_get(f"{ig_id}/media", token, app_secret, {"fields": IG_FIELDS, "limit": 25})
+    return page_through(result, cutoff_date)
+
+
+def list_collaborative_media(ig_id, token, app_secret, cutoff_date, status):
+    """Posts other accounts created with this account as an accepted
+    collaborator. Tried on the pinned API version, then the next one, in
+    case Meta gated the new edge by version. Never fatal: a failure is
+    recorded and the run carries on without collab posts."""
+    fields = f"{IG_FIELDS},username"
+    errors = []
+    for version in (None, "v25.0"):
+        try:
+            result = graph_get(f"{ig_id}/collaborative_media", token, app_secret,
+                               {"fields": fields, "limit": 25}, version=version)
+            # Meta doesn't document this edge's order, so filter by date
+            # rather than stopping at the first old post.
+            items = page_through(result, cutoff_date, newest_first=False)
+            status["collaborative_media"] = "ok"
+            status["collaborative_media_version"] = version or "default"
+            return items
+        except AuthError:
+            raise
+        except Exception as exc:  # noqa: BLE001
+            errors.append(f"{version or 'default'}: {exc}")
+    status["collaborative_media"] = "unavailable: " + " | ".join(errors)
+    print(f"  WARN collab posts not available: {status['collaborative_media']}", file=sys.stderr)
+    return []
+
+
+def page_through(result, cutoff_date, newest_first=True):
     items = []
     while True:
         for item in result.get("data", []):
@@ -235,7 +290,9 @@ def list_instagram_media(ig_id, token, app_secret, cutoff_date):
                 item["timestamp"].replace("Z", "+00:00")
             ).date()
             if posted < cutoff_date:
-                return items
+                if newest_first:
+                    return items
+                continue
             items.append(item)
         next_url = result.get("paging", {}).get("next")
         if not next_url:
@@ -267,9 +324,47 @@ def fetch_instagram_media_insights(media_id, token, app_secret):
     return metrics
 
 
+def fetch_collab_media_figures(media_id, token, app_secret):
+    """Figures for a collab post another account created. Meta hasn't said
+    whether collaborators can read a collab post's insights (reach etc.),
+    so try them first. If refused, fall back to the count fields Meta does
+    document as open to accepted collaborators. Reach is then simply
+    missing, never guessed; the dashboard keeps such posts out of
+    reach rankings and averages."""
+    try:
+        metrics = fetch_instagram_media_insights(media_id, token, app_secret)
+        if metrics:
+            return metrics
+    except AuthError:
+        raise
+    except Exception as exc:  # noqa: BLE001
+        print(f"  collab post {media_id}: insights refused, using counts ({exc})", file=sys.stderr)
+    result = graph_get(media_id, token, app_secret, {"fields": "shares_count,saved_count"})
+    metrics = {"counts_only": True}
+    if result.get("shares_count") is not None:
+        metrics["shares"] = result["shares_count"]
+    if result.get("saved_count") is not None:
+        metrics["saved"] = result["saved_count"]
+    return metrics
+
+
+def collab_info(item):
+    """None for an ordinary post. For a collab post: who created it and who
+    else it appears with. role 'host' = this account created it and invited
+    others; 'guest' = another account created it and invited this one."""
+    if item.get("username"):  # only requested on the collaborative_media edge
+        return {"role": "guest", "owner": item["username"]}
+    accepted = [c.get("username") for c in (item.get("collaborators") or {}).get("data", [])
+                if c.get("username") and str(c.get("invite_status", "Accepted")).lower() == "accepted"]
+    if accepted:
+        return {"role": "host", "with": sorted(accepted)}
+    return None
+
+
 def build_instagram_record(item):
     caption = item.get("caption", "") or ""
     return {
+        "collab": collab_info(item),
         "platform": "instagram",
         "post_id": item["id"],
         "permalink": item.get("permalink"),
@@ -402,11 +497,24 @@ def main():
     refresh("Facebook", fb_items, build_facebook_record,
             lambda pid: fetch_facebook_post_insights(pid, page_token, app_secret))
 
+    collab_status = {"checked_at": today_str}
     print(f"Listing Instagram media since {cutoff}...")
-    ig_items = list_instagram_media(ig_id, token, app_secret, cutoff)
-    print(f"  Found {len(ig_items)} post(s) in window.")
+    ig_items = list_instagram_media(ig_id, token, app_secret, cutoff, collab_status)
+    print(f"  Found {len(ig_items)} post(s) in window, "
+          f"{sum(1 for i in ig_items if collab_info(i))} of them collabs we created.")
     refresh("Instagram", ig_items, build_instagram_record,
             lambda pid: fetch_instagram_media_insights(pid, token, app_secret))
+
+    print("Listing collab posts other accounts created with us...")
+    guest_items = list_collaborative_media(ig_id, token, app_secret, cutoff, collab_status)
+    own_ids = {i["id"] for i in ig_items}
+    guest_items = [i for i in guest_items if i["id"] not in own_ids]  # never count a post twice
+    collab_status["collab_posts_found"] = len(guest_items)
+    print(f"  Found {len(guest_items)} collab post(s) created by other accounts.")
+    refresh("Instagram collab", guest_items, build_instagram_record,
+            lambda pid: fetch_collab_media_figures(pid, token, app_secret))
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    COLLAB_STATUS_FILE.write_text(json.dumps(collab_status, indent=2, sort_keys=True), encoding="utf-8")
 
     print("Saving data/posts.json...")
     save_posts(posts)

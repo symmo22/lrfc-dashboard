@@ -186,10 +186,15 @@ def fb_breakdown_series(page_id, page_token, app_secret, metric, breakdown, sinc
                 value, end = v.get("value"), v.get("end_time")
                 if not end:
                     continue
-                if not isinstance(value, dict):
+                day = out.setdefault(fb_value_day(end).isoformat(), {})
+                # Shape confirmed from the live API on 2026-09-24: one entry per
+                # group, tagged with the group, e.g. {"value": 191, "is_from_followers": "1"}.
+                if isinstance(value, (int, float)) and breakdown in v:
+                    day[str(v[breakdown])] = day.get(str(v[breakdown]), 0) + value
+                elif isinstance(value, dict):
+                    day.update({str(k): n for k, n in value.items() if isinstance(n, (int, float))})
+                else:
                     raise ValueError("unexpected breakdown shape: " + json.dumps(row)[:400])
-                out.setdefault(fb_value_day(end).isoformat(), {}).update(
-                    {str(k): n for k, n in value.items() if isinstance(n, (int, float))})
     return out
 
 
