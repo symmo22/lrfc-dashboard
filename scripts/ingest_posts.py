@@ -237,6 +237,9 @@ IG_FIELDS = (
 )
 # The collaborators edge, requested inline so it costs no extra calls.
 COLLABORATORS_FIELD = "collaborators{username,invite_status}"
+# Documented on IG Media as readable by accepted collaborators; requested on
+# the collab listing, with a fallback listing without them if refused.
+COLLAB_COUNT_FIELDS = "shares_count,saved_count"
 
 
 def list_instagram_media(ig_id, token, app_secret, cutoff_date, status):
@@ -261,9 +264,10 @@ def list_collaborative_media(ig_id, token, app_secret, cutoff_date, status):
     collaborator. Tried on the pinned API version, then the next one, in
     case Meta gated the new edge by version. Never fatal: a failure is
     recorded and the run carries on without collab posts."""
-    fields = f"{IG_FIELDS},username"
     errors = []
-    for version in (None, "v25.0"):
+    attempts = [(v, f) for v in (None, "v25.0")
+                for f in (f"{IG_FIELDS},username,{COLLAB_COUNT_FIELDS}", f"{IG_FIELDS},username")]
+    for version, fields in attempts:
         try:
             result = graph_get(f"{ig_id}/collaborative_media", token, app_secret,
                                {"fields": fields, "limit": 25}, version=version)
@@ -272,10 +276,11 @@ def list_collaborative_media(ig_id, token, app_secret, cutoff_date, status):
             items = page_through(result, cutoff_date, newest_first=False)
             status["collaborative_media"] = "ok"
             status["collaborative_media_version"] = version or "default"
+            status["collab_count_fields"] = COLLAB_COUNT_FIELDS in fields
             return items
         except AuthError:
             raise
-        except Exception as exc:  # noqa: BLE001
+        except Exception as exc:  # noqa: BLE001 - includes BlockedError: optional, never fatal
             errors.append(f"{version or 'default'}: {exc}")
     status["collaborative_media"] = "unavailable: " + " | ".join(errors)
     print(f"  WARN collab posts not available: {status['collaborative_media']}", file=sys.stderr)
@@ -324,27 +329,20 @@ def fetch_instagram_media_insights(media_id, token, app_secret):
     return metrics
 
 
-def fetch_collab_media_figures(media_id, token, app_secret):
-    """Figures for a collab post another account created. Meta hasn't said
-    whether collaborators can read a collab post's insights (reach etc.),
-    so try them first. If refused, fall back to the count fields Meta does
-    document as open to accepted collaborators. Reach is then simply
-    missing, never guessed; the dashboard keeps such posts out of
-    reach rankings and averages."""
-    try:
-        metrics = fetch_instagram_media_insights(media_id, token, app_secret)
-        if metrics:
-            return metrics
-    except AuthError:
-        raise
-    except Exception as exc:  # noqa: BLE001
-        print(f"  collab post {media_id}: insights refused, using counts ({exc})", file=sys.stderr)
-    result = graph_get(media_id, token, app_secret, {"fields": "shares_count,saved_count"})
+def collab_listing_figures(item):
+    """Figures for a collab post another account created, read from the
+    collaborative_media listing itself. No per-post call: on 2026-09-27
+    Meta refused both insights and a plain field lookup on every one of
+    these posts ("Object ... cannot be loaded due to missing permissions"),
+    which is how Meta treats a post owned by an account this token has no
+    access to. So reach is not available for them and is never guessed;
+    the dashboard keeps them out of reach rankings and averages. Likes and
+    comments come through static_metrics from the same listing."""
     metrics = {"counts_only": True}
-    if result.get("shares_count") is not None:
-        metrics["shares"] = result["shares_count"]
-    if result.get("saved_count") is not None:
-        metrics["saved"] = result["saved_count"]
+    if item.get("shares_count") is not None:
+        metrics["shares"] = item["shares_count"]
+    if item.get("saved_count") is not None:
+        metrics["saved"] = item["saved_count"]
     return metrics
 
 
@@ -505,14 +503,19 @@ def main():
     refresh("Instagram", ig_items, build_instagram_record,
             lambda pid: fetch_instagram_media_insights(pid, token, app_secret))
 
+    # Core figures are saved before the optional collab step, so nothing in
+    # it can ever cost the day's main post figures.
+    save_posts(posts)
+
     print("Listing collab posts other accounts created with us...")
     guest_items = list_collaborative_media(ig_id, token, app_secret, cutoff, collab_status)
     own_ids = {i["id"] for i in ig_items}
     guest_items = [i for i in guest_items if i["id"] not in own_ids]  # never count a post twice
     collab_status["collab_posts_found"] = len(guest_items)
     print(f"  Found {len(guest_items)} collab post(s) created by other accounts.")
+    guest_by_id = {i["id"]: i for i in guest_items}
     refresh("Instagram collab", guest_items, build_instagram_record,
-            lambda pid: fetch_collab_media_figures(pid, token, app_secret))
+            lambda pid: collab_listing_figures(guest_by_id[pid]))
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     COLLAB_STATUS_FILE.write_text(json.dumps(collab_status, indent=2, sort_keys=True), encoding="utf-8")
 
