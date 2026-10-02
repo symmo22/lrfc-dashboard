@@ -11691,7 +11691,7 @@
    },
    "2026-09-27": {
     "follows": 0,
-    "page_follows": 2176,
+    "page_follows": 2175,
     "page_views": 224,
     "unfollows": 0,
     "viewers": 1372,
@@ -11707,7 +11707,7 @@
    },
    "2026-09-28": {
     "follows": 0,
-    "page_follows": 2176,
+    "page_follows": 2175,
     "page_views": 104,
     "unfollows": 0,
     "viewers": 803,
@@ -11723,7 +11723,7 @@
    },
    "2026-09-29": {
     "follows": 0,
-    "page_follows": 2175,
+    "page_follows": 2174,
     "page_views": 57,
     "unfollows": 1,
     "viewers": 624,
@@ -11739,7 +11739,7 @@
    },
    "2026-09-30": {
     "follows": 0,
-    "page_follows": 2175,
+    "page_follows": 2174,
     "page_views": 32,
     "unfollows": 0,
     "viewers": 168,
@@ -11751,6 +11751,22 @@
     "views_by_is_from_followers": {
      "0": 195,
      "1": 139
+    }
+   },
+   "2026-10-01": {
+    "follows": 2,
+    "page_follows": 2175,
+    "page_views": 47,
+    "unfollows": 1,
+    "viewers": 73,
+    "views": 489,
+    "views_by_is_from_ads": {
+     "0": 489,
+     "1": 0
+    },
+    "views_by_is_from_followers": {
+     "0": 305,
+     "1": 184
     }
    }
   },
@@ -13006,7 +13022,7 @@
    "2026-09-30": {
     "accounts_engaged": 21,
     "comments": 0,
-    "follows": 0,
+    "follows": 1,
     "likes": 22,
     "profile_links_taps": 0,
     "reach": 429,
@@ -13015,6 +13031,19 @@
     "total_interactions": 32,
     "unfollows": 0,
     "views": 1463
+   },
+   "2026-10-01": {
+    "accounts_engaged": 5,
+    "comments": 0,
+    "follows": 0,
+    "likes": 4,
+    "profile_links_taps": 0,
+    "reach": 192,
+    "saves": 0,
+    "shares": 0,
+    "total_interactions": 4,
+    "unfollows": 0,
+    "views": 720
    }
   }
  },
@@ -13918,7 +13947,8 @@
    "2026-09-27": 45393,
    "2026-09-28": 45335,
    "2026-09-29": 45058,
-   "2026-09-30": 45136
+   "2026-09-30": 45136,
+   "2026-10-01": 45128
   },
   "instagram": {
    "2026-07-25": 4267,
@@ -13988,8 +14018,9 @@
    "2026-09-27": 14383,
    "2026-09-28": 14703,
    "2026-09-29": 14749,
-   "2026-09-30": 14749
+   "2026-09-30": 14749,
+   "2026-10-01": 14751
   }
  },
- "updated": "2026-10-01T13:13:23.142291+00:00"
+ "updated": "2026-10-02T12:34:32.370352+00:00"
 }
