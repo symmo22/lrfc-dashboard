@@ -173,97 +173,97 @@
       }
     }
   },
-  "generated_at": "2026-10-02T12:34:21.321934+00:00",
+  "generated_at": "2026-10-03T11:40:16.349318+00:00",
   "notes": [],
   "windows": {
     "30": {
       "facebook": {
         "current": {
-          "reach": 45128,
-          "views": 117115
+          "reach": 45151,
+          "views": 120731
         },
         "prior": {
-          "reach": 13562,
-          "views": 40542
+          "reach": 12092,
+          "views": 39449
         },
         "reach_days": 28
       },
       "instagram": {
         "current": {
-          "accounts_engaged": 892,
-          "comments": 11,
-          "likes": 2049,
+          "accounts_engaged": 903,
+          "comments": 12,
+          "likes": 2222,
           "profile_links_taps": 0,
-          "reach": 14751,
-          "saves": 23,
+          "reach": 14786,
+          "saves": 24,
           "shares": 100,
-          "total_interactions": 2324,
-          "views": 91606
+          "total_interactions": 2504,
+          "views": 97127
         },
         "follows": {
-          "FOLLOWER": 65,
+          "FOLLOWER": 66,
           "NON_FOLLOWER": 11
         },
         "link_taps_by_button": {},
         "prior": {
           "accounts_engaged": 194,
           "comments": 4,
-          "likes": 369,
+          "likes": 367,
           "profile_links_taps": 0,
-          "reach": 3140,
+          "reach": 3136,
           "saves": 5,
-          "shares": 27,
+          "shares": 28,
           "total_interactions": 446,
-          "views": 20700
+          "views": 20904
         },
         "unavailable": {},
         "views_by_follower_type": {
-          "FOLLOWER": 43330,
-          "NON_FOLLOWER": 48266,
+          "FOLLOWER": 47177,
+          "NON_FOLLOWER": 49940,
           "UNKNOWN": 10
         },
         "views_by_product_type": {
           "AD": 3098,
-          "CAROUSEL_CONTAINER": 30831,
+          "CAROUSEL_CONTAINER": 35727,
           "IGTV": 1,
-          "POST": 26898,
-          "REEL": 17319,
-          "STORY": 13459
+          "POST": 27425,
+          "REEL": 17375,
+          "STORY": 13501
         }
       },
       "range": {
         "current": [
-          "2026-09-02",
-          "2026-10-02"
+          "2026-09-03",
+          "2026-10-03"
         ],
         "prior": [
-          "2026-08-03",
-          "2026-09-02"
+          "2026-08-04",
+          "2026-09-03"
         ]
       }
     },
     "90": {
       "facebook": {
         "current": {
-          "views": 218206
+          "views": 222136
         },
         "prior": {
-          "views": 200089
+          "views": 198902
         },
         "reach_days": null
       },
       "instagram": {
         "current": {
-          "comments": 16,
-          "likes": 2950,
+          "comments": 17,
+          "likes": 3123,
           "profile_links_taps": 4,
           "saves": 30,
-          "shares": 154,
-          "total_interactions": 3368,
-          "views": 137880
+          "shares": 155,
+          "total_interactions": 3548,
+          "views": 143489
         },
         "follows": {
-          "FOLLOWER": 125,
+          "FOLLOWER": 126,
           "NON_FOLLOWER": 32
         },
         "link_taps_by_button": {
@@ -275,27 +275,27 @@
           "prior": "Instagram keeps account data for 90 days"
         },
         "views_by_follower_type": {
-          "FOLLOWER": 71031,
-          "NON_FOLLOWER": 66824,
+          "FOLLOWER": 75029,
+          "NON_FOLLOWER": 68435,
           "UNKNOWN": 25
         },
         "views_by_product_type": {
           "AD": 5124,
-          "CAROUSEL_CONTAINER": 49496,
+          "CAROUSEL_CONTAINER": 54632,
           "IGTV": 1,
-          "POST": 42505,
-          "REEL": 20905,
-          "STORY": 19849
+          "POST": 42875,
+          "REEL": 20964,
+          "STORY": 19893
         }
       },
       "range": {
         "current": [
-          "2026-07-04",
-          "2026-10-02"
+          "2026-07-05",
+          "2026-10-03"
         ],
         "prior": [
-          "2026-04-05",
-          "2026-07-04"
+          "2026-04-06",
+          "2026-07-05"
         ]
       }
     }
