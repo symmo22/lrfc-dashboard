@@ -11755,7 +11755,7 @@
    },
    "2026-10-01": {
     "follows": 2,
-    "page_follows": 2176,
+    "page_follows": 2175,
     "page_views": 47,
     "unfollows": 1,
     "viewers": 73,
@@ -11771,7 +11771,7 @@
    },
    "2026-10-02": {
     "follows": 5,
-    "page_follows": 2181,
+    "page_follows": 2180,
     "page_views": 169,
     "unfollows": 0,
     "viewers": 1434,
@@ -11787,7 +11787,7 @@
    },
    "2026-10-03": {
     "follows": 0,
-    "page_follows": 2180,
+    "page_follows": 2179,
     "page_views": 142,
     "unfollows": 1,
     "viewers": 1071,
@@ -11803,7 +11803,7 @@
    },
    "2026-10-04": {
     "follows": 3,
-    "page_follows": 2183,
+    "page_follows": 2182,
     "page_views": 157,
     "unfollows": 0,
     "viewers": 395,
@@ -11815,6 +11815,22 @@
     "views_by_is_from_followers": {
      "0": 737,
      "1": 516
+    }
+   },
+   "2026-10-05": {
+    "follows": 4,
+    "page_follows": 2186,
+    "page_views": 78,
+    "unfollows": 0,
+    "viewers": 195,
+    "views": 647,
+    "views_by_is_from_ads": {
+     "0": 647,
+     "1": 0
+    },
+    "views_by_is_from_followers": {
+     "0": 467,
+     "1": 180
     }
    }
   },
@@ -13131,6 +13147,19 @@
     "total_interactions": 4,
     "unfollows": 0,
     "views": 955
+   },
+   "2026-10-05": {
+    "accounts_engaged": 11,
+    "comments": 0,
+    "follows": 0,
+    "likes": 11,
+    "profile_links_taps": 0,
+    "reach": 422,
+    "saves": 0,
+    "shares": 0,
+    "total_interactions": 11,
+    "unfollows": 0,
+    "views": 1138
    }
   }
  },
@@ -14038,7 +14067,8 @@
    "2026-10-01": 45128,
    "2026-10-02": 45151,
    "2026-10-03": 45263,
-   "2026-10-04": 45250
+   "2026-10-04": 45250,
+   "2026-10-05": 44736
   },
   "instagram": {
    "2026-07-25": 4267,
@@ -14112,8 +14142,9 @@
    "2026-10-01": 14751,
    "2026-10-02": 14786,
    "2026-10-03": 15268,
-   "2026-10-04": 15307
+   "2026-10-04": 15307,
+   "2026-10-05": 15303
   }
  },
- "updated": "2026-10-05T14:36:52.437740+00:00"
+ "updated": "2026-10-06T13:24:44.035163+00:00"
 }
