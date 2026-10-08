@@ -80,44 +80,44 @@
         "Banbury, UK": 14,
         "Bedworth, UK": 6,
         "Belo Horizonte, MG, Brazil": 9,
-        "Birmingham, UK": 28,
+        "Birmingham, UK": 27,
         "Bristol, UK": 4,
-        "Bromsgrove, UK": 3,
         "Bubbenhall, UK": 7,
         "Cardiff, UK": 4,
-        "Coventry, UK": 125,
+        "Coventry, UK": 126,
         "Daventry, UK": 6,
         "Dublin, Ireland": 4,
         "Evesham, UK": 6,
         "Glasgow, UK": 4,
         "Halesowen, UK": 4,
-        "Hereford, UK": 6,
-        "Hinckley, UK": 10,
+        "Hereford, UK": 8,
+        "Hinckley, UK": 9,
         "Islamabad, Islamabad Capital Territory, Pakistan": 13,
-        "Kenilworth, UK": 65,
+        "Kenilworth, UK": 68,
         "Kidderminster, UK": 5,
-        "Leamington Spa, UK": 509,
+        "Leamington Spa, UK": 510,
+        "Leamington, New Zealand": 4,
         "Ledbury, UK": 4,
-        "Liverpool, UK": 3,
-        "London, UK": 24,
+        "London, UK": 23,
         "Loughborough, UK": 4,
         "Madrid, Spain": 9,
         "Manchester, UK": 4,
         "Northampton, UK": 4,
-        "Nuneaton, UK": 18,
+        "Nuneaton, UK": 19,
         "Perth, WA, Australia": 4,
         "Pescia, Tuscany, Italy": 13,
+        "Plymouth, UK": 4,
         "Redditch, UK": 4,
-        "Rugby, UK": 52,
+        "Rugby, UK": 53,
         "Shipston on Stour, UK": 7,
         "Sialkot, Punjab, Pakistan": 25,
-        "Solihull, UK": 12,
-        "Southam, UK": 48,
+        "Solihull, UK": 13,
+        "Southam, UK": 47,
         "Stoneleigh, UK": 4,
-        "Stratford-upon-Avon, UK": 34,
+        "Stratford-upon-Avon, UK": 33,
         "Sydney, NSW, Australia": 8,
         "Walsall, UK": 4,
-        "Warwick, UK": 276,
+        "Warwick, UK": 270,
         "Wexford, Ireland": 4,
         "Wolston, UK": 4
       }
@@ -139,7 +139,7 @@
         "ES": 26,
         "FJ": 3,
         "FR": 7,
-        "GB": 1840,
+        "GB": 1844,
         "GH": 1,
         "GR": 1,
         "HK": 2,
@@ -173,98 +173,98 @@
       }
     }
   },
-  "generated_at": "2026-10-07T13:23:33.228415+00:00",
+  "generated_at": "2026-10-08T13:29:38.563357+00:00",
   "notes": [],
   "windows": {
     "30": {
       "facebook": {
         "current": {
-          "reach": 43047,
-          "views": 127024
+          "reach": 41886,
+          "views": 127700
         },
         "prior": {
-          "reach": 9413,
-          "views": 27874
+          "reach": 8626,
+          "views": 29949
         },
         "reach_days": 28
       },
       "instagram": {
         "current": {
-          "accounts_engaged": 901,
+          "accounts_engaged": 903,
           "comments": 12,
-          "likes": 2202,
+          "likes": 2237,
           "profile_links_taps": 0,
-          "reach": 15381,
-          "saves": 28,
-          "shares": 100,
-          "total_interactions": 2489,
-          "views": 97381
+          "reach": 15466,
+          "saves": 29,
+          "shares": 101,
+          "total_interactions": 2528,
+          "views": 97841
         },
         "follows": {
-          "FOLLOWER": 66,
-          "NON_FOLLOWER": 13
+          "FOLLOWER": 64,
+          "NON_FOLLOWER": 15
         },
         "link_taps_by_button": {},
         "prior": {
-          "accounts_engaged": 176,
+          "accounts_engaged": 180,
           "comments": 4,
-          "likes": 363,
+          "likes": 388,
           "profile_links_taps": 0,
-          "reach": 2738,
+          "reach": 2734,
           "saves": 4,
-          "shares": 26,
-          "total_interactions": 435,
-          "views": 22858
+          "shares": 28,
+          "total_interactions": 465,
+          "views": 24292
         },
         "unavailable": {},
         "views_by_follower_type": {
-          "FOLLOWER": 45757,
-          "NON_FOLLOWER": 51614,
+          "FOLLOWER": 45781,
+          "NON_FOLLOWER": 52050,
           "UNKNOWN": 10
         },
         "views_by_product_type": {
           "AD": 3098,
-          "CAROUSEL_CONTAINER": 39017,
+          "CAROUSEL_CONTAINER": 39929,
           "IGTV": 1,
-          "POST": 28326,
-          "REEL": 17386,
-          "STORY": 9553
+          "POST": 28382,
+          "REEL": 17376,
+          "STORY": 9055
         }
       },
       "range": {
         "current": [
-          "2026-09-07",
-          "2026-10-07"
+          "2026-09-08",
+          "2026-10-08"
         ],
         "prior": [
-          "2026-08-08",
-          "2026-09-07"
+          "2026-08-09",
+          "2026-09-08"
         ]
       }
     },
     "90": {
       "facebook": {
         "current": {
-          "views": 220487
+          "views": 222054
         },
         "prior": {
-          "views": 203347
+          "views": 205694
         },
         "reach_days": null
       },
       "instagram": {
         "current": {
           "comments": 16,
-          "likes": 3006,
+          "likes": 3012,
           "profile_links_taps": 4,
-          "saves": 33,
-          "shares": 148,
-          "total_interactions": 3421,
-          "views": 141613
+          "saves": 34,
+          "shares": 150,
+          "total_interactions": 3434,
+          "views": 141995
         },
         "follows": {
           "FOLLOWER": 128,
-          "NON_FOLLOWER": 32
+          "NON_FOLLOWER": 34
         },
         "link_taps_by_button": {
           "CALL": 1,
@@ -275,27 +275,27 @@
           "prior": "Instagram keeps account data for 90 days"
         },
         "views_by_follower_type": {
-          "FOLLOWER": 73106,
-          "NON_FOLLOWER": 68489,
+          "FOLLOWER": 73293,
+          "NON_FOLLOWER": 68684,
           "UNKNOWN": 18
         },
         "views_by_product_type": {
-          "AD": 5000,
-          "CAROUSEL_CONTAINER": 56699,
+          "AD": 4973,
+          "CAROUSEL_CONTAINER": 57742,
           "IGTV": 1,
-          "POST": 43065,
-          "REEL": 19337,
-          "STORY": 17511
+          "POST": 42466,
+          "REEL": 19279,
+          "STORY": 17534
         }
       },
       "range": {
         "current": [
-          "2026-07-09",
-          "2026-10-07"
+          "2026-07-10",
+          "2026-10-08"
         ],
         "prior": [
-          "2026-04-10",
-          "2026-07-09"
+          "2026-04-11",
+          "2026-07-10"
         ]
       }
     }
