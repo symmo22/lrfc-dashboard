@@ -91,33 +91,33 @@
         "Dublin, Ireland": 4,
         "Evesham, UK": 5,
         "Glasgow, UK": 4,
-        "Hereford, UK": 7,
+        "Hereford, UK": 6,
         "Hinckley, UK": 9,
         "Islamabad, Islamabad Capital Territory, Pakistan": 13,
-        "Kenilworth, UK": 71,
+        "Kenilworth, UK": 72,
         "Kidderminster, UK": 5,
-        "Leamington Spa, UK": 502,
+        "Leamington Spa, UK": 500,
         "Ledbury, UK": 5,
-        "Leicester, UK": 3,
         "Liverpool, UK": 3,
-        "London, UK": 25,
+        "London, UK": 24,
         "Loughborough, UK": 4,
         "Madrid, Spain": 9,
         "Manchester, UK": 3,
-        "Nuneaton, UK": 21,
+        "Marston Green, UK": 3,
+        "Nuneaton, UK": 22,
         "Perth, WA, Australia": 4,
         "Pescia, Tuscany, Italy": 12,
         "Redditch, UK": 4,
         "Rugby, UK": 51,
         "Shipston on Stour, UK": 7,
         "Sialkot, Punjab, Pakistan": 25,
-        "Solihull, UK": 12,
-        "Southam, UK": 48,
+        "Solihull, UK": 11,
+        "Southam, UK": 49,
         "Stoneleigh, UK": 4,
         "Stratford-upon-Avon, UK": 33,
         "Sydney, NSW, Australia": 8,
         "Walsall, UK": 5,
-        "Warwick, UK": 283,
+        "Warwick, UK": 281,
         "Wexford, Ireland": 5,
         "Wolston, UK": 4
       }
@@ -173,97 +173,97 @@
       }
     }
   },
-  "generated_at": "2026-10-14T11:55:21.243206+00:00",
+  "generated_at": "2026-10-15T11:30:56.736073+00:00",
   "notes": [],
   "windows": {
     "30": {
       "facebook": {
         "current": {
-          "reach": 24301,
-          "views": 104116
+          "reach": 23392,
+          "views": 97869
         },
         "prior": {
-          "reach": 29030,
-          "views": 71396
+          "reach": 32961,
+          "views": 80206
         },
         "reach_days": 28
       },
       "instagram": {
         "current": {
-          "accounts_engaged": 672,
+          "accounts_engaged": 656,
           "comments": 14,
-          "likes": 2115,
+          "likes": 2073,
           "profile_links_taps": 0,
-          "reach": 9129,
+          "reach": 8895,
           "saves": 21,
-          "shares": 105,
-          "total_interactions": 2418,
-          "views": 94501
+          "shares": 101,
+          "total_interactions": 2368,
+          "views": 92782
         },
         "follows": {
-          "FOLLOWER": 65,
+          "FOLLOWER": 60,
           "NON_FOLLOWER": 13
         },
         "link_taps_by_button": {},
         "prior": {
-          "accounts_engaged": 605,
+          "accounts_engaged": 625,
           "comments": 8,
-          "likes": 1077,
+          "likes": 1161,
           "profile_links_taps": 0,
-          "reach": 10917,
-          "saves": 13,
-          "shares": 48,
-          "total_interactions": 1212,
-          "views": 51515
+          "reach": 11219,
+          "saves": 14,
+          "shares": 52,
+          "total_interactions": 1306,
+          "views": 54254
         },
         "unavailable": {},
         "views_by_follower_type": {
-          "FOLLOWER": 51761,
-          "NON_FOLLOWER": 42740
+          "FOLLOWER": 50893,
+          "NON_FOLLOWER": 41889
         },
         "views_by_product_type": {
-          "AD": 1730,
-          "CAROUSEL_CONTAINER": 55175,
+          "AD": 1514,
+          "CAROUSEL_CONTAINER": 53662,
           "IGTV": 1,
-          "POST": 27103,
-          "REEL": 1882,
-          "STORY": 8610
+          "POST": 27708,
+          "REEL": 1614,
+          "STORY": 8283
         }
       },
       "range": {
         "current": [
-          "2026-09-14",
-          "2026-10-14"
+          "2026-09-15",
+          "2026-10-15"
         ],
         "prior": [
-          "2026-08-15",
-          "2026-09-14"
+          "2026-08-16",
+          "2026-09-15"
         ]
       }
     },
     "90": {
       "facebook": {
         "current": {
-          "views": 234326
+          "views": 237427
         },
         "prior": {
-          "views": 203218
+          "views": 201843
         },
         "reach_days": null
       },
       "instagram": {
         "current": {
           "comments": 23,
-          "likes": 3636,
+          "likes": 3680,
           "profile_links_taps": 4,
-          "saves": 37,
-          "shares": 179,
-          "total_interactions": 4141,
-          "views": 168660
+          "saves": 38,
+          "shares": 180,
+          "total_interactions": 4189,
+          "views": 169976
         },
         "follows": {
           "FOLLOWER": 137,
-          "NON_FOLLOWER": 31
+          "NON_FOLLOWER": 30
         },
         "link_taps_by_button": {
           "CALL": 1,
@@ -274,27 +274,27 @@
           "prior": "Instagram keeps account data for 90 days"
         },
         "views_by_follower_type": {
-          "FOLLOWER": 87705,
-          "NON_FOLLOWER": 80937,
-          "UNKNOWN": 18
+          "FOLLOWER": 88348,
+          "NON_FOLLOWER": 81611,
+          "UNKNOWN": 17
         },
         "views_by_product_type": {
-          "AD": 4751,
-          "CAROUSEL_CONTAINER": 75465,
+          "AD": 4706,
+          "CAROUSEL_CONTAINER": 76070,
           "IGTV": 1,
-          "POST": 48827,
-          "REEL": 19298,
-          "STORY": 20318
+          "POST": 49978,
+          "REEL": 19251,
+          "STORY": 19970
         }
       },
       "range": {
         "current": [
-          "2026-07-16",
-          "2026-10-14"
+          "2026-07-17",
+          "2026-10-15"
         ],
         "prior": [
-          "2026-04-17",
-          "2026-07-16"
+          "2026-04-18",
+          "2026-07-17"
         ]
       }
     }
