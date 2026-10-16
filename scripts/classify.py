@@ -24,8 +24,8 @@ HISTORICAL_YEAR = re.compile(r"\b(19\d{2}|200\d|201\d)\b")
 SECTION_RULES = [
     # The 2nd XV play as the Rovers from 2026/27. "lions" stays so last
     # season's posts, when they were the Lions, still count here.
-    ("Men's Rovers (2nd XV)", ["2nd xv", "2nds", "second xv", "rovers", "lions"]),
-    ("Men's 1st XV", ["1st xv", "first xv", "1sts"]),
+    ("Men's Rovers (2nd XV)", ["2nd xv", "2xv", "2nds", "second xv", "rovers", "lions"]),
+    ("Men's 1st XV", ["1st xv", "1xv", "first xv", "1sts", "firsts", "first team"]),
     ("Colts (U18)", ["colts", "u18", "under 18", "under-18"]),
     ("Women's", ["women", "ladies"]),
     ("Vets", ["vets", "veterans"]),
@@ -46,7 +46,9 @@ COMMUNITY_WORDS = ["one club", "one leam", "community", "inclusion", "inclusive"
 def clean(caption):
     text = (caption or "").lower().replace("\u2019", "'").replace("\u2018", "'")
     text = re.sub(r"[#@][\w.]+", " ", text)   # hashtags and handles say nothing about the post
-    for phrase in ("british and irish lions", "british & irish lions", "british lions"):
+    # Other clubs' teams that share a word with ours
+    for phrase in ("british and irish lions", "british & irish lions", "british lions",
+                   "bosworth lions"):
         text = text.replace(phrase, " ")
     # Leamington Rovers was also the town's 1876 club, which turns up in
     # heritage posts. Only there is the name not about today's 2nd XV.
@@ -82,29 +84,58 @@ def collab_handles(post):
 
 def classify_post(post):
     """classify_section for a stored post record, taking account of who it
-    was made with. Returns (section, named)."""
+    was made with. Returns (section, named): the main section only."""
+    sections, named = classify_post_sections(post)
+    return sections[0], named
+
+
+def classify_post_sections(post):
+    """Every section a stored post features. Returns (sections, named)."""
+    found, named = classify_sections(post.get("caption"))
     for handle in collab_handles(post):
         for section, pattern in SECTION_HANDLE_RULES:
             if pattern.search(handle):
-                return section, True
-    return classify_section(post.get("caption"))
+                # The collab partner's section leads; any other teams the
+                # caption names still count (a weekend fixtures collab).
+                rest = [s for s in found if s != section] if named else []
+                return [section] + rest, True
+    return found, named
+
+
+def first_mention(text, words):
+    hits = [text.find(w) for w in words if w in text]
+    return min(hits) if hits else None
+
+
+def classify_sections(caption):
+    """Returns (sections, named). A caption naming several teams (a weekend
+    fixtures post, a results roundup) features all of them, listed in the
+    order the caption first mentions them, so the first is the main one.
+    named=False means no team was named and a stated rule placed it:
+    historical posts -> Whole Club, match or senior posts -> Men's 1st XV,
+    anything else -> Whole Club."""
+    text = clean(caption)
+    found = []
+    for section, words in SECTION_RULES:
+        pos = first_mention(text, words)
+        if pos is not None:
+            found.append((pos, section))
+    age = AGE_GROUP.search(text)
+    if age and "Minis & Juniors" not in [s for _, s in found]:
+        found.append((age.start(), "Minis & Juniors"))
+    if found:
+        return [s for _, s in sorted(found)], True
+    if is_historical(text):
+        return ["Whole Club"], False
+    if is_match(text) or any(w in text for w in SENIOR_MEN_WORDS):
+        return ["Men's 1st XV"], False
+    return ["Whole Club"], False
 
 
 def classify_section(caption):
-    """Returns (section, named). named=False means the caption didn't name a
-    team and a stated rule placed it: historical posts -> Whole Club, match
-    or senior posts -> Men's 1st XV, anything else -> Whole Club."""
-    text = clean(caption)
-    for section, words in SECTION_RULES:
-        if any(w in text for w in words):
-            return section, True
-    if AGE_GROUP.search(text):
-        return "Minis & Juniors", True
-    if is_historical(text):
-        return "Whole Club", False
-    if is_match(text) or any(w in text for w in SENIOR_MEN_WORDS):
-        return "Men's 1st XV", False
-    return "Whole Club", False
+    """The main section only. Returns (section, named)."""
+    sections, named = classify_sections(caption)
+    return sections[0], named
 
 
 # Theme needs stricter heritage detection than section does: in the

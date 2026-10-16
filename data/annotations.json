@@ -1,0 +1,7 @@
+{
+  "_how": "Posts that had help Meta's API can't show. Add one entry per post: date (YYYY-MM-DD, the day it went out), a few words from the caption, and boosted and/or local_groups set to true. platform is optional (facebook or instagram); leave it out to match both.",
+  "posts": [
+    {"date": "2026-09-07", "caption_contains": "Give rugby a try", "boosted": true},
+    {"date": "2026-09-11", "caption_contains": "say so long", "platform": "facebook", "local_groups": true}
+  ]
+}

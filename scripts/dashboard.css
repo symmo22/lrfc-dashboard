@@ -91,3 +91,7 @@ footer img{height:44px}
 footer span{color:var(--heading);font-weight:700;letter-spacing:.06em}
 @media print{nav,details{display:none}.banner,.chip,.badge,.rank,th{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .card,.stat,.post,section{break-inside:avoid}body{background:#fff}}
+
+.reasons{margin-top:1rem}
+.reasons .insights li ul{margin:.5rem 0 0;padding-left:1.1rem;display:grid;gap:.4rem}
+.reasons .insights li ul li{background:none;border:0;padding:0;font-size:.9rem}

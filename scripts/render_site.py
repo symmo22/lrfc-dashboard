@@ -36,7 +36,7 @@ from html import escape
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from classify import SECTIONS, THEMES, classify_post, classify_theme  # noqa: E402
+from classify import SECTIONS, THEMES, classify_post, classify_post_sections, classify_theme  # noqa: E402
 from ingest_posts import LOOKBACK_DAYS  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
@@ -47,6 +47,9 @@ POSTS_FILE = DATA_DIR / "posts.json"
 INSIGHTS_FILE = DATA_DIR / "insights.json"
 HISTORY_FILE = DATA_DIR / "history.json"
 COLLAB_STATUS_FILE = DATA_DIR / "collab_status.json"
+# Things Meta's API can't tell us: which posts were boosted or shared into
+# local Facebook groups. Edited by hand; see the file for the format.
+ANNOTATIONS_FILE = DATA_DIR / "annotations.json"
 OUTPUT_FILE = ROOT / "docs" / "index.html"
 CREST_FILE = HERE / "crest_b64.txt"
 
@@ -159,7 +162,13 @@ def format_label(p):
 
 
 def section_of(p):
-    return classify_post(p)[0]
+    """Every section the post features: a weekend fixtures post counts once
+    for each team it names."""
+    return classify_post_sections(p)[0]
+
+
+def section_text(p):
+    return " & ".join(section_of(p))
 
 
 def theme_of(p):
@@ -189,7 +198,9 @@ def follower_count(record, platform):
 def group_stats(posts_list, key_fn):
     groups = {}
     for p in posts_list:
-        groups.setdefault(key_fn(p), []).append(p)
+        keys = key_fn(p)
+        for key in (keys if isinstance(keys, list) else [keys]):
+            groups.setdefault(key, []).append(p)
     rows = []
     for key, ps in groups.items():
         reaches = [post_reach(p) for p in ps]
@@ -327,7 +338,7 @@ def post_card(p, rank=None):
     return f"""<a class='post' href='{link}' target='_blank' rel='noopener'>
   <div class='{"thumb" if image else "thumb noimg"}'>{img_html}<span class='badge' style='background:{PLATFORM_COLOUR[platform]}'>{PLATFORM_NAME[platform]}</span>{rank_html}</div>
   <div class='body'>
-    <div class='date'>{published_date(p).strftime("%a %d %b")} · {escape(format_label(p))} · {escape(section_of(p))}{(" · " + escape(collab_text(p))) if collab_text(p) else ""}</div>
+    <div class='date'>{published_date(p).strftime("%a %d %b")} · {escape(format_label(p))} · {escape(section_text(p))}{(" · " + escape(collab_text(p))) if collab_text(p) else ""}</div>
     <div class='cap'>{caption}</div>
     <div class='nums'><span><b>{num(post_reach(p))}</b> reach</span><span><b>{num(post_views(p))}</b> views</span>
     <span>{plural(likes, 'like')}</span><span>{plural(comments, 'comment')}</span><span>{plural(shares, 'share')}</span></div>
@@ -375,6 +386,7 @@ class Period:
         self.cur = [p for p in measured if start <= published_date(p) < today]
         self.prev = [p for p in measured if prev_start <= published_date(p) < start]
         self.sections = group_stats(self.cur, section_of)
+        self.multi_section = sum(1 for p in self.cur if len(section_of(p)) > 1)
         self.themes = group_stats(self.cur, theme_of)
         self.formats = group_stats(self.cur, format_label)
         self.weekdays = group_stats(self.cur, lambda p: p.get("day_of_week") or "Unknown")
@@ -434,6 +446,166 @@ def insight_lines(P):
             lines.append(f"{share}% of posts didn't name a team in the caption, so they were placed by rule "
                          "(match posts as 1st XV, the rest as Whole Club). Naming the team makes this exact.")
     return lines
+
+
+# ---------------------------------------------------------------------------
+# Why reach moved: likely causes, worked out from the posts behind the totals
+# ---------------------------------------------------------------------------
+
+ANNOTATIONS = []           # filled from data/annotations.json in render()
+REASON_MIN_CHANGE = 10     # % change in reach before it's worth explaining
+STANDOUT_MULTIPLE = 2.5    # a post this many times the typical post is a standout
+VIDEO_FORMATS = {"reel", "video"}
+
+
+def annotation_for(p):
+    for a in ANNOTATIONS:
+        if a.get("platform") and a["platform"] != p["platform"]:
+            continue
+        if a.get("date") and a["date"] != published_date(p).isoformat():
+            continue
+        if (a.get("caption_contains") or "").lower() in (p.get("caption") or "").lower():
+            return a
+    return {}
+
+
+def extra_push(p):
+    """Plain words for help a post had beyond the page itself, or ''."""
+    a = annotation_for(p)
+    bits = (["boosted"] if a.get("boosted") else []) + (["shared in local groups"] if a.get("local_groups") else [])
+    return " and ".join(bits)
+
+
+def snippet(p, n=38):
+    text = " ".join((p.get("caption") or "").split())
+    return escape(text[:n].rstrip() + ("…" if len(text) > n else "")) or "(no caption)"
+
+
+def median(values):
+    v = sorted(values)
+    if not v:
+        return 0
+    mid = len(v) // 2
+    return v[mid] if len(v) % 2 else (v[mid - 1] + v[mid]) / 2
+
+
+def describe_posts(ps):
+    out = []
+    for p in ps:
+        push = extra_push(p)
+        out.append(f"‘{snippet(p)}’ ({post_reach(p):,}{', ' + push if push else ''})")
+    return join_names(out)
+
+
+def reach_reasons(P, platform):
+    """Returns (headline, [reasons]) or None when there's nothing to explain.
+    Reasons are ranked by roughly how much of the change they account for."""
+    block = P.ins.get(platform) or {}
+    cur_t, prev_t = block.get("current") or {}, block.get("prior") or {}
+    use_reach = cur_t.get("reach") is not None and prev_t.get("reach") is not None
+    metric = "reach" if use_reach else "views"
+    cur_v, prev_v = cur_t.get(metric), prev_t.get(metric)
+    change = pct_change(cur_v, prev_v)
+    if change is None or abs(change) < REASON_MIN_CHANGE:
+        return None
+    up = change > 0
+    name = PLATFORM_NAME[platform]
+    headline = (f"<strong>{name} {metric} {'up' if up else 'down'} {abs(change)}%</strong> "
+                f"({cur_v:,} against {prev_v:,})")
+
+    cur = [p for p in P.cur if p["platform"] == platform]
+    prev = [p for p in P.prev if p["platform"] == platform]
+    if len(cur) + len(prev) < MIN_SAMPLE:
+        return headline, []
+    reasons = []  # (weight, html)
+
+    # 1. Standout posts, and whether they had help (boost, local groups)
+    typical = median([post_reach(p) for p in cur + prev]) or 1
+    def standouts(ps):
+        return sorted([p for p in ps if post_reach(p) >= STANDOUT_MULTIPLE * typical], key=post_reach, reverse=True)
+    s_cur, s_prev = standouts(cur), standouts(prev)
+    extra_cur = sum(post_reach(p) - typical for p in s_cur)
+    extra_prev = sum(post_reach(p) - typical for p in s_prev)
+    if up and s_cur and extra_cur > extra_prev:
+        helped = any(extra_push(p) for p in s_cur[:3])
+        reasons.append((extra_cur - extra_prev,
+            f"<strong>Standout post{'s' if len(s_cur) > 1 else ''}:</strong> {describe_posts(s_cur[:3])}, against a "
+            f"typical {round(typical):,}."
+            + (" Boosts and group shares reach people who don't follow the page, so expect this to fall back once they stop."
+               if helped else "")))
+    elif not up and s_prev and extra_prev > extra_cur:
+        best = max(cur, key=post_reach) if cur else None
+        helped = any(extra_push(p) for p in s_prev[:3])
+        reasons.append((extra_prev - extra_cur,
+            f"<strong>The {P.label} before had standout post{'s' if len(s_prev) > 1 else ''}:</strong> "
+            f"{describe_posts(s_prev[:3])}."
+            + (f" Your best this period reached {post_reach(best):,}." if best else "")
+            + (" Some of that came from boosting or group shares, which reach beyond the page's followers. "
+               "So part of this drop is simply that help ending."
+               if helped else "")))
+
+    # 2. Video. Reels and videos are what Meta shows to non-followers.
+    v_cur = sum(1 for p in cur if p.get("format") in VIDEO_FORMATS)
+    v_prev = sum(1 for p in prev if p.get("format") in VIDEO_FORMATS)
+    vids = [post_reach(p) for p in cur + prev if p.get("format") in VIDEO_FORMATS]
+    rest = [post_reach(p) for p in cur + prev if p.get("format") not in VIDEO_FORMATS]
+    if vids and rest and v_cur != v_prev and (v_cur < v_prev) != up:
+        ratio = (sum(vids) / len(vids)) / max(1, sum(rest) / len(rest))
+        if ratio >= 1.5:
+            reasons.append((abs(v_cur - v_prev) * (sum(vids) / len(vids) - sum(rest) / len(rest)),
+                f"<strong>{'More' if up else 'Fewer'} videos:</strong> {v_cur} {'Reel' if platform == 'instagram' else 'video'}"
+                f"{'' if v_cur == 1 else 's'} against {v_prev}. On {name} they average {ratio:.1f}× the reach of "
+                "other posts, because Meta shows them to people who don't follow you."))
+
+    # 3. Volume against reach per post
+    med_cur, med_prev = median([post_reach(p) for p in cur]), median([post_reach(p) for p in prev])
+    if cur and prev and len(prev) >= MIN_SAMPLE:
+        more = len(cur) >= 1.3 * len(prev)
+        fewer = len(cur) <= 0.7 * len(prev)
+        if not up and more and med_cur < med_prev:
+            reasons.append((len(prev) * (med_prev - med_cur),
+                f"<strong>More posts, each reaching fewer people:</strong> {len(cur)} posts against {len(prev)}, "
+                f"with a typical post reaching {round(med_cur):,} against {round(med_prev):,}. "
+                "Extra posts mostly go to the same followers again, so they add views more than reach."))
+        elif not up and fewer:
+            reasons.append(((len(prev) - len(cur)) * med_prev,
+                f"<strong>Fewer posts:</strong> {len(cur)} against {len(prev)}, so fewer chances to be seen."))
+        elif up and more:
+            reasons.append(((len(cur) - len(prev)) * med_cur,
+                f"<strong>More posts:</strong> {len(cur)} against {len(prev)}."))
+        elif up and med_cur >= 1.3 * med_prev:
+            reasons.append((len(cur) * (med_cur - med_prev),
+                f"<strong>Posts travelled further:</strong> a typical post reached {round(med_cur):,} "
+                f"against {round(med_prev):,}."))
+
+    # 4. Reach and views moving in opposite directions
+    if use_reach:
+        vch = pct_change(cur_t.get("views"), prev_t.get("views"))
+        if vch is not None and not up and vch >= REASON_MIN_CHANGE:
+            reasons.append((0,
+                f"<strong>Views are up {vch}% at the same time.</strong> The people you reach are seeing more "
+                "of your posts; there are fewer new people among them."))
+
+    reasons.sort(key=lambda r: r[0], reverse=True)
+    return headline, [html for _, html in reasons[:4]]
+
+
+def reasons_card(P):
+    items = []
+    for platform in ("facebook", "instagram"):
+        got = reach_reasons(P, platform)
+        if not got:
+            continue
+        headline, reasons = got
+        body = ("<ul>" + "".join(f"<li>{r}</li>" for r in reasons) + "</ul>") if reasons else \
+            "<p class='note'>Nothing in the posts explains it clearly. Meta's own distribution moves week to week.</p>"
+        items.append(f"<li>{headline}. Likely reasons:{body}</li>")
+    if not items:
+        return ""
+    return (f"<div class='card reasons'><h3>Why it moved</h3><p class='note'>Likely causes, worked out from the posts "
+            f"behind the totals for the last {P.label} against the {P.label} before. Boosts and local group shares "
+            "can't be seen through Meta's API, so they come from data/annotations.json.</p>"
+            f"<ul class='insights'>{''.join(items)}</ul></div>")
 
 
 def followers_now(snapshots, platform):
@@ -516,6 +688,7 @@ def overview_block(P, charts, snapshots=None):
     return f"""<h2>The last {P.label}</h2>
   <p class='lede'>Headline numbers against the {P.label} before. Reach is shown per platform because the same person can follow both; views can be added together.</p>
   <div class='stats'>{''.join(cards)}</div>
+  {reasons_card(P)}
   <div class='grid-insights'>
     <div class='card'><h3>What the numbers say</h3><p class='note'>Written automatically from the data on each run.</p>{insight_html}</div>
     {split_html}
@@ -619,11 +792,16 @@ def club_block(P, charts):
                  + ". A collab is one post on both accounts' grids, so its figures include both audiences. "
                  "Collabs with the Women's account count as Women's.</p>")
 
+    if P.multi_section:
+        note += (f"<p class='note'>{plural(P.multi_section, 'post')} named more than one team (fixtures and "
+                 "results roundups, for example) and count once for each. So section counts add up to more "
+                 "than the number of posts, and a roundup's reach counts towards every team in it.</p>")
+
     def pair(rows, ref, prefix, title):
         rows = sorted(rows, key=lambda r: ref.index(r["key"]) if r["key"] in ref else 99)
         labels = [r["key"] for r in rows]
         charts.append(donut(P.cid(f"{prefix}Share"), labels, [r["count"] for r in rows],
-                            stable_colours(labels, ref), str(sum(r["count"] for r in rows)), "posts"))
+                            stable_colours(labels, ref), str(len(P.cur)), "posts"))
         ranked = sorted(rows, key=lambda r: r["avg_reach"], reverse=True)
         charts.append(bars(P.cid(f"{prefix}Reach"), [f"{r['key']} ({r['count']})" for r in ranked],
                            [r["avg_reach"] for r in ranked], stable_colours([r["key"] for r in ranked], ref),
@@ -737,7 +915,8 @@ def table_block(measured):
     for p in rows:
         likes, comments, shares, saves = post_counts(p)
         rate = post_engagement_rate(p)
-        section, named = classify_post(p)
+        named = classify_post_sections(p)[1]
+        section = section_text(p)
         caption = escape((p.get("caption") or "")[:70] + ("…" if len(p.get("caption") or "") > 70 else ""))
         body += (f"<tr><td>{published_date(p).isoformat()}</td><td>{PLATFORM_NAME[p['platform']]}{' (collab)' if collab_of(p) else ''}</td>"
                  f"<td>{escape(format_label(p))}</td><td>{escape(section)}{'' if named else ' *'}</td>"
@@ -767,7 +946,7 @@ def collab_counts_block(all_posts, today):
         likes, comments, shares, saves = post_counts(p)
         caption = escape((p.get("caption") or "")[:70] + ("…" if len(p.get("caption") or "") > 70 else ""))
         body += (f"<tr><td>{published_date(p).isoformat()}</td><td>{escape(collab_text(p))}</td>"
-                 f"<td>{escape(section_of(p))}</td><td>{num(likes)}</td><td>{num(comments)}</td>"
+                 f"<td>{escape(section_text(p))}</td><td>{num(likes)}</td><td>{num(comments)}</td>"
                  f"<td>{num(shares)}</td><td>{num(saves)}</td>"
                  f"<td><a href='{escape(p.get('permalink') or '#', quote=True)}' target='_blank' rel='noopener'>{caption}</a></td></tr>")
     return f"""<details>
@@ -1227,6 +1406,7 @@ var CHARTS = %%CHARTS%%;
 
 def render(account_snapshots, posts, insights, crest, today=None, history=None, collab_status=None):
     today = today or datetime.now(timezone.utc).date()
+    ANNOTATIONS[:] = [a for a in (load_json(ANNOTATIONS_FILE).get("posts") or []) if isinstance(a, dict)]
     all_posts = list(posts.values())
     measured = [p for p in all_posts if is_measured(p)]
     saved = SavedHistory(history, account_snapshots)
