@@ -11976,6 +11976,22 @@
      "0": 3623,
      "1": 948
     }
+   },
+   "2026-10-15": {
+    "follows": 0,
+    "page_follows": 2200,
+    "page_views": 70,
+    "unfollows": 0,
+    "viewers": 1936,
+    "views": 4010,
+    "views_by_is_from_ads": {
+     "0": 4010,
+     "1": 0
+    },
+    "views_by_is_from_followers": {
+     "0": 2732,
+     "1": 1278
+    }
    }
   },
   "instagram": {
@@ -13412,15 +13428,28 @@
    "2026-10-14": {
     "accounts_engaged": 52,
     "comments": 0,
-    "follows": 0,
+    "follows": 1,
     "likes": 50,
     "profile_links_taps": 0,
     "reach": 890,
     "saves": 1,
     "shares": 1,
     "total_interactions": 54,
+    "unfollows": 1,
+    "views": 2078
+   },
+   "2026-10-15": {
+    "accounts_engaged": 123,
+    "comments": 2,
+    "follows": 0,
+    "likes": 163,
+    "profile_links_taps": 0,
+    "reach": 1552,
+    "saves": 0,
+    "shares": 19,
+    "total_interactions": 211,
     "unfollows": 0,
-    "views": 2077
+    "views": 6371
    }
   }
  },
@@ -14338,7 +14367,8 @@
    "2026-10-11": 28352,
    "2026-10-12": 25560,
    "2026-10-13": 24301,
-   "2026-10-14": 23392
+   "2026-10-14": 23392,
+   "2026-10-15": 23105
   },
   "instagram": {
    "2026-07-25": 4267,
@@ -14422,8 +14452,9 @@
    "2026-10-11": 11554,
    "2026-10-12": 9698,
    "2026-10-13": 9129,
-   "2026-10-14": 8895
+   "2026-10-14": 8895,
+   "2026-10-15": 8831
   }
  },
- "updated": "2026-10-15T11:31:10.449378+00:00"
+ "updated": "2026-10-16T11:24:11.797807+00:00"
 }
