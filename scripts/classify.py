@@ -13,7 +13,7 @@ and the dashboard reports how many posts were placed that way.
 
 import re
 
-SECTIONS = ["Men's 1st XV", "Men's Lions (2nd XV)", "Colts (U18)", "Women's",
+SECTIONS = ["Men's 1st XV", "Men's Rovers (2nd XV)", "Colts (U18)", "Women's",
             "Minis & Juniors", "Vets", "Walking Rugby", "Whole Club"]
 THEMES = ["Match Content", "Club Life", "Community & Values", "Heritage"]
 
@@ -22,7 +22,9 @@ SCORE = re.compile(r"(?<![\d/])\b\d{1,3}\s?[-–—]\s?\d{1,3}\b(?![\d/])")
 HISTORICAL_YEAR = re.compile(r"\b(19\d{2}|200\d|201\d)\b")
 
 SECTION_RULES = [
-    ("Men's Lions (2nd XV)", ["2nd xv", "2nds", "second xv", "lions"]),
+    # The 2nd XV play as the Rovers from 2026/27. "lions" stays so last
+    # season's posts, when they were the Lions, still count here.
+    ("Men's Rovers (2nd XV)", ["2nd xv", "2nds", "second xv", "rovers", "lions"]),
     ("Men's 1st XV", ["1st xv", "first xv", "1sts"]),
     ("Colts (U18)", ["colts", "u18", "under 18", "under-18"]),
     ("Women's", ["women", "ladies"]),
@@ -46,6 +48,10 @@ def clean(caption):
     text = re.sub(r"[#@][\w.]+", " ", text)   # hashtags and handles say nothing about the post
     for phrase in ("british and irish lions", "british & irish lions", "british lions"):
         text = text.replace(phrase, " ")
+    # Leamington Rovers was also the town's 1876 club, which turns up in
+    # heritage posts. Only there is the name not about today's 2nd XV.
+    if is_historical(text):
+        text = text.replace("leamington rovers", " ")
     return text
 
 
