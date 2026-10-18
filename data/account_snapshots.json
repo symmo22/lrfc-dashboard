@@ -289,6 +289,16 @@
     },
     "platform": "facebook"
   },
+  "facebook:2026-10-18": {
+    "date": "2026-10-18",
+    "fetched_at": "2026-10-18T11:01:04.903665+00:00",
+    "metrics": {
+      "fan_count": 2202,
+      "page_media_view": 3231,
+      "page_total_media_view_unique": 1495
+    },
+    "platform": "facebook"
+  },
   "instagram:2026-09-19": {
     "date": "2026-09-19",
     "fetched_at": "2026-09-19T17:37:21.625805+00:00",
@@ -576,6 +586,16 @@
       "followers_count": 1503,
       "reach": 1946,
       "views": 9778
+    },
+    "platform": "instagram"
+  },
+  "instagram:2026-10-18": {
+    "date": "2026-10-18",
+    "fetched_at": "2026-10-18T11:01:05.921969+00:00",
+    "metrics": {
+      "followers_count": 1509,
+      "reach": 4003,
+      "views": 15504
     },
     "platform": "instagram"
   }
