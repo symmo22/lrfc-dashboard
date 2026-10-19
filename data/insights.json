@@ -173,98 +173,98 @@
       }
     }
   },
-  "generated_at": "2026-10-18T11:06:24.166357+00:00",
+  "generated_at": "2026-10-19T13:14:26.509527+00:00",
   "notes": [],
   "windows": {
     "30": {
       "facebook": {
         "current": {
-          "reach": 24626,
-          "views": 99053
+          "reach": 24516,
+          "views": 100762
         },
         "prior": {
-          "reach": 37686,
-          "views": 89954
+          "reach": 37906,
+          "views": 92741
         },
         "reach_days": 28
       },
       "instagram": {
         "current": {
-          "accounts_engaged": 716,
-          "comments": 22,
-          "likes": 2654,
+          "accounts_engaged": 728,
+          "comments": 24,
+          "likes": 2733,
           "profile_links_taps": 0,
-          "reach": 10551,
-          "saves": 27,
-          "shares": 153,
-          "total_interactions": 3078,
-          "views": 117168
+          "reach": 11000,
+          "saves": 26,
+          "shares": 165,
+          "total_interactions": 3181,
+          "views": 121438
         },
         "follows": {
-          "FOLLOWER": 69,
-          "NON_FOLLOWER": 15
+          "FOLLOWER": 75,
+          "NON_FOLLOWER": 17
         },
         "link_taps_by_button": {},
         "prior": {
-          "accounts_engaged": 676,
+          "accounts_engaged": 693,
           "comments": 8,
-          "likes": 1240,
+          "likes": 1318,
           "profile_links_taps": 0,
-          "reach": 11388,
-          "saves": 15,
-          "shares": 53,
-          "total_interactions": 1386,
-          "views": 56117
+          "reach": 11634,
+          "saves": 16,
+          "shares": 61,
+          "total_interactions": 1484,
+          "views": 59503
         },
         "unavailable": {},
         "views_by_follower_type": {
-          "FOLLOWER": 63654,
-          "NON_FOLLOWER": 53513,
+          "FOLLOWER": 65357,
+          "NON_FOLLOWER": 56080,
           "UNKNOWN": 1
         },
         "views_by_product_type": {
-          "AD": 1006,
-          "CAROUSEL_CONTAINER": 60290,
+          "AD": 817,
+          "CAROUSEL_CONTAINER": 62925,
           "IGTV": 1,
-          "POST": 34262,
-          "REEL": 6153,
-          "STORY": 15456
+          "POST": 34674,
+          "REEL": 6733,
+          "STORY": 16288
         }
       },
       "range": {
         "current": [
-          "2026-09-18",
-          "2026-10-18"
+          "2026-09-19",
+          "2026-10-19"
         ],
         "prior": [
-          "2026-08-19",
-          "2026-09-18"
+          "2026-08-20",
+          "2026-09-19"
         ]
       }
     },
     "90": {
       "facebook": {
         "current": {
-          "views": 247403
+          "views": 250345
         },
         "prior": {
-          "views": 194233
+          "views": 194346
         },
         "reach_days": null
       },
       "instagram": {
         "current": {
-          "comments": 32,
-          "likes": 4368,
+          "comments": 34,
+          "likes": 4524,
           "profile_links_taps": 4,
           "saves": 45,
-          "shares": 236,
-          "total_interactions": 5020,
-          "views": 197914
+          "shares": 256,
+          "total_interactions": 5220,
+          "views": 205858
         },
         "follows": {
-          "FOLLOWER": 148,
-          "NON_FOLLOWER": 32
+          "FOLLOWER": 154,
+          "NON_FOLLOWER": 34
         },
         "link_taps_by_button": {
           "CALL": 1,
@@ -275,27 +275,27 @@
           "prior": "Instagram keeps account data for 90 days"
         },
         "views_by_follower_type": {
-          "FOLLOWER": 102815,
-          "NON_FOLLOWER": 95082,
+          "FOLLOWER": 106826,
+          "NON_FOLLOWER": 99015,
           "UNKNOWN": 17
         },
         "views_by_product_type": {
-          "AD": 4576,
-          "CAROUSEL_CONTAINER": 83976,
+          "AD": 4490,
+          "CAROUSEL_CONTAINER": 88221,
           "IGTV": 1,
-          "POST": 58054,
-          "REEL": 24160,
-          "STORY": 27147
+          "POST": 60011,
+          "REEL": 24822,
+          "STORY": 28313
         }
       },
       "range": {
         "current": [
-          "2026-07-20",
-          "2026-10-18"
+          "2026-07-21",
+          "2026-10-19"
         ],
         "prior": [
-          "2026-04-21",
-          "2026-07-20"
+          "2026-04-22",
+          "2026-07-21"
         ]
       }
     }
