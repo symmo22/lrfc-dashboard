@@ -1,0 +1,53 @@
+name: Instagram Stories capture
+
+# Meta deletes a Story's figures 24 hours after it goes up, so a daily run
+# misses most of them. This light job runs every hour, records the figures
+# of any Story that is live, and commits only when something changed.
+on:
+  schedule:
+    - cron: "41 * * * *"   # minute 41: GitHub's scheduler is busiest on the hour
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+# Its own group, not the daily one: GitHub cancels a queued run when a newer
+# one joins the same group, which would let an hourly run cancel the daily.
+concurrency:
+  group: stories
+  cancel-in-progress: false
+
+jobs:
+  stories:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      META_SYSTEM_USER_TOKEN: ${{ secrets.META_SYSTEM_USER_TOKEN }}
+      META_APP_SECRET: ${{ secrets.META_APP_SECRET }}
+      META_IG_USER_ID: ${{ secrets.META_IG_USER_ID }}
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Capture live Stories
+        timeout-minutes: 5
+        run: python scripts/ingest_stories.py
+
+      - name: Commit if anything changed
+        run: |
+          git config user.name "lrfc-dashboard-bot"
+          git config user.email "actions@github.com"
+          git add data/stories.json
+          if git diff --cached --quiet; then echo "No live Stories, nothing to commit"; exit 0; fi
+          git commit -m "Stories: $(date -u +'%Y-%m-%d %H:%M') UTC"
+          # The daily run may have pushed meanwhile: take its commit and try again
+          for attempt in 1 2 3; do
+            git pull --rebase --quiet && git push && exit 0
+            sleep $((attempt * 15))
+          done
+          exit 1

@@ -35,6 +35,7 @@ import shutil
 import sys
 from datetime import date, datetime, timedelta, timezone
 from html import escape
+from zoneinfo import ZoneInfo
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -49,6 +50,11 @@ POSTS_FILE = DATA_DIR / "posts.json"
 INSIGHTS_FILE = DATA_DIR / "insights.json"
 HISTORY_FILE = DATA_DIR / "history.json"
 COLLAB_STATUS_FILE = DATA_DIR / "collab_status.json"
+# Written hourly by ingest_stories.py while each Story is live (Meta deletes
+# a Story's figures after 24 hours).
+STORIES_FILE = DATA_DIR / "stories.json"
+STORIES_FROM = "3 November 2026"   # the day hourly capture started
+LONDON = ZoneInfo("Europe/London")
 # Things Meta's API can't tell us: which posts were boosted or shared into
 # local Facebook groups. Edited by hand; see the file for the format.
 ANNOTATIONS_FILE = DATA_DIR / "annotations.json"
@@ -853,6 +859,81 @@ def watching_block(P, charts, saved=None):
     return f"<div class='grid-pairs'>{''.join(out + fb_cards)}</div>"
 
 
+# ---------------------------------------------------------------------------
+# Instagram Stories, from the hourly capture
+# ---------------------------------------------------------------------------
+
+STORIES = {}   # filled from data/stories.json in render()
+
+
+def story_when(st):
+    dt = datetime.fromisoformat(st["published_at"].replace("Z", "+00:00")).astimezone(LONDON)
+    return dt
+
+
+def stories_block(P):
+    """Stories in the selected period: how many, how far they went, and how
+    people moved through them. Figures are the last hourly check before each
+    Story expired, so can be slightly short of Meta's final total."""
+    start = P.today - timedelta(days=P.days)
+    rows = sorted((st for st in STORIES.values() if start <= story_when(st).date() < P.today),
+                  key=lambda st: st["published_at"], reverse=True)
+    title = "<h3 class='sub-h'>Instagram Stories</h3>"
+    if not STORIES:
+        return (title + f"<p class='note'>Stories are recorded every hour while they're live, from {STORIES_FROM}. "
+                "They'll appear here after the first one goes up. Facebook gives no Story figures.</p>")
+    if not rows:
+        return title + f"<p class='note'>No Stories in the last {P.label}.</p>"
+
+    def m(st, key):
+        return (st.get("metrics") or {}).get(key)
+
+    def avg(key):
+        vals = [m(st, key) for st in rows if m(st, key) is not None]
+        return round(sum(vals) / len(vals)) if vals else None
+
+    reach_avg, views_avg = avg("reach"), avg("views")
+    exits = [(st.get("navigation") or {}).get("tap_exit") for st in rows]
+    reached = [m(st, "reach") for st in rows]
+    pairs = [(e, r) for e, r in zip(exits, reached) if e is not None and r]
+    exit_rate = round(100 * sum(e for e, _ in pairs) / sum(r for _, r in pairs)) if pairs else None
+    replies = sum(m(st, "replies") or 0 for st in rows)
+    shares = sum(m(st, "shares") or 0 for st in rows)
+    ig_posts = [post_reach(p) for p in P.cur if p["platform"] == "instagram"]
+    post_avg = round(sum(ig_posts) / len(ig_posts)) if ig_posts else None
+    cards = [
+        stat_card("Stories posted", num(len(rows)), f"last {P.label}", "", BRAND["red"]),
+        stat_card("Average reach per Story", num(reach_avg),
+                  f"Instagram posts averaged {post_avg:,}" if post_avg else "", "", BRAND["red"]),
+        stat_card("Exits", "—" if exit_rate is None else f"{exit_rate}%",
+                  "of people reached closed Stories at one of ours", "", BRAND["blue"]),
+        stat_card("Replies and shares", f"{replies + shares:,}", f"{replies:,} replies · {shares:,} shares", "",
+                  BRAND["green"]),
+    ]
+
+    def cell(st, key, nav=False):
+        v = (st.get("navigation") or {}).get(key) if nav else m(st, key)
+        if v is None and not nav and key in (st.get("below_five") or []):
+            return "<5"
+        return num(v)
+
+    body = ""
+    for st in rows[:20]:
+        when = story_when(st)
+        kind = {"VIDEO": "Video", "IMAGE": "Photo"}.get(st.get("media_type"), (st.get("media_type") or "").title())
+        body += (f"<tr><td>{when:%a %d %b %H:%M}</td><td>{escape(kind)}</td><td>{cell(st, 'reach')}</td>"
+                 f"<td>{cell(st, 'views')}</td><td>{cell(st, 'tap_forward', True)}</td><td>{cell(st, 'tap_back', True)}</td>"
+                 f"<td>{cell(st, 'tap_exit', True)}</td><td>{cell(st, 'replies')}</td><td>{cell(st, 'shares')}</td></tr>")
+    table = (f"<details><summary>Each Story, newest first ({len(rows)})</summary>"
+             "<p class='note'>Forward: tapped on to the next frame. Back: tapped back to see it again. Exit: closed "
+             "Stories. &lt;5 means Meta withholds figures under five.</p><div class='table-wrap'><table><thead><tr>"
+             "<th>Posted</th><th>Type</th><th>Reach</th><th>Views</th><th>Forward</th><th>Back</th><th>Exit</th>"
+             "<th>Replies</th><th>Shares</th></tr></thead><tbody>" + body + "</tbody></table></div></details>")
+    return (title + "<p class='note'>Recorded every hour while each Story is live, so figures are from the last check "
+            "before it expired and can be slightly short of Meta's final count.</p>"
+            f"<div class='stats'>{''.join(cards)}</div>{table}")
+
+
 def content_block(P, charts):
     if not P.cur:
         return f"<p class='note'>No posts in the last {P.label}.</p>"
@@ -1474,8 +1555,12 @@ GLOSSARY = [
         ("Link taps", "Taps on the website, email or call buttons on the Instagram profile."),
     ]),
     ("The content", [
-        ("Post", "Anything published to the Facebook Page or the Instagram grid. Stories aren't listed as posts, "
-                 "because they vanish after a day, but their views are in the account totals."),
+        ("Post", "Anything published to the Facebook Page or the Instagram grid. Stories are counted separately."),
+        ("Story", "A photo or short video that disappears after 24 hours. Meta deletes its figures at the same "
+                  "time, so the dashboard records each Instagram Story every hour while it's live. Facebook gives "
+                  "no Story figures."),
+        ("Taps and exits", "How people move through Stories. Forward: on to the next frame. Back: to see one again, "
+                           "a good sign. Exit: closing Stories altogether, the one to keep low."),
         ("Piece of content", "The same post on Instagram and Facebook, counted once. Used when counting how often "
                              "each section of the club featured."),
         ("Image, carousel, Reel", "An image is a single picture. A carousel is several pictures or clips swiped "
@@ -1615,6 +1700,8 @@ var CHARTS = %%CHARTS%%;
 def render(account_snapshots, posts, insights, crest, today=None, history=None, collab_status=None):
     today = today or datetime.now(timezone.utc).date()
     ANNOTATIONS[:] = [a for a in (load_json(ANNOTATIONS_FILE).get("posts") or []) if isinstance(a, dict)]
+    STORIES.clear()
+    STORIES.update({k: v for k, v in load_json(STORIES_FILE).items() if isinstance(v, dict) and v.get("published_at")})
     all_posts = list(posts.values())
     measured = [p for p in all_posts if is_measured(p)]
     saved = SavedHistory(history, account_snapshots, all_posts)
@@ -1651,6 +1738,7 @@ def render(account_snapshots, posts, insights, crest, today=None, history=None, 
   <h2>What works</h2>
   <p class='lede'>Which formats and days earn the most attention, from posts published in the selected period.</p>
   {per_period(content_block)}
+  {per_period(lambda P, c: stories_block(P))}
 </section>
 <section id='club'>
   <h2>One Club, One Leam</h2>
