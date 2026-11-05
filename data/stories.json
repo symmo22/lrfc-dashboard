@@ -1,27 +1,27 @@
 {
   "18482662759112412": {
-    "age_hours_at_last_check": 3.3,
+    "age_hours_at_last_check": 7.8,
     "below_five": [],
-    "checks": 1,
+    "checks": 2,
     "first_seen": "2026-11-04T22:10+00:00",
     "id": "18482662759112412",
-    "last_checked": "2026-11-04T22:10+00:00",
+    "last_checked": "2026-11-05T02:44+00:00",
     "media_type": "IMAGE",
     "metrics": {
       "follows": 0,
       "link_clicks": 0,
       "profile_visits": 2,
-      "reach": 232,
+      "reach": 295,
       "replies": 0,
       "shares": 7,
-      "total_interactions": 7,
-      "views": 330
+      "total_interactions": 15,
+      "views": 401
     },
     "navigation": {
-      "swipe_forward": 31,
+      "swipe_forward": 37,
       "tap_back": 2,
-      "tap_exit": 105,
-      "tap_forward": 111
+      "tap_exit": 138,
+      "tap_forward": 141
     },
     "permalink": "https://www.instagram.com/stories/leamingtonrfc/4023162965846269776",
     "published_at": "2026-11-04T18:53:40+0000"
