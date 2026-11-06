@@ -12251,7 +12251,7 @@
    },
    "2026-11-01": {
     "follows": 2,
-    "page_follows": 2205,
+    "page_follows": 2206,
     "page_views": 520,
     "unfollows": 0,
     "viewers": 6197,
@@ -12267,7 +12267,7 @@
    },
    "2026-11-02": {
     "follows": 1,
-    "page_follows": 2208,
+    "page_follows": 2209,
     "page_views": 396,
     "unfollows": 0,
     "viewers": 5961,
@@ -12283,7 +12283,7 @@
    },
    "2026-11-03": {
     "follows": 1,
-    "page_follows": 2208,
+    "page_follows": 2209,
     "page_views": 415,
     "unfollows": 1,
     "viewers": 7600,
@@ -12299,18 +12299,34 @@
    },
    "2026-11-04": {
     "follows": 5,
-    "page_follows": 2213,
+    "page_follows": 2214,
     "page_views": 574,
     "unfollows": 0,
     "viewers": 4429,
-    "views": 7639,
+    "views": 7645,
     "views_by_is_from_ads": {
      "0": 3563,
-     "1": 4076
+     "1": 4082
     },
     "views_by_is_from_followers": {
-     "0": 6799,
+     "0": 6805,
      "1": 840
+    }
+   },
+   "2026-11-05": {
+    "follows": 2,
+    "page_follows": 2215,
+    "page_views": 1261,
+    "unfollows": 1,
+    "viewers": 6659,
+    "views": 12796,
+    "views_by_is_from_ads": {
+     "0": 6865,
+     "1": 5931
+    },
+    "views_by_is_from_followers": {
+     "0": 11421,
+     "1": 1375
     }
    }
   },
@@ -14030,6 +14046,19 @@
     "total_interactions": 168,
     "unfollows": 0,
     "views": 3771
+   },
+   "2026-11-05": {
+    "accounts_engaged": 98,
+    "comments": 1,
+    "follows": 0,
+    "likes": 83,
+    "profile_links_taps": 0,
+    "reach": 3720,
+    "saves": 7,
+    "shares": 43,
+    "total_interactions": 177,
+    "unfollows": 0,
+    "views": 5786
    }
   }
  },
@@ -14979,7 +15008,8 @@
    "2026-11-01": 39349,
    "2026-11-02": 42221,
    "2026-11-03": 46097,
-   "2026-11-04": 47607
+   "2026-11-04": 47607,
+   "2026-11-05": 50111
   },
   "instagram": {
    "2026-07-25": 4267,
@@ -15084,8 +15114,9 @@
    "2026-11-01": 16810,
    "2026-11-02": 18627,
    "2026-11-03": 20421,
-   "2026-11-04": 21954
+   "2026-11-04": 21954,
+   "2026-11-05": 22865
   }
  },
- "updated": "2026-11-05T14:40:02.984129+00:00"
+ "updated": "2026-11-06T14:17:24.437641+00:00"
 }
