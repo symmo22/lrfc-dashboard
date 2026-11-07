@@ -1,108 +1,108 @@
 {
   "17876949951637658": {
-    "age_hours_at_last_check": 7.1,
+    "age_hours_at_last_check": 13.7,
     "below_five": [],
-    "checks": 2,
+    "checks": 3,
     "first_seen": "2026-11-06T21:02+00:00",
     "id": "17876949951637658",
-    "last_checked": "2026-11-07T01:10+00:00",
+    "last_checked": "2026-11-07T07:44+00:00",
     "media_type": "IMAGE",
     "metrics": {
       "follows": 0,
       "link_clicks": 0,
       "profile_visits": 1,
-      "reach": 414,
+      "reach": 446,
       "replies": 0,
       "shares": 1,
       "total_interactions": 7,
-      "views": 652
+      "views": 721
     },
     "navigation": {
       "swipe_forward": 7,
-      "tap_back": 46,
+      "tap_back": 51,
       "tap_exit": 44,
-      "tap_forward": 240
+      "tap_forward": 263
     },
     "permalink": "https://www.instagram.com/stories/leamingtonrfc/4024588101728237915",
     "published_at": "2026-11-06T18:05:09+0000"
   },
   "17936435970145035": {
-    "age_hours_at_last_check": 5.6,
+    "age_hours_at_last_check": 12.1,
     "below_five": [],
-    "checks": 2,
+    "checks": 3,
     "first_seen": "2026-11-06T21:02+00:00",
     "id": "17936435970145035",
-    "last_checked": "2026-11-07T01:10+00:00",
+    "last_checked": "2026-11-07T07:44+00:00",
     "media_type": "IMAGE",
     "metrics": {
       "follows": 0,
       "link_clicks": 0,
       "profile_visits": 0,
-      "reach": 261,
+      "reach": 323,
       "replies": 0,
       "shares": 1,
-      "total_interactions": 6,
-      "views": 400
+      "total_interactions": 7,
+      "views": 523
     },
     "navigation": {
       "swipe_forward": 8,
-      "tap_back": 33,
-      "tap_exit": 69,
-      "tap_forward": 186
+      "tap_back": 37,
+      "tap_exit": 70,
+      "tap_forward": 214
     },
     "permalink": "https://www.instagram.com/stories/leamingtonrfc/4024634174119310337",
     "published_at": "2026-11-06T19:36:42+0000"
   },
   "17943525321378923": {
-    "age_hours_at_last_check": 14.0,
+    "age_hours_at_last_check": 20.5,
     "below_five": [],
-    "checks": 3,
+    "checks": 4,
     "first_seen": "2026-11-06T15:22+00:00",
     "id": "17943525321378923",
-    "last_checked": "2026-11-07T01:10+00:00",
+    "last_checked": "2026-11-07T07:44+00:00",
     "media_type": "VIDEO",
     "metrics": {
       "follows": 0,
       "link_clicks": 0,
       "profile_visits": 0,
-      "reach": 975,
+      "reach": 1086,
       "replies": 0,
-      "shares": 3,
-      "total_interactions": 12,
-      "views": 1392
+      "shares": 5,
+      "total_interactions": 14,
+      "views": 1596
     },
     "navigation": {
       "swipe_forward": 10,
-      "tap_back": 20,
+      "tap_back": 21,
       "tap_exit": 24,
-      "tap_forward": 383
+      "tap_forward": 397
     },
     "permalink": "https://www.instagram.com/stories/leamingtonrfc/4024380766985205974",
     "published_at": "2026-11-06T11:13:12+0000"
   },
   "17955453093289889": {
-    "age_hours_at_last_check": 2.5,
+    "age_hours_at_last_check": 9.1,
     "below_five": [],
-    "checks": 1,
+    "checks": 2,
     "first_seen": "2026-11-07T01:10+00:00",
     "id": "17955453093289889",
-    "last_checked": "2026-11-07T01:10+00:00",
+    "last_checked": "2026-11-07T07:44+00:00",
     "media_type": "IMAGE",
     "metrics": {
       "follows": 0,
-      "link_clicks": 1,
+      "link_clicks": 2,
       "profile_visits": 0,
-      "reach": 99,
+      "reach": 150,
       "replies": 0,
       "shares": 0,
-      "total_interactions": 4,
-      "views": 156
+      "total_interactions": 5,
+      "views": 224
     },
     "navigation": {
-      "swipe_forward": 9,
-      "tap_back": 16,
-      "tap_exit": 40,
-      "tap_forward": 67
+      "swipe_forward": 12,
+      "tap_back": 18,
+      "tap_exit": 53,
+      "tap_forward": 110
     },
     "permalink": "https://www.instagram.com/stories/leamingtonrfc/4024726660618833339",
     "published_at": "2026-11-06T22:40:27+0000"
@@ -135,136 +135,136 @@
     "published_at": "2026-11-06T07:05:23+0000"
   },
   "17997062925028260": {
-    "age_hours_at_last_check": 14.2,
+    "age_hours_at_last_check": 20.8,
     "below_five": [],
-    "checks": 3,
+    "checks": 4,
     "first_seen": "2026-11-06T15:22+00:00",
     "id": "17997062925028260",
-    "last_checked": "2026-11-07T01:10+00:00",
+    "last_checked": "2026-11-07T07:44+00:00",
     "media_type": "VIDEO",
     "metrics": {
       "follows": 0,
       "link_clicks": 0,
       "profile_visits": 0,
-      "reach": 392,
+      "reach": 406,
       "replies": 0,
       "shares": 0,
       "total_interactions": 7,
-      "views": 511
+      "views": 531
     },
     "navigation": {
-      "swipe_forward": 18,
-      "tap_back": 17,
-      "tap_exit": 57,
-      "tap_forward": 366
+      "swipe_forward": 19,
+      "tap_back": 18,
+      "tap_exit": 58,
+      "tap_forward": 385
     },
     "permalink": "https://www.instagram.com/stories/leamingtonrfc/4024373202918661782",
     "published_at": "2026-11-06T10:58:11+0000"
   },
   "18053184371606278": {
-    "age_hours_at_last_check": 8.2,
+    "age_hours_at_last_check": 14.7,
     "below_five": [],
-    "checks": 2,
+    "checks": 3,
     "first_seen": "2026-11-06T21:02+00:00",
     "id": "18053184371606278",
-    "last_checked": "2026-11-07T01:10+00:00",
+    "last_checked": "2026-11-07T07:44+00:00",
     "media_type": "VIDEO",
     "metrics": {
       "follows": 0,
-      "link_clicks": 2,
+      "link_clicks": 4,
       "profile_visits": 0,
-      "reach": 294,
+      "reach": 308,
       "replies": 0,
       "shares": 0,
-      "total_interactions": 4,
-      "views": 371
+      "total_interactions": 5,
+      "views": 399
     },
     "navigation": {
-      "swipe_forward": 16,
-      "tap_back": 17,
-      "tap_exit": 30,
-      "tap_forward": 269
+      "swipe_forward": 17,
+      "tap_back": 19,
+      "tap_exit": 32,
+      "tap_forward": 289
     },
     "permalink": "https://www.instagram.com/stories/leamingtonrfc/4024555330813889865",
     "published_at": "2026-11-06T17:00:01+0000"
   },
   "18079419980447778": {
-    "age_hours_at_last_check": 8.1,
+    "age_hours_at_last_check": 14.7,
     "below_five": [],
-    "checks": 2,
+    "checks": 3,
     "first_seen": "2026-11-06T21:02+00:00",
     "id": "18079419980447778",
-    "last_checked": "2026-11-07T01:10+00:00",
+    "last_checked": "2026-11-07T07:44+00:00",
     "media_type": "IMAGE",
     "metrics": {
       "follows": 0,
       "link_clicks": 0,
       "profile_visits": 1,
-      "reach": 290,
+      "reach": 430,
       "replies": 0,
       "shares": 1,
       "total_interactions": 8,
-      "views": 489
+      "views": 650
     },
     "navigation": {
       "swipe_forward": 10,
-      "tap_back": 32,
+      "tap_back": 38,
       "tap_exit": 52,
-      "tap_forward": 267
+      "tap_forward": 291
     },
     "permalink": "https://www.instagram.com/stories/leamingtonrfc/4024556356559562761",
     "published_at": "2026-11-06T17:02:05+0000"
   },
   "18120632630280672": {
-    "age_hours_at_last_check": 13.9,
+    "age_hours_at_last_check": 20.5,
     "below_five": [],
-    "checks": 3,
+    "checks": 4,
     "first_seen": "2026-11-06T15:22+00:00",
     "id": "18120632630280672",
-    "last_checked": "2026-11-07T01:10+00:00",
+    "last_checked": "2026-11-07T07:44+00:00",
     "media_type": "VIDEO",
     "metrics": {
       "follows": 0,
       "link_clicks": 0,
       "profile_visits": 1,
-      "reach": 367,
+      "reach": 379,
       "replies": 0,
       "shares": 0,
       "total_interactions": 3,
-      "views": 469
+      "views": 492
     },
     "navigation": {
       "swipe_forward": 15,
-      "tap_back": 38,
-      "tap_exit": 76,
-      "tap_forward": 310
+      "tap_back": 42,
+      "tap_exit": 77,
+      "tap_forward": 328
     },
     "permalink": "https://www.instagram.com/stories/leamingtonrfc/4024380931007694452",
     "published_at": "2026-11-06T11:13:32+0000"
   },
   "18403589206204701": {
-    "age_hours_at_last_check": 7.3,
+    "age_hours_at_last_check": 13.9,
     "below_five": [],
-    "checks": 2,
+    "checks": 3,
     "first_seen": "2026-11-06T21:02+00:00",
     "id": "18403589206204701",
-    "last_checked": "2026-11-07T01:10+00:00",
+    "last_checked": "2026-11-07T07:44+00:00",
     "media_type": "VIDEO",
     "metrics": {
       "follows": 0,
       "link_clicks": 0,
       "profile_visits": 0,
-      "reach": 259,
+      "reach": 279,
       "replies": 1,
       "shares": 0,
       "total_interactions": 4,
-      "views": 361
+      "views": 394
     },
     "navigation": {
       "swipe_forward": 1,
-      "tap_back": 48,
+      "tap_back": 53,
       "tap_exit": 10,
-      "tap_forward": 209
+      "tap_forward": 228
     },
     "permalink": "https://www.instagram.com/stories/leamingtonrfc/4024586166892318567",
     "published_at": "2026-11-06T17:53:15+0000"
