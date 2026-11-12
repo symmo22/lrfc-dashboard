@@ -3,10 +3,10 @@
     "age": {
       "timeframe": "this_month",
       "values": {
-        "13-17": 48,
-        "18-24": 260,
-        "25-34": 484,
-        "35-44": 372,
+        "13-17": 49,
+        "18-24": 261,
+        "25-34": 483,
+        "35-44": 373,
         "45-54": 225,
         "55-64": 110,
         "65+": 37
@@ -15,7 +15,7 @@
     "city": {
       "timeframe": "this_month",
       "values": {
-        "Alcester, England": 6,
+        "Alcester, England": 5,
         "Banbury, England": 8,
         "Bath, England": 4,
         "Bedworth, England": 6,
@@ -26,37 +26,37 @@
         "Bromsgrove, England": 4,
         "Bubbenhall, England": 5,
         "Cardiff, Wales": 10,
-        "Coventry, England": 92,
+        "Coventry, England": 93,
         "Daventry, England": 8,
         "Evesham, England": 10,
+        "Henley in Arden, England": 4,
         "Hereford, England": 5,
         "Hinckley, England": 6,
-        "Kenilworth, England": 79,
+        "Kenilworth, England": 81,
         "Kidderminster, England": 5,
-        "Leamington Spa, England": 345,
+        "Leamington Spa, England": 341,
         "Leeds, England": 4,
+        "Leicester, England": 4,
         "Liverpool, England": 5,
-        "London, England": 41,
+        "London, England": 40,
         "Loughborough, England": 5,
         "Madrid, Comunidad de Madrid": 9,
         "Manchester, England": 4,
         "Melbourne, Victoria": 5,
         "Meriden, England": 7,
-        "Northampton, England": 4,
         "Nottingham, England": 14,
-        "Nuneaton, England": 13,
+        "Nuneaton, England": 12,
         "Oxford, England": 6,
         "Redditch, England": 7,
-        "Rugby, England": 33,
-        "Sialkot, Punjab": 28,
-        "Solihull, England": 17,
+        "Rugby, England": 34,
+        "Sialkot, Punjab": 29,
+        "Solihull, England": 16,
         "Southam, England": 40,
-        "Stoneleigh, England": 10,
-        "Stratford-upon-Avon, England": 29,
+        "Stoneleigh, England": 11,
+        "Stratford-upon-Avon, England": 30,
         "Sydney, New South Wales": 12,
         "Warwick, England": 214,
         "Wellingborough, England": 5,
-        "West Bridgford, England": 3,
         "Woking, England": 4,
         "Wolston, England": 4,
         "Worcester, England": 8
@@ -65,9 +65,9 @@
     "gender": {
       "timeframe": "this_month",
       "values": {
-        "F": 391,
-        "M": 733,
-        "U": 412
+        "F": 392,
+        "M": 735,
+        "U": 411
       }
     }
   },
@@ -78,9 +78,10 @@
         "Adelaide, SA, Australia": 4,
         "Alcester, UK": 6,
         "Banbury, UK": 13,
-        "Bedworth, UK": 7,
+        "Bedworth, UK": 8,
         "Belo Horizonte, MG, Brazil": 9,
-        "Birmingham, UK": 29,
+        "Berkswell, UK": 3,
+        "Birmingham, UK": 27,
         "Bolton, UK": 3,
         "Bristol, UK": 4,
         "Bromsgrove, UK": 3,
@@ -88,38 +89,37 @@
         "Cardiff, UK": 4,
         "Coventry, UK": 129,
         "Daventry, UK": 5,
-        "Evesham, UK": 7,
+        "Dublin, Ireland": 3,
+        "Evesham, UK": 8,
+        "Glasgow, UK": 4,
         "Halesowen, UK": 5,
         "Hereford, UK": 7,
         "Hinckley, UK": 9,
         "Islamabad, Islamabad Capital Territory, Pakistan": 13,
-        "Kenilworth, UK": 72,
+        "Kenilworth, UK": 71,
         "Kidderminster, UK": 5,
-        "Leamington Spa, UK": 514,
+        "Leamington Spa, UK": 517,
         "Ledbury, UK": 4,
-        "Leominster, UK": 3,
-        "London, UK": 22,
-        "Loughborough, UK": 4,
-        "Madrid, Spain": 10,
-        "Marston Green, UK": 3,
-        "Northampton, UK": 5,
+        "London, UK": 21,
+        "Madrid, Spain": 11,
+        "Melton Mowbray, UK": 3,
+        "Northampton, UK": 4,
         "Norwich, UK": 4,
         "Nuneaton, UK": 20,
         "Pescia, Tuscany, Italy": 12,
         "Redditch, UK": 4,
-        "Rugby, UK": 48,
-        "Shipston on Stour, UK": 6,
-        "Sialkot, Punjab, Pakistan": 27,
-        "Solihull, UK": 12,
-        "Southam, UK": 50,
+        "Rugby, UK": 49,
+        "Shipston on Stour, UK": 7,
+        "Sialkot, Punjab, Pakistan": 26,
+        "Solihull, UK": 13,
+        "Southam, UK": 52,
         "Stoneleigh, UK": 4,
-        "Stratford-upon-Avon, UK": 35,
+        "Stratford-upon-Avon, UK": 33,
         "Sydney, NSW, Australia": 8,
-        "Tamworth, UK": 4,
         "Walsall, UK": 5,
-        "Warwick, UK": 278,
+        "Warwick, UK": 281,
         "Wexford, Ireland": 5,
-        "Wolston, UK": 4
+        "Wolston, UK": 3
       }
     },
     "country": {
@@ -140,7 +140,7 @@
         "ES": 27,
         "FJ": 3,
         "FR": 7,
-        "GB": 1868,
+        "GB": 1877,
         "GH": 1,
         "GR": 1,
         "HK": 2,
@@ -173,97 +173,97 @@
       }
     }
   },
-  "generated_at": "2026-11-11T14:21:34.579173+00:00",
+  "generated_at": "2026-11-12T15:12:58.681229+00:00",
   "notes": [],
   "windows": {
     "30": {
       "facebook": {
         "current": {
-          "reach": 51427,
-          "views": 168457
+          "reach": 50630,
+          "views": 162790
         },
         "prior": {
-          "reach": 28352,
-          "views": 118445
+          "reach": 25560,
+          "views": 112952
         },
         "reach_days": 28
       },
       "instagram": {
         "current": {
-          "accounts_engaged": 1103,
-          "comments": 39,
-          "likes": 3506,
+          "accounts_engaged": 1079,
+          "comments": 36,
+          "likes": 3451,
           "profile_links_taps": 0,
-          "reach": 28313,
-          "saves": 50,
-          "shares": 425,
-          "total_interactions": 4511,
-          "views": 169246
+          "reach": 28268,
+          "saves": 51,
+          "shares": 421,
+          "total_interactions": 4447,
+          "views": 167683
         },
         "follows": {
-          "FOLLOWER": 79,
+          "FOLLOWER": 76,
           "NON_FOLLOWER": 14
         },
         "link_taps_by_button": {},
         "prior": {
-          "accounts_engaged": 726,
-          "comments": 13,
-          "likes": 2288,
+          "accounts_engaged": 697,
+          "comments": 15,
+          "likes": 2201,
           "profile_links_taps": 0,
-          "reach": 11554,
-          "saves": 23,
-          "shares": 110,
-          "total_interactions": 2606,
-          "views": 102413
+          "reach": 9698,
+          "saves": 21,
+          "shares": 108,
+          "total_interactions": 2513,
+          "views": 97772
         },
         "unavailable": {},
         "views_by_follower_type": {
-          "FOLLOWER": 79664,
-          "NON_FOLLOWER": 89581,
+          "FOLLOWER": 78717,
+          "NON_FOLLOWER": 88965,
           "UNKNOWN": 1
         },
         "views_by_product_type": {
           "AD": 7772,
-          "CAROUSEL_CONTAINER": 61984,
+          "CAROUSEL_CONTAINER": 60357,
           "IGTV": 6,
-          "POST": 53187,
-          "REEL": 11782,
-          "STORY": 34515
+          "POST": 53200,
+          "REEL": 11825,
+          "STORY": 34523
         }
       },
       "range": {
         "current": [
-          "2026-10-12",
-          "2026-11-11"
+          "2026-10-13",
+          "2026-11-12"
         ],
         "prior": [
-          "2026-09-12",
-          "2026-10-12"
+          "2026-09-13",
+          "2026-10-13"
         ]
       }
     },
     "90": {
       "facebook": {
         "current": {
-          "views": 338525
+          "views": 338829
         },
         "prior": {
-          "views": 169479
+          "views": 166922
         },
         "reach_days": null
       },
       "instagram": {
         "current": {
           "comments": 59,
-          "likes": 6621,
+          "likes": 6629,
           "profile_links_taps": 0,
-          "saves": 83,
+          "saves": 84,
           "shares": 580,
-          "total_interactions": 8067,
-          "views": 314170
+          "total_interactions": 8077,
+          "views": 314687
         },
         "follows": {
-          "FOLLOWER": 181,
+          "FOLLOWER": 183,
           "NON_FOLLOWER": 33
         },
         "link_taps_by_button": {},
@@ -272,27 +272,27 @@
           "prior": "Instagram keeps account data for 90 days"
         },
         "views_by_follower_type": {
-          "FOLLOWER": 155410,
-          "NON_FOLLOWER": 158747,
+          "FOLLOWER": 155532,
+          "NON_FOLLOWER": 159142,
           "UNKNOWN": 13
         },
         "views_by_product_type": {
           "AD": 10870,
-          "CAROUSEL_CONTAINER": 123198,
+          "CAROUSEL_CONTAINER": 123479,
           "IGTV": 7,
-          "POST": 96343,
-          "REEL": 30707,
-          "STORY": 53045
+          "POST": 96588,
+          "REEL": 30720,
+          "STORY": 53023
         }
       },
       "range": {
         "current": [
-          "2026-08-13",
-          "2026-11-11"
+          "2026-08-14",
+          "2026-11-12"
         ],
         "prior": [
-          "2026-05-15",
-          "2026-08-13"
+          "2026-05-16",
+          "2026-08-14"
         ]
       }
     }
