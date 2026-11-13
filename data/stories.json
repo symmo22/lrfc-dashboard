@@ -485,6 +485,33 @@
     "permalink": "https://www.instagram.com/stories/leamingtonrfc/4025138934622710570",
     "published_at": "2026-11-07T12:19:34+0000"
   },
+  "18106097990335158": {
+    "age_hours_at_last_check": 6.9,
+    "below_five": [],
+    "checks": 1,
+    "first_seen": "2026-11-13T17:22+00:00",
+    "id": "18106097990335158",
+    "last_checked": "2026-11-13T17:22+00:00",
+    "media_type": "IMAGE",
+    "metrics": {
+      "follows": 0,
+      "link_clicks": 2,
+      "profile_visits": 1,
+      "reach": 263,
+      "replies": 0,
+      "shares": 0,
+      "total_interactions": 7,
+      "views": 332
+    },
+    "navigation": {
+      "swipe_forward": 18,
+      "tap_back": 5,
+      "tap_exit": 85,
+      "tap_forward": 160
+    },
+    "permalink": "https://www.instagram.com/stories/leamingtonrfc/4029431467779324016",
+    "published_at": "2026-11-13T10:28:04+0000"
+  },
   "18106177289001119": {
     "age_hours_at_last_check": 23.6,
     "below_five": [],
