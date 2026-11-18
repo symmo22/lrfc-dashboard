@@ -3,13 +3,13 @@
     "age": {
       "timeframe": "this_month",
       "values": {
-        "13-17": 47,
-        "18-24": 265,
+        "13-17": 46,
+        "18-24": 269,
         "25-34": 488,
-        "35-44": 373,
-        "45-54": 233,
+        "35-44": 374,
+        "45-54": 235,
         "55-64": 112,
-        "65+": 37
+        "65+": 38
       }
     },
     "city": {
@@ -17,45 +17,45 @@
       "values": {
         "Alcester, England": 4,
         "Banbury, England": 9,
-        "Bath, England": 4,
-        "Bedworth, England": 6,
-        "Berkswell, England": 5,
-        "Birmingham, England": 35,
+        "Bath, England": 5,
+        "Bedworth, England": 7,
+        "Berkswell, England": 6,
+        "Birmingham, England": 34,
         "Brandon, England": 7,
         "Bristol, England": 5,
         "Bromsgrove, England": 4,
         "Bubbenhall, England": 5,
         "Cardiff, Wales": 10,
-        "Coventry, England": 96,
+        "Coventry, England": 95,
         "Daventry, England": 8,
         "Evesham, England": 9,
         "Henley in Arden, England": 4,
         "Hereford, England": 4,
         "Hinckley, England": 5,
-        "Kenilworth, England": 82,
+        "Kenilworth, England": 83,
         "Kidderminster, England": 4,
         "Leamington Spa, England": 339,
         "Leeds, England": 4,
         "Liverpool, England": 5,
-        "London, England": 44,
+        "London, England": 45,
         "Loughborough, England": 5,
-        "Madrid, Comunidad de Madrid": 9,
+        "Madrid, Comunidad de Madrid": 8,
         "Manchester, England": 4,
         "Melbourne, Victoria": 5,
         "Meriden, England": 7,
         "Northampton, England": 4,
         "Nottingham, England": 15,
-        "Nuneaton, England": 13,
+        "Nuneaton, England": 16,
         "Oxford, England": 6,
         "Redditch, England": 7,
-        "Rugby, England": 36,
+        "Rugby, England": 37,
         "Sialkot, Punjab": 29,
         "Solihull, England": 16,
-        "Southam, England": 40,
+        "Southam, England": 39,
         "Stoneleigh, England": 11,
         "Stratford-upon-Avon, England": 30,
         "Sydney, New South Wales": 12,
-        "Warwick, England": 218,
+        "Warwick, England": 216,
         "Wellingborough, England": 5,
         "Woking, England": 4,
         "Wolston, England": 5,
@@ -65,8 +65,8 @@
     "gender": {
       "timeframe": "this_month",
       "values": {
-        "F": 401,
-        "M": 744,
+        "F": 404,
+        "M": 748,
         "U": 410
       }
     }
@@ -77,19 +77,18 @@
       "values": {
         "Adelaide, SA, Australia": 4,
         "Alcester, UK": 6,
-        "Banbury, UK": 13,
+        "Banbury, UK": 12,
         "Bedworth, UK": 8,
         "Belo Horizonte, MG, Brazil": 10,
         "Berkswell, UK": 3,
-        "Birmingham, UK": 26,
+        "Birmingham, UK": 27,
         "Bolton, UK": 3,
         "Bristol, UK": 4,
         "Bromsgrove, UK": 3,
         "Bubbenhall, UK": 8,
         "Cardiff, UK": 4,
-        "Coventry, UK": 129,
+        "Coventry, UK": 127,
         "Daventry, UK": 4,
-        "Dublin, Ireland": 3,
         "Evesham, UK": 7,
         "Glasgow, UK": 4,
         "Hereford, UK": 6,
@@ -97,9 +96,10 @@
         "Islamabad, Islamabad Capital Territory, Pakistan": 13,
         "Kenilworth, UK": 71,
         "Kidderminster, UK": 5,
-        "Leamington Spa, UK": 515,
+        "Leamington Spa, UK": 517,
         "Ledbury, UK": 4,
-        "London, UK": 24,
+        "London, UK": 23,
+        "Loughborough, UK": 3,
         "Madrid, Spain": 10,
         "Melton Mowbray, UK": 3,
         "Northampton, UK": 3,
@@ -107,7 +107,7 @@
         "Nuneaton, UK": 20,
         "Pescia, Tuscany, Italy": 13,
         "Redditch, UK": 4,
-        "Rugby, UK": 53,
+        "Rugby, UK": 54,
         "Shipston on Stour, UK": 7,
         "Sialkot, Punjab, Pakistan": 26,
         "Solihull, UK": 13,
@@ -117,7 +117,7 @@
         "Sydney, NSW, Australia": 8,
         "Tamworth, UK": 4,
         "Walsall, UK": 5,
-        "Warwick, UK": 272,
+        "Warwick, UK": 271,
         "Wexford, Ireland": 5,
         "Wolston, UK": 4
       }
@@ -173,96 +173,96 @@
       }
     }
   },
-  "generated_at": "2026-11-17T16:01:22.904696+00:00",
+  "generated_at": "2026-11-18T15:39:31.531353+00:00",
   "notes": [],
   "windows": {
     "30": {
       "facebook": {
         "current": {
-          "reach": 46858,
-          "views": 151580
+          "reach": 46827,
+          "views": 150579
         },
         "prior": {
-          "reach": 24626,
-          "views": 99053
+          "reach": 24516,
+          "views": 100762
         },
         "reach_days": 28
       },
       "instagram": {
         "current": {
-          "accounts_engaged": 1652,
-          "comments": 55,
-          "likes": 3783,
+          "accounts_engaged": 1666,
+          "comments": 53,
+          "likes": 3719,
           "profile_links_taps": 0,
-          "reach": 27282,
-          "saves": 60,
-          "shares": 397,
-          "total_interactions": 4749,
-          "views": 177756
+          "reach": 26960,
+          "saves": 62,
+          "shares": 381,
+          "total_interactions": 4651,
+          "views": 172603
         },
         "follows": {
-          "FOLLOWER": 76,
+          "FOLLOWER": 82,
           "NON_FOLLOWER": 11
         },
         "link_taps_by_button": {},
         "prior": {
-          "accounts_engaged": 716,
-          "comments": 22,
-          "likes": 2653,
+          "accounts_engaged": 728,
+          "comments": 24,
+          "likes": 2732,
           "profile_links_taps": 0,
-          "reach": 10551,
-          "saves": 27,
-          "shares": 153,
-          "total_interactions": 3077,
-          "views": 117168
+          "reach": 11000,
+          "saves": 26,
+          "shares": 165,
+          "total_interactions": 3180,
+          "views": 121438
         },
         "unavailable": {},
         "views_by_follower_type": {
-          "FOLLOWER": 76207,
-          "NON_FOLLOWER": 101549
+          "FOLLOWER": 73425,
+          "NON_FOLLOWER": 99178
         },
         "views_by_product_type": {
           "AD": 7773,
-          "CAROUSEL_CONTAINER": 57734,
+          "CAROUSEL_CONTAINER": 53847,
           "IGTV": 8,
-          "POST": 71265,
-          "REEL": 7068,
-          "STORY": 33908
+          "POST": 71792,
+          "REEL": 6440,
+          "STORY": 32743
         }
       },
       "range": {
         "current": [
-          "2026-10-18",
-          "2026-11-17"
+          "2026-10-19",
+          "2026-11-18"
         ],
         "prior": [
-          "2026-09-18",
-          "2026-10-18"
+          "2026-09-19",
+          "2026-10-19"
         ]
       }
     },
     "90": {
       "facebook": {
         "current": {
-          "views": 340587
+          "views": 344082
         },
         "prior": {
-          "views": 156289
+          "views": 154631
         },
         "reach_days": null
       },
       "instagram": {
         "current": {
           "comments": 85,
-          "likes": 7676,
+          "likes": 7769,
           "profile_links_taps": 0,
-          "saves": 102,
-          "shares": 603,
-          "total_interactions": 9212,
-          "views": 351041
+          "saves": 104,
+          "shares": 607,
+          "total_interactions": 9315,
+          "views": 353544
         },
         "follows": {
-          "FOLLOWER": 199,
+          "FOLLOWER": 205,
           "NON_FOLLOWER": 35
         },
         "link_taps_by_button": {},
@@ -271,27 +271,27 @@
           "prior": "Instagram keeps account data for 90 days"
         },
         "views_by_follower_type": {
-          "FOLLOWER": 165921,
-          "NON_FOLLOWER": 185109,
+          "FOLLOWER": 166848,
+          "NON_FOLLOWER": 186685,
           "UNKNOWN": 11
         },
         "views_by_product_type": {
           "AD": 10871,
-          "CAROUSEL_CONTAINER": 130684,
+          "CAROUSEL_CONTAINER": 130870,
           "IGTV": 9,
-          "POST": 121237,
-          "REEL": 29818,
-          "STORY": 58422
+          "POST": 123545,
+          "REEL": 29823,
+          "STORY": 58426
         }
       },
       "range": {
         "current": [
-          "2026-08-19",
-          "2026-11-17"
+          "2026-08-20",
+          "2026-11-18"
         ],
         "prior": [
-          "2026-05-21",
-          "2026-08-19"
+          "2026-05-22",
+          "2026-08-20"
         ]
       }
     }
