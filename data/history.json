@@ -12571,7 +12571,7 @@
    },
    "2026-11-21": {
     "follows": 2,
-    "page_follows": 2221,
+    "page_follows": 2220,
     "page_views": 152,
     "unfollows": 0,
     "viewers": 1578,
@@ -12587,7 +12587,7 @@
    },
    "2026-11-22": {
     "follows": 0,
-    "page_follows": 2221,
+    "page_follows": 2220,
     "page_views": 102,
     "unfollows": 0,
     "viewers": 1212,
@@ -12603,7 +12603,7 @@
    },
    "2026-11-23": {
     "follows": 0,
-    "page_follows": 2221,
+    "page_follows": 2220,
     "page_views": 134,
     "unfollows": 0,
     "viewers": 608,
@@ -12619,7 +12619,7 @@
    },
    "2026-11-24": {
     "follows": 0,
-    "page_follows": 2221,
+    "page_follows": 2220,
     "page_views": 77,
     "unfollows": 0,
     "viewers": 526,
@@ -12631,6 +12631,22 @@
     "views_by_is_from_followers": {
      "0": 609,
      "1": 486
+    }
+   },
+   "2026-11-25": {
+    "follows": 0,
+    "page_follows": 2220,
+    "page_views": 50,
+    "unfollows": 0,
+    "viewers": 466,
+    "views": 915,
+    "views_by_is_from_ads": {
+     "0": 915,
+     "1": 0
+    },
+    "views_by_is_from_followers": {
+     "0": 532,
+     "1": 383
     }
    }
   },
@@ -14610,6 +14626,19 @@
     "total_interactions": 33,
     "unfollows": 0,
     "views": 1234
+   },
+   "2026-11-25": {
+    "accounts_engaged": 48,
+    "comments": 1,
+    "follows": 0,
+    "likes": 47,
+    "profile_links_taps": 0,
+    "reach": 395,
+    "saves": 1,
+    "shares": 2,
+    "total_interactions": 56,
+    "unfollows": 1,
+    "views": 1611
    }
   }
  },
@@ -15579,7 +15608,8 @@
    "2026-11-21": 48056,
    "2026-11-22": 47204,
    "2026-11-23": 45597,
-   "2026-11-24": 42996
+   "2026-11-24": 42996,
+   "2026-11-25": 41201
   },
   "instagram": {
    "2026-07-25": 4267,
@@ -15704,8 +15734,9 @@
    "2026-11-21": 27129,
    "2026-11-22": 26826,
    "2026-11-23": 26087,
-   "2026-11-24": 25793
+   "2026-11-24": 25793,
+   "2026-11-25": 25613
   }
  },
- "updated": "2026-11-25T17:15:52.393119+00:00"
+ "updated": "2026-11-26T16:55:19.242749+00:00"
 }
