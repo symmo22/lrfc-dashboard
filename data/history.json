@@ -12603,7 +12603,7 @@
    },
    "2026-11-23": {
     "follows": 0,
-    "page_follows": 2221,
+    "page_follows": 2220,
     "page_views": 134,
     "unfollows": 0,
     "viewers": 608,
@@ -12619,7 +12619,7 @@
    },
    "2026-11-24": {
     "follows": 0,
-    "page_follows": 2221,
+    "page_follows": 2220,
     "page_views": 77,
     "unfollows": 0,
     "viewers": 526,
@@ -12635,7 +12635,7 @@
    },
    "2026-11-25": {
     "follows": 0,
-    "page_follows": 2221,
+    "page_follows": 2220,
     "page_views": 50,
     "unfollows": 0,
     "viewers": 466,
@@ -12651,7 +12651,7 @@
    },
    "2026-11-26": {
     "follows": 4,
-    "page_follows": 2225,
+    "page_follows": 2224,
     "page_views": 50,
     "unfollows": 0,
     "viewers": 1078,
@@ -12663,6 +12663,22 @@
     "views_by_is_from_followers": {
      "0": 1382,
      "1": 657
+    }
+   },
+   "2026-11-27": {
+    "follows": 2,
+    "page_follows": 2226,
+    "page_views": 79,
+    "unfollows": 0,
+    "viewers": 1803,
+    "views": 3257,
+    "views_by_is_from_ads": {
+     "0": 3257,
+     "1": 0
+    },
+    "views_by_is_from_followers": {
+     "0": 2506,
+     "1": 751
     }
    }
   },
@@ -14668,6 +14684,19 @@
     "total_interactions": 41,
     "unfollows": 2,
     "views": 1511
+   },
+   "2026-11-27": {
+    "accounts_engaged": 70,
+    "comments": 0,
+    "follows": 0,
+    "likes": 69,
+    "profile_links_taps": 0,
+    "reach": 904,
+    "saves": 0,
+    "shares": 6,
+    "total_interactions": 89,
+    "unfollows": 0,
+    "views": 3008
    }
   }
  },
@@ -15639,7 +15668,8 @@
    "2026-11-23": 45597,
    "2026-11-24": 42996,
    "2026-11-25": 41201,
-   "2026-11-26": 39263
+   "2026-11-26": 39263,
+   "2026-11-27": 37598
   },
   "instagram": {
    "2026-07-25": 4267,
@@ -15766,8 +15796,9 @@
    "2026-11-23": 26087,
    "2026-11-24": 25793,
    "2026-11-25": 25613,
-   "2026-11-26": 24803
+   "2026-11-26": 24803,
+   "2026-11-27": 24526
   }
  },
- "updated": "2026-11-27T16:39:52.172346+00:00"
+ "updated": "2026-11-28T15:32:04.248651+00:00"
 }
